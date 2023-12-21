@@ -85,15 +85,27 @@ int main() {
 
     std::vector<double> x_min  = { -inf, -inf, -inf, -inf, -inf, -inf, -1, -1, -1, -1, -inf, -inf, -inf };
     std::vector<double> x_max  = { inf, inf, inf, inf, inf, inf, 1, 1, 1, 1, inf, inf, inf };
-    double finalTol = 1e-4;
+    double finalTol = 1e-8;
     std::vector<double> xf_min = { -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, 1.0-finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol };
     std::vector<double> xf_max = { finalTol, finalTol, finalTol, finalTol, finalTol, finalTol, 1.0+finalTol, finalTol, finalTol, finalTol, finalTol, finalTol, finalTol };
     std::vector<double> x_init = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
-    // MPC Horizon and Sampling Period
-    const int N = 400; // Prediction Horizon
-    double ts = 5.0; // sampling period
-    int maxIter = 10;
+    // Tunable Parameters
+    const int N = 200; // Prediction Horizon
+    double ts = 20.0; // sampling period
+    int maxIter = 10000;
+
+    double posCost = 1e6;
+    double velCost = 1e3;
+    double quatCost = 1e8;
+    double angularCost = 1e8;
+    double thrustCost = 1e-3;
+    double torqueCost = 1e-3;
+
+    double finalPosCost = 1e1;
+    double finalVelCost = 1e1;
+    double finalQuatCost = 1e3;
+    double finalAngularCost = 1e3;
 
     // Total number of NLP variables
     const int numVars = numStates*(N+1) + numControls*N;
@@ -144,14 +156,22 @@ int main() {
     MX J = 0; // Objective Function
     MX Q = MX::zeros(numStates,numStates);
     MX R = MX::zeros(numControls,numControls);
+    MX Qf = MX::zeros(numStates,numStates);
 
-    double posCost = 1e1;
-    double velCost = 1e1;
-    double quatCost = 1e6;
-    double angularCost = 1e6;
+    Qf(0,0) = finalPosCost; // xPos
+    Qf(1,1) = finalPosCost; // yPos
+    Qf(2,2) = finalPosCost; // zPos
+    Qf(3,3) = finalVelCost; // dx
+    Qf(4,4) = finalVelCost; // dy
+    Qf(5,5) = finalVelCost; // dz
+    Qf(6,6) = finalQuatCost; // sq
+    Qf(7,7) = finalQuatCost; // vq
+    Qf(8,8) = finalQuatCost; // vq
+    Qf(9,9) = finalQuatCost; // vq
+    Qf(10,10) = finalAngularCost; // dw
+    Qf(11,11) = finalAngularCost; // dw
+    Qf(12,12) = finalAngularCost; // dw
 
-    double thrustCost = 1e-3;
-    double torqueCost = 1e-3;
 
     Q(0,0) = posCost; // xPos
     Q(1,1) = posCost; // yPos
@@ -184,7 +204,7 @@ int main() {
     std::vector<MX> g,gAlgebraic;
     MX k1,k2,k3,k4,stNextRK4, stNextEuler;
     MX Rtc_k1, Rtc_k2, Rtc_k3, Rtc_k4;
-    string constraintType = "Euler";
+    string constraintType = "RK4";
 
     if (constraintType == "RK4")
     {
@@ -227,6 +247,9 @@ int main() {
         }
     }
 
+    // Terminal cost
+    J += mtimes(mtimes((X[N]-xd).T(),Qf),(X[N]-xd));
+
     // NLP
     MXDict nlp = {{"x", V}, {"f", J}, {"g", vertcat(gAlgebraic)}};
 
@@ -236,7 +259,7 @@ int main() {
     Dict opts;
     opts["ipopt.tol"] = 1e-5;
     opts["ipopt.max_iter"] = maxIter;
-    opts["ipopt.hessian_approximation"] = "limited-memory";
+    opts["ipopt.hessian_approximation"] = "limited-memory"; // for no max iterations change from "limited-memory" to "exact"
     opts["ipopt.print_level"] = 5;
     opts["ipopt.acceptable_tol"] = 1e-8;
     opts["ipopt.acceptable_obj_change_tol"] = 1e-6;
@@ -305,10 +328,11 @@ int main() {
         std::vector<double> V_opt(sol.at("x"));
 
         //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(V_opt.data()); // N=100
-        //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 3813, 1> >(V_opt.data()); // N=200
+        Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 3813, 1> >(V_opt.data()); // N=200
         //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 5713, 1> >(V_opt.data()); // N=300
-        Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 7713, 1> >(V_opt.data()); // N=400
+        //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 7713, 1> >(V_opt.data()); // N=400
         //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 9513, 1> >(V_opt.data()); // N=500
+        //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 11513, 1> >(V_opt.data()); // N=600
 
         // Store Solution
         for(int i=0; i<=N; ++i)
@@ -421,66 +445,47 @@ int main() {
     const static IOFormat CSVFormat(FullPrecision, DontAlignCols, ", ", "\n");
     ofstream fout; // declare fout variable
     string path = "/home/gabe/Satellite/Results/" + constraintType + "/ts" + to_string(int(ts)) +"/maxIter" + to_string(maxIter) + ".csv";
+    //path = "/home/gabe/Satellite/Results/" + constraintType + "/ts" + to_string(int(ts)) +"/test.csv";
     fout.open(path, std::ofstream::out | std::ofstream::trunc ); // open file to write to
-    fout << "Maximum Iterations," << maxIter << endl;
-    fout << "MPC States,";
 
-    for(int i=0; i < MPCstates.size(); i++)
+    fout << "x,y,z,xdot,ydot,zdot,sq,v1,v2,v3,dw1,dw2,dw3,thrust1,thrust2,thrust3,tau1,tau2,tau3,x0,Maximum Iterations,ts,N,MPC Loops,posCost,velCost,quatCost,angualarCost,thrustCost,torqueCost,"
+            "finalPosCost,finalVelCost,finalQuatCost,finalAngualarCost,thrustMax,torqueMax,Constraint Type" <<endl;
+
+
+    for(int j=0; j < iter; j++)
     {
-        if(i < MPCstates.size() - 1)
+        if(j==0)
         {
-            fout << MPCstates[i] << endl << ",";
+            for(int i=0; i < (MPCstates.size() + MPCcontrols.size()); i++)
+            {
+                if (i < numStates) {
+                    fout << MPCstates[i][j] << ",";
+                }
+                else if (i < numStates + numControls) {
+                    fout << MPCcontrols[i - numStates][j] << ",";
+                }
+            }
+            fout<< Storex0(j)<<","<<maxIter <<","<<ts<<","<<N<<","<<iter<<","<<posCost<<","<<velCost<<","<<quatCost<<","<<angularCost<<","<<thrustCost <<","<<torqueCost<<","
+                <<finalPosCost<<","<<finalVelCost<<","<<finalQuatCost<<","<<finalAngularCost<<","<<thrustMax<<","<<torqueMax<<","<<constraintType;
         }
-        else
-        {
-            fout << MPCstates[i] << endl ;
+        else{
+            for(int i=0; i < (MPCstates.size() + MPCcontrols.size()); i++)
+            {
+                if (i < numStates) {
+                    fout << MPCstates[i][j] << ",";
+                }
+                else if (i < numStates + numControls) {
+                    fout << MPCcontrols[i - numStates][j] << ",";
+                }
+            }
+            if(j<numStates){
+                fout<<Storex0(j)<<",";
+            }
         }
+        fout<<endl;
     }
-    fout << "MPC Controls," ;
-    for(int i=0; i < MPCcontrols.size(); i++)
-    {
-        if(i < MPCcontrols.size() - 1)
-        {
-            fout << MPCcontrols[i] << endl << ",";
-        }
-        else
-        {
-            fout << MPCcontrols[i] << endl ;
-        }
-    }
-
-
-    fout << "Sampling Time, " << ts << endl;
-    fout << "Prediction Horizon, " << N << endl;
-    fout << "MPC Loops, " << iter << endl;
-    fout << "Initial Conditions, " << Transpose(Storex0).format(CSVFormat) << endl;
-
-    fout << "posCost," << posCost <<endl;
-    fout << "velCost," << velCost <<endl;
-    fout << "quatCost," << quatCost <<endl;
-    fout << "angularCost," << angularCost <<endl;
-    fout << "thrustCost," << thrustCost <<endl;
-    fout << "torqueCost," << torqueCost <<endl;
-    fout << "Constraint Type," << constraintType <<endl;
-    fout << "Thrust Max," << thrustMax <<endl;
-    fout << "Torque Max," << torqueMax << endl;
-    fout << "Final Constraint Tolerance," << finalTol << endl;
 
     fout.close();
-
-//    plt::figure();
-//    plt::plot(MPCstates[0],MPCstates[1]);
-//
-//    plt::figure();
-//    plt::plot(MPCstates[2]);
-//
-//    plt::figure();
-//    plt::plot(MPCcontrols[0]);
-//    plt::plot(MPCcontrols[1]);
-//
-//    plt::show();
-
-
 
     return 0;
 }

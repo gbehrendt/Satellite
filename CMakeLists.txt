@@ -85,5 +85,6 @@ target_link_libraries (${PROJECT_NAME}  ${EIGEN_LIBRARIES})
 target_include_directories(${PROJECT_NAME}  PRIVATE ${PYTHON_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME}  ${PYTHON_LIBRARIES})
 
-add_executable(codeGen useCodeGen.cpp)
-target_link_libraries(codeGen ${CASADI_LIBRARIES} ipopt)
+add_executable(monteCarlo monteCarlo.cpp
+        monteCarlo.cpp)
+target_link_libraries(monteCarlo ${CASADI_LIBRARIES} ipopt)

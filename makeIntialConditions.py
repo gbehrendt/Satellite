@@ -5,13 +5,10 @@ Created on Tue Dec 19 14:02:02 2023
 
 @author: gabe
 """
-
 import csv
 import random
 import numpy as np
 
-# Step 2: Creating a Python list
-my_list = ["t-shirts", "hoodies", "jeans"]
 
 savePath = "/home/gabe/Satellite/intialConditions.csv"
 numConditions = 10
@@ -55,21 +52,13 @@ for i in range(numConditions):
     initialConditions.append(x0)
 
 
-
-# Step 2: Creating a Python list of lists
-my_list = [["t-shirts", 9.99, 342], ["hoodies", 24.99, 118], ["jeans", 29.99, 612]]
-
-
-
-
-# Step 3: Opening a CSV file in write mode
+# Opening a CSV file in write mode
 with open(savePath, 'w', newline='') as file:
     # Step 4: Using csv.writer to write the list to the CSV file
     writer = csv.writer(file)
     writer.writerows(initialConditions) # Use writerows for nested list
     
 
-# Step 5: The file is automatically closed when exiting the 'with' bloc
 
 
 
