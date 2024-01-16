@@ -1,0 +1,3000 @@
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   4.5466461522447735e+03    9.0932923044895474e+06
+Dual infeasibility......:   2.9971970368728273e+07    5.9943940737456543e+10
+Constraint violation....:   9.5131243460650483e-01    9.5131243460650483e-01
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   1.1321728668523936e+02    2.2643457337047870e+05
+Overall NLP error.......:   3.9346403787109928e+01    5.9943940737456543e+10
+
+
+Number of objective function evaluations             = 21
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 21
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.276
+Total seconds in NLP function evaluations            =      1.780
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      2.013 (sys:      0.017 wall:      2.056)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.451 (sys:      0.000 wall:      0.459)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.003)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.025 (sys:      0.004 wall:      0.028)
+ ComputeSearchDirection.............:      0.008 (sys:      0.000 wall:      0.008)
+ ComputeAcceptableTrialPoint........:      0.389 (sys:      0.000 wall:      0.390)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.139 (sys:      0.012 wall:      1.166)
+PDSystemSolverTotal.................:      0.031 (sys:      0.004 wall:      0.035)
+ PDSystemSolverSolveOnce............:      0.030 (sys:      0.004 wall:      0.034)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.037 (sys:      0.004 wall:      0.047)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.004 (sys:      0.000 wall:      0.007)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.011 (sys:      0.001 wall:      0.012)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.752 (sys:      0.013 wall:      1.780)
+ Objective function.................:      0.008 (sys:      0.000 wall:      0.008)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.397 (sys:      0.000 wall:      0.398)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.344 (sys:      0.012 wall:      1.371)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   4.6833011804694825e+03    8.9965003824724499e+06
+Dual infeasibility......:   7.5612485253023615e+09    1.4524962762064500e+13
+Constraint violation....:   9.4104812104109103e-01    9.4104812104109103e-01
+Variable bound violation:   9.9987313983973536e-09    9.9987313983973536e-09
+Complementarity.........:   2.3309220113187470e+00    4.4776408687515559e+03
+Overall NLP error.......:   2.4151078376403548e+03    1.4524962762064500e+13
+
+
+Number of objective function evaluations             = 8
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 8
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.310
+Total seconds in NLP function evaluations            =      1.586
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.816 (sys:      0.023 wall:      1.896)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.483 (sys:      0.009 wall:      0.515)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.022 (sys:      0.004 wall:      0.026)
+ ComputeSearchDirection.............:      0.005 (sys:      0.000 wall:      0.005)
+ ComputeAcceptableTrialPoint........:      0.136 (sys:      0.000 wall:      0.136)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.170 (sys:      0.010 wall:      1.214)
+PDSystemSolverTotal.................:      0.025 (sys:      0.004 wall:      0.028)
+ PDSystemSolverSolveOnce............:      0.024 (sys:      0.004 wall:      0.027)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.030 (sys:      0.004 wall:      0.033)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.004 (sys:      0.000 wall:      0.004)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.012 (sys:      0.001 wall:      0.013)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.531 (sys:      0.014 wall:      1.586)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.148 (sys:      0.000 wall:      0.149)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.376 (sys:      0.014 wall:      1.430)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   4.6101002686944175e+03    8.8529624280111734e+06
+Dual infeasibility......:   7.0588559955148639e+02    1.3555407316711617e+06
+Constraint violation....:   9.3813696313524553e-01    9.3813696313524553e-01
+Variable bound violation:   9.8964372919301121e-09    9.8964372919301121e-09
+Complementarity.........:   8.0215741624831782e+00    1.5404154038948955e+04
+Overall NLP error.......:   2.2223164885867337e+02    1.3555407316711617e+06
+
+
+Number of objective function evaluations             = 11
+Number of objective gradient evaluations             = 7
+Number of equality constraint evaluations            = 11
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 7
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.284
+Total seconds in NLP function evaluations            =      1.844
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      2.119 (sys:      0.005 wall:      2.128)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.483 (sys:      0.004 wall:      0.487)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.037 (sys:      0.000 wall:      0.037)
+ ComputeSearchDirection.............:      0.007 (sys:      0.000 wall:      0.007)
+ ComputeAcceptableTrialPoint........:      0.661 (sys:      0.000 wall:      0.662)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      0.931 (sys:      0.001 wall:      0.933)
+PDSystemSolverTotal.................:      0.041 (sys:      0.000 wall:      0.041)
+ PDSystemSolverSolveOnce............:      0.039 (sys:      0.000 wall:      0.039)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.045 (sys:      0.000 wall:      0.045)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.004 (sys:      0.000 wall:      0.004)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.022 (sys:      0.000 wall:      0.022)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.000 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.841 (sys:      0.001 wall:      1.844)
+ Objective function.................:      0.004 (sys:      0.000 wall:      0.004)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.214 (sys:      0.000 wall:      0.215)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.618 (sys:      0.001 wall:      1.621)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   4.3097160669394461e+03    8.2548436431243066e+06
+Dual infeasibility......:   1.8243073986391037e+10    3.4942841010533418e+13
+Constraint violation....:   9.0845200065889120e-01    9.0845200065889120e-01
+Variable bound violation:   9.7649535129196597e-09    9.7649535129196597e-09
+Complementarity.........:   1.0509131053369558e+03    2.0129222511002799e+06
+Overall NLP error.......:   1.9058678344729993e+04    3.4942841010533418e+13
+
+
+Number of objective function evaluations             = 7
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 7
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.277
+Total seconds in NLP function evaluations            =      1.566
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.839 (sys:      0.002 wall:      1.843)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.485 (sys:      0.001 wall:      0.487)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.001 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.036 (sys:      0.000 wall:      0.036)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.125 (sys:      0.000 wall:      0.125)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.187 (sys:      0.001 wall:      1.188)
+PDSystemSolverTotal.................:      0.037 (sys:      0.000 wall:      0.037)
+ PDSystemSolverSolveOnce............:      0.036 (sys:      0.000 wall:      0.036)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.042 (sys:      0.000 wall:      0.042)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.004 (sys:      0.000 wall:      0.004)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.018 (sys:      0.000 wall:      0.018)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.562 (sys:      0.002 wall:      1.566)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.139 (sys:      0.000 wall:      0.140)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.417 (sys:      0.002 wall:      1.420)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   6.5321839349194556e+02    1.2196119856119889e+06
+Dual infeasibility......:   3.7631075899818831e+05    7.0260286079129541e+08
+Constraint violation....:   2.2159362848071928e-01    2.2159362848071928e-01
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   7.3969505108914042e+00    1.3810709542080765e+04
+Overall NLP error.......:   1.4213190303155733e+01    7.0260286079129541e+08
+
+
+Number of objective function evaluations             = 9
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 9
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.272
+Total seconds in NLP function evaluations            =      1.627
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.860 (sys:      0.005 wall:      1.899)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.486 (sys:      0.000 wall:      0.488)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.028 (sys:      0.004 wall:      0.032)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.149 (sys:      0.000 wall:      0.149)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.193 (sys:      0.001 wall:      1.224)
+PDSystemSolverTotal.................:      0.030 (sys:      0.004 wall:      0.034)
+ PDSystemSolverSolveOnce............:      0.028 (sys:      0.004 wall:      0.033)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.034 (sys:      0.004 wall:      0.038)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.004 (sys:      0.000 wall:      0.004)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.016 (sys:      0.001 wall:      0.017)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.593 (sys:      0.001 wall:      1.627)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.163 (sys:      0.000 wall:      0.163)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.424 (sys:      0.001 wall:      1.457)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   7.5903840516299454e+02    5.7753152461911365e+05
+Dual infeasibility......:   8.5288989292403945e+04    6.4894055009888373e+07
+Constraint violation....:   1.9693093999578748e-03    1.9693093999578748e-03
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   2.6564757818635886e+01    2.0212396342237509e+04
+Overall NLP error.......:   5.0508839037450146e+00    6.4894055009888373e+07
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.285
+Total seconds in NLP function evaluations            =      1.534
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.811 (sys:      0.007 wall:      1.820)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.494 (sys:      0.004 wall:      0.498)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.035 (sys:      0.000 wall:      0.035)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.103 (sys:      0.000 wall:      0.103)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.174 (sys:      0.003 wall:      1.177)
+PDSystemSolverTotal.................:      0.036 (sys:      0.000 wall:      0.037)
+ PDSystemSolverSolveOnce............:      0.035 (sys:      0.000 wall:      0.035)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.040 (sys:      0.000 wall:      0.040)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.004 (sys:      0.000 wall:      0.004)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.019 (sys:      0.000 wall:      0.019)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.530 (sys:      0.003 wall:      1.534)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.117 (sys:      0.000 wall:      0.118)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.407 (sys:      0.003 wall:      1.410)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   3.3117848046632173e+02    2.8211130891337572e+05
+Dual infeasibility......:   3.0739682712366641e+04    2.6185312866212927e+07
+Constraint violation....:   2.8450212157915544e-04    2.8450212157915544e-04
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   3.6823550439519759e-01    3.1367799014909258e+02
+Overall NLP error.......:   3.0822458082004829e+01    2.6185312866212927e+07
+
+
+Number of objective function evaluations             = 8
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 8
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.272
+Total seconds in NLP function evaluations            =      1.568
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.824 (sys:      0.010 wall:      1.840)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.485 (sys:      0.001 wall:      0.489)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.035 (sys:      0.004 wall:      0.039)
+ ComputeSearchDirection.............:      0.005 (sys:      0.000 wall:      0.005)
+ ComputeAcceptableTrialPoint........:      0.137 (sys:      0.000 wall:      0.137)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.162 (sys:      0.005 wall:      1.169)
+PDSystemSolverTotal.................:      0.037 (sys:      0.004 wall:      0.041)
+ PDSystemSolverSolveOnce............:      0.036 (sys:      0.004 wall:      0.040)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.042 (sys:      0.004 wall:      0.046)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.023 (sys:      0.001 wall:      0.024)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.557 (sys:      0.005 wall:      1.568)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.151 (sys:      0.000 wall:      0.151)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.400 (sys:      0.005 wall:      1.410)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   2.5043886666513012e+02    2.0315253099054322e+05
+Dual infeasibility......:   3.1749149261186427e+04    2.5754469005128324e+07
+Constraint violation....:   1.9122797095383337e-04    1.9122797095383337e-04
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   3.7941786994129928e-01    3.0777850741786597e+02
+Overall NLP error.......:   9.2299983489382782e+01    2.5754469005128324e+07
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.269
+Total seconds in NLP function evaluations            =      1.536
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.796 (sys:      0.008 wall:      1.805)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.489 (sys:      0.000 wall:      0.490)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.034 (sys:      0.000 wall:      0.034)
+ ComputeSearchDirection.............:      0.003 (sys:      0.001 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.097 (sys:      0.003 wall:      0.100)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.172 (sys:      0.003 wall:      1.176)
+PDSystemSolverTotal.................:      0.034 (sys:      0.001 wall:      0.035)
+ PDSystemSolverSolveOnce............:      0.033 (sys:      0.001 wall:      0.034)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.039 (sys:      0.001 wall:      0.040)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.004 (sys:      0.000 wall:      0.004)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.001 wall:      0.018)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.529 (sys:      0.007 wall:      1.536)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.111 (sys:      0.003 wall:      0.115)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.411 (sys:      0.003 wall:      1.415)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   2.0586934134131573e+02    1.5649679262460614e+05
+Dual infeasibility......:   1.7300777587314888e+03    1.3151624154844871e+06
+Constraint violation....:   1.1750419724676497e-05    1.1750419724676497e-05
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   3.5533211798563141e-02    2.7011470682788577e+01
+Overall NLP error.......:   8.6743826733287392e+01    1.3151624154844871e+06
+
+
+Number of objective function evaluations             = 7
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 7
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.268
+Total seconds in NLP function evaluations            =      1.540
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.779 (sys:      0.023 wall:      1.808)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.464 (sys:      0.013 wall:      0.480)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.033 (sys:      0.004 wall:      0.037)
+ ComputeSearchDirection.............:      0.005 (sys:      0.000 wall:      0.005)
+ ComputeAcceptableTrialPoint........:      0.120 (sys:      0.000 wall:      0.120)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.156 (sys:      0.006 wall:      1.164)
+PDSystemSolverTotal.................:      0.035 (sys:      0.004 wall:      0.039)
+ PDSystemSolverSolveOnce............:      0.033 (sys:      0.004 wall:      0.038)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.039 (sys:      0.004 wall:      0.043)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.019 (sys:      0.002 wall:      0.021)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.003 (sys:      0.000 wall:      0.003)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.516 (sys:      0.018 wall:      1.540)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.135 (sys:      0.000 wall:      0.136)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.376 (sys:      0.018 wall:      1.399)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.7520286345831551e+02    1.2239805371417955e+05
+Dual infeasibility......:   2.4094781056579304e+03    1.6832797408566647e+06
+Constraint violation....:   7.9768844057272886e-06    7.9768844057272886e-06
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   3.5180696353338627e-03    2.4577502199230223e+00
+Overall NLP error.......:   9.9371298448747268e+01    1.6832797408566647e+06
+
+
+Number of objective function evaluations             = 7
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 7
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.284
+Total seconds in NLP function evaluations            =      1.545
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.817 (sys:      0.010 wall:      1.829)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.500 (sys:      0.001 wall:      0.501)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.025 (sys:      0.001 wall:      0.027)
+ ComputeSearchDirection.............:      0.008 (sys:      0.001 wall:      0.009)
+ ComputeAcceptableTrialPoint........:      0.118 (sys:      0.002 wall:      0.120)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.165 (sys:      0.005 wall:      1.171)
+PDSystemSolverTotal.................:      0.032 (sys:      0.001 wall:      0.033)
+ PDSystemSolverSolveOnce............:      0.031 (sys:      0.001 wall:      0.032)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.037 (sys:      0.001 wall:      0.038)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.016 (sys:      0.001 wall:      0.017)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.001 (sys:      0.001 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.000 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.536 (sys:      0.007 wall:      1.545)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.003 (sys:      0.001 wall:      0.003)
+ Equality constraints...............:      0.133 (sys:      0.002 wall:      0.136)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.398 (sys:      0.005 wall:      1.403)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.4719710964048244e+02    9.2309197876913517e+04
+Dual infeasibility......:   2.5774880821817089e+05    1.6163758784708017e+08
+Constraint violation....:   2.1049538022510639e-05    2.1049538022510639e-05
+Variable bound violation:   9.8343633236908090e-09    9.8343633236908090e-09
+Complementarity.........:   3.1159376524193816e-03    1.9540445191608682e+00
+Overall NLP error.......:   4.9558571354291680e+03    1.6163758784708017e+08
+
+
+Number of objective function evaluations             = 7
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 7
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.265
+Total seconds in NLP function evaluations            =      1.558
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.809 (sys:      0.010 wall:      1.823)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.479 (sys:      0.009 wall:      0.491)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.031 (sys:      0.000 wall:      0.031)
+ ComputeSearchDirection.............:      0.005 (sys:      0.000 wall:      0.005)
+ ComputeAcceptableTrialPoint........:      0.115 (sys:      0.000 wall:      0.115)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.178 (sys:      0.000 wall:      1.179)
+PDSystemSolverTotal.................:      0.033 (sys:      0.000 wall:      0.033)
+ PDSystemSolverSolveOnce............:      0.031 (sys:      0.000 wall:      0.032)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.037 (sys:      0.000 wall:      0.037)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.018 (sys:      0.000 wall:      0.018)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.546 (sys:      0.008 wall:      1.558)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.130 (sys:      0.000 wall:      0.130)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.411 (sys:      0.008 wall:      1.422)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.2193239998672675e+02    6.6626933707661694e+04
+Dual infeasibility......:   2.5328756514953915e+04    1.3840270358026611e+07
+Constraint violation....:   5.9454027980743174e-04    5.9454027980743174e-04
+Variable bound violation:   9.7718082514575144e-09    9.7718082514575144e-09
+Complementarity.........:   2.1658858720284939e-03    1.1834945792071043e+00
+Overall NLP error.......:   1.0289150562476707e+03    1.3840270358026611e+07
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.296
+Total seconds in NLP function evaluations            =      1.524
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.814 (sys:      0.004 wall:      1.820)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.508 (sys:      0.004 wall:      0.512)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.031 (sys:      0.000 wall:      0.032)
+ ComputeSearchDirection.............:      0.005 (sys:      0.000 wall:      0.005)
+ ComputeAcceptableTrialPoint........:      0.100 (sys:      0.000 wall:      0.100)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.168 (sys:      0.000 wall:      1.169)
+PDSystemSolverTotal.................:      0.034 (sys:      0.000 wall:      0.034)
+ PDSystemSolverSolveOnce............:      0.032 (sys:      0.000 wall:      0.032)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.038 (sys:      0.000 wall:      0.038)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.000 wall:      0.017)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.519 (sys:      0.004 wall:      1.524)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.116 (sys:      0.000 wall:      0.116)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.397 (sys:      0.004 wall:      1.402)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   9.9725332803618556e+01    4.5639290716338663e+04
+Dual infeasibility......:   1.1371252432578201e+03    5.2040527816667123e+05
+Constraint violation....:   4.9058687755620944e-05    4.9058687755620944e-05
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   3.9247371663854256e-03    1.7961556556007219e+00
+Overall NLP error.......:   5.9325177196544622e+01    5.2040527816667123e+05
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.277
+Total seconds in NLP function evaluations            =      1.623
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.887 (sys:      0.006 wall:      1.900)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.487 (sys:      0.001 wall:      0.493)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.030 (sys:      0.004 wall:      0.034)
+ ComputeSearchDirection.............:      0.006 (sys:      0.000 wall:      0.006)
+ ComputeAcceptableTrialPoint........:      0.111 (sys:      0.000 wall:      0.111)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.252 (sys:      0.001 wall:      1.254)
+PDSystemSolverTotal.................:      0.034 (sys:      0.004 wall:      0.038)
+ PDSystemSolverSolveOnce............:      0.032 (sys:      0.003 wall:      0.036)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.038 (sys:      0.003 wall:      0.041)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.019 (sys:      0.001 wall:      0.020)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.615 (sys:      0.001 wall:      1.623)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.126 (sys:      0.000 wall:      0.126)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.484 (sys:      0.001 wall:      1.491)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   8.0133012942640789e+01    2.9650963159233161e+04
+Dual infeasibility......:   6.1416913682968472e+05    2.2725598078672314e+08
+Constraint violation....:   6.9827422534592121e-06    6.9827422534592121e-06
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   7.0614490939619134e-02    2.6128902339631033e+01
+Overall NLP error.......:   3.6085747392244120e+03    2.2725598078672314e+08
+
+
+Number of objective function evaluations             = 12
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 12
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.277
+Total seconds in NLP function evaluations            =      1.720
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.978 (sys:      0.013 wall:      1.997)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.494 (sys:      0.008 wall:      0.504)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.025 (sys:      0.000 wall:      0.025)
+ ComputeSearchDirection.............:      0.007 (sys:      0.001 wall:      0.008)
+ ComputeAcceptableTrialPoint........:      0.245 (sys:      0.003 wall:      0.249)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.205 (sys:      0.000 wall:      1.210)
+PDSystemSolverTotal.................:      0.032 (sys:      0.001 wall:      0.033)
+ PDSystemSolverSolveOnce............:      0.031 (sys:      0.001 wall:      0.032)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.037 (sys:      0.000 wall:      0.038)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.000 wall:      0.017)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.001 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.000 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.702 (sys:      0.012 wall:      1.720)
+ Objective function.................:      0.004 (sys:      0.000 wall:      0.004)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.256 (sys:      0.003 wall:      0.259)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.438 (sys:      0.008 wall:      1.453)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   6.0818970002861761e+01    1.7738166421267528e+04
+Dual infeasibility......:   7.3743349952267788e+04    2.1507628522047434e+07
+Constraint violation....:   1.4728139882994387e-05    1.4728139882994387e-05
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   1.7070534523722043e-02    4.9787094761309927e+00
+Overall NLP error.......:   3.6649111369010990e+02    2.1507628522047434e+07
+
+
+Number of objective function evaluations             = 9
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 9
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.281
+Total seconds in NLP function evaluations            =      1.597
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.866 (sys:      0.004 wall:      1.878)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.493 (sys:      0.000 wall:      0.496)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.031 (sys:      0.000 wall:      0.032)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.153 (sys:      0.000 wall:      0.153)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.183 (sys:      0.004 wall:      1.192)
+PDSystemSolverTotal.................:      0.033 (sys:      0.000 wall:      0.033)
+ PDSystemSolverSolveOnce............:      0.032 (sys:      0.000 wall:      0.032)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.038 (sys:      0.000 wall:      0.038)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.000 wall:      0.017)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.586 (sys:      0.004 wall:      1.597)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.167 (sys:      0.000 wall:      0.167)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.413 (sys:      0.004 wall:      1.424)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   4.5154691583427244e+01    9.9840208724529439e+03
+Dual infeasibility......:   8.7408073785755678e+03    1.9326541772199497e+06
+Constraint violation....:   4.3171416953313724e-05    4.3171416953313724e-05
+Variable bound violation:   3.4591662867455852e-09    3.4591662867455852e-09
+Complementarity.........:   3.9363154605895883e-03    8.7034711878111293e-01
+Overall NLP error.......:   1.1138722120558039e+02    1.9326541772199497e+06
+
+
+Number of objective function evaluations             = 7
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 7
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.279
+Total seconds in NLP function evaluations            =      1.565
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.806 (sys:      0.016 wall:      1.843)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.487 (sys:      0.008 wall:      0.501)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.030 (sys:      0.000 wall:      0.030)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.113 (sys:      0.000 wall:      0.113)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.171 (sys:      0.008 wall:      1.194)
+PDSystemSolverTotal.................:      0.032 (sys:      0.000 wall:      0.032)
+ PDSystemSolverSolveOnce............:      0.030 (sys:      0.000 wall:      0.030)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.036 (sys:      0.000 wall:      0.037)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.000 wall:      0.017)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.529 (sys:      0.016 wall:      1.565)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.128 (sys:      0.000 wall:      0.129)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.395 (sys:      0.016 wall:      1.430)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   3.4091497506013368e+01    5.3500754387498446e+03
+Dual infeasibility......:   3.0669832103934283e+06    4.8131037781751102e+08
+Constraint violation....:   8.4525615964281542e-06    8.4525615964281542e-06
+Variable bound violation:   3.7440472944183512e-09    3.7440472944183512e-09
+Complementarity.........:   4.0274546605464950e-02    6.3203988784205531e+00
+Overall NLP error.......:   5.8679854991662005e+03    4.8131037781751102e+08
+
+
+Number of objective function evaluations             = 10
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 10
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.296
+Total seconds in NLP function evaluations            =      1.683
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.974 (sys:      0.004 wall:      1.980)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.505 (sys:      0.000 wall:      0.505)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.027 (sys:      0.000 wall:      0.027)
+ ComputeSearchDirection.............:      0.009 (sys:      0.000 wall:      0.009)
+ ComputeAcceptableTrialPoint........:      0.203 (sys:      0.000 wall:      0.203)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.230 (sys:      0.004 wall:      1.234)
+PDSystemSolverTotal.................:      0.035 (sys:      0.000 wall:      0.035)
+ PDSystemSolverSolveOnce............:      0.033 (sys:      0.000 wall:      0.033)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.039 (sys:      0.000 wall:      0.039)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.018 (sys:      0.000 wall:      0.018)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.678 (sys:      0.004 wall:      1.683)
+ Objective function.................:      0.004 (sys:      0.000 wall:      0.004)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.218 (sys:      0.000 wall:      0.218)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.453 (sys:      0.004 wall:      1.458)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   2.6894458317693466e+01    2.7156450709352257e+03
+Dual infeasibility......:   4.8337500159027912e+06    4.8808379963479650e+08
+Constraint violation....:   2.5919979278478085e-06    2.5919979278478085e-06
+Variable bound violation:   9.8438959206248455e-09    9.8438959206248455e-09
+Complementarity.........:   4.6684718468880608e-02    4.7139497698902604e+00
+Overall NLP error.......:   8.4176869118232207e+03    4.8808379963479650e+08
+
+
+Number of objective function evaluations             = 7
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 7
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.268
+Total seconds in NLP function evaluations            =      1.541
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.795 (sys:      0.013 wall:      1.809)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.483 (sys:      0.000 wall:      0.483)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.025 (sys:      0.000 wall:      0.026)
+ ComputeSearchDirection.............:      0.009 (sys:      0.001 wall:      0.010)
+ ComputeAcceptableTrialPoint........:      0.114 (sys:      0.003 wall:      0.117)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.163 (sys:      0.009 wall:      1.173)
+PDSystemSolverTotal.................:      0.032 (sys:      0.001 wall:      0.033)
+ PDSystemSolverSolveOnce............:      0.031 (sys:      0.001 wall:      0.032)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.037 (sys:      0.000 wall:      0.038)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.000 wall:      0.017)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.001 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.528 (sys:      0.012 wall:      1.541)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.129 (sys:      0.003 wall:      0.132)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.394 (sys:      0.009 wall:      1.403)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   2.1630007562138601e+01    1.4302643241848011e+03
+Dual infeasibility......:   4.4758169942929875e+04    2.9595927556321057e+06
+Constraint violation....:   4.6008199833691421e-05    4.6008199833691421e-05
+Variable bound violation:   5.3620987650049301e-09    5.3620987650049301e-09
+Complementarity.........:   1.5056490095814341e-02    9.9559653733916054e-01
+Overall NLP error.......:   1.4336586098918008e+02    2.9595927556321057e+06
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.343
+Total seconds in NLP function evaluations            =      1.590
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.921 (sys:      0.004 wall:      1.933)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.568 (sys:      0.000 wall:      0.571)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.029 (sys:      0.004 wall:      0.033)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.098 (sys:      0.000 wall:      0.098)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.221 (sys:      0.000 wall:      1.226)
+PDSystemSolverTotal.................:      0.030 (sys:      0.004 wall:      0.034)
+ PDSystemSolverSolveOnce............:      0.029 (sys:      0.004 wall:      0.033)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.037 (sys:      0.004 wall:      0.042)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.007)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.001 wall:      0.018)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.584 (sys:      0.000 wall:      1.590)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.118 (sys:      0.000 wall:      0.122)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.461 (sys:      0.000 wall:      1.463)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.3818395134868370e+01    9.1141285126772664e+02
+Dual infeasibility......:   7.9097154635499902e+06    5.2169707502138209e+08
+Constraint violation....:   2.5960739934264036e-06    2.5960739934264036e-06
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   1.4556634388602199e-01    9.6010452179793955e+00
+Overall NLP error.......:   1.5998144120894409e+04    5.2169707502138209e+08
+
+
+Number of objective function evaluations             = 12
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 12
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.273
+Total seconds in NLP function evaluations            =      1.669
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.940 (sys:      0.000 wall:      1.942)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.484 (sys:      0.000 wall:      0.484)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.027 (sys:      0.000 wall:      0.027)
+ ComputeSearchDirection.............:      0.010 (sys:      0.000 wall:      0.010)
+ ComputeAcceptableTrialPoint........:      0.218 (sys:      0.000 wall:      0.218)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.200 (sys:      0.000 wall:      1.202)
+PDSystemSolverTotal.................:      0.036 (sys:      0.000 wall:      0.036)
+ PDSystemSolverSolveOnce............:      0.035 (sys:      0.000 wall:      0.035)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.040 (sys:      0.000 wall:      0.040)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.019 (sys:      0.000 wall:      0.019)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.667 (sys:      0.000 wall:      1.669)
+ Objective function.................:      0.004 (sys:      0.000 wall:      0.004)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.229 (sys:      0.000 wall:      0.229)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.430 (sys:      0.000 wall:      1.432)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.1232079079925800e+01    7.4470652763803844e+02
+Dual infeasibility......:   1.4908305806459424e+06    9.8844680233214185e+07
+Constraint violation....:   2.6486964346150721e-05    2.6486964346150721e-05
+Variable bound violation:   9.7799552900568187e-09    9.7799552900568187e-09
+Complementarity.........:   4.1842771532508420e-02    2.7742490836284213e+00
+Overall NLP error.......:   2.0673363289774297e+03    9.8844680233214185e+07
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.278
+Total seconds in NLP function evaluations            =      1.526
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.789 (sys:      0.011 wall:      1.803)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.486 (sys:      0.000 wall:      0.487)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.001 wall:      0.002)
+ UpdateBarrierParameter.............:      0.033 (sys:      0.002 wall:      0.034)
+ ComputeSearchDirection.............:      0.007 (sys:      0.000 wall:      0.007)
+ ComputeAcceptableTrialPoint........:      0.107 (sys:      0.000 wall:      0.107)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.155 (sys:      0.009 wall:      1.166)
+PDSystemSolverTotal.................:      0.036 (sys:      0.002 wall:      0.038)
+ PDSystemSolverSolveOnce............:      0.034 (sys:      0.002 wall:      0.036)
+ ComputeResiduals...................:      0.002 (sys:      0.000 wall:      0.002)
+ StdAugSystemSolverMultiSolve.......:      0.040 (sys:      0.002 wall:      0.042)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.021 (sys:      0.000 wall:      0.021)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.515 (sys:      0.009 wall:      1.526)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.123 (sys:      0.000 wall:      0.123)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.386 (sys:      0.009 wall:      1.397)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.1347546679595693e+01    7.4698499852799648e+02
+Dual infeasibility......:   7.7410007132465020e+04    5.0957370519454712e+06
+Constraint violation....:   9.6785387458941941e-06    9.6785387458941941e-06
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   8.0631685847184234e-02    5.3078133480755838e+00
+Overall NLP error.......:   2.7190404294147430e+02    5.0957370519454712e+06
+
+
+Number of objective function evaluations             = 7
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 7
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.283
+Total seconds in NLP function evaluations            =      1.559
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.819 (sys:      0.017 wall:      1.842)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.494 (sys:      0.004 wall:      0.501)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.021 (sys:      0.000 wall:      0.021)
+ ComputeSearchDirection.............:      0.011 (sys:      0.007 wall:      0.018)
+ ComputeAcceptableTrialPoint........:      0.121 (sys:      0.001 wall:      0.123)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.170 (sys:      0.004 wall:      1.177)
+PDSystemSolverTotal.................:      0.031 (sys:      0.007 wall:      0.038)
+ PDSystemSolverSolveOnce............:      0.030 (sys:      0.005 wall:      0.035)
+ ComputeResiduals...................:      0.001 (sys:      0.001 wall:      0.002)
+ StdAugSystemSolverMultiSolve.......:      0.036 (sys:      0.005 wall:      0.041)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.016 (sys:      0.002 wall:      0.019)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.001 (sys:      0.000 wall:      0.001)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.549 (sys:      0.006 wall:      1.559)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.136 (sys:      0.001 wall:      0.138)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.407 (sys:      0.004 wall:      1.415)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   9.9756377752857439e+00    6.6363356062171022e+02
+Dual infeasibility......:   5.5831235799469845e+06    3.7141967904354030e+08
+Constraint violation....:   5.1882924510171166e-06    5.1882924510171166e-06
+Variable bound violation:   9.9028318878424670e-09    9.9028318878424670e-09
+Complementarity.........:   6.6825585674511162e-02    4.4456006082815787e+00
+Overall NLP error.......:   9.6404258005042757e+03    3.7141967904354030e+08
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.273
+Total seconds in NLP function evaluations            =      1.550
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.805 (sys:      0.008 wall:      1.823)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.493 (sys:      0.008 wall:      0.504)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.031 (sys:      0.000 wall:      0.031)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.102 (sys:      0.000 wall:      0.102)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.174 (sys:      0.000 wall:      1.179)
+PDSystemSolverTotal.................:      0.033 (sys:      0.000 wall:      0.033)
+ PDSystemSolverSolveOnce............:      0.031 (sys:      0.000 wall:      0.032)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.037 (sys:      0.000 wall:      0.038)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.000 wall:      0.017)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.533 (sys:      0.008 wall:      1.550)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.117 (sys:      0.000 wall:      0.117)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.411 (sys:      0.008 wall:      1.428)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   8.3446550082483970e+00    5.5218275412433297e+02
+Dual infeasibility......:   7.1023458245612448e+04    4.6997663465693090e+06
+Constraint violation....:   2.9542324371467643e-05    2.9542324371467643e-05
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   1.6900941911253936e-02    1.1183696201492823e+00
+Overall NLP error.......:   5.8315617108708147e+02    4.6997663465693090e+06
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.271
+Total seconds in NLP function evaluations            =      1.617
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.876 (sys:      0.004 wall:      1.888)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.500 (sys:      0.000 wall:      0.504)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.036 (sys:      0.000 wall:      0.036)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.105 (sys:      0.000 wall:      0.105)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.229 (sys:      0.004 wall:      1.238)
+PDSystemSolverTotal.................:      0.038 (sys:      0.000 wall:      0.038)
+ PDSystemSolverSolveOnce............:      0.036 (sys:      0.000 wall:      0.036)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.042 (sys:      0.000 wall:      0.043)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.019 (sys:      0.000 wall:      0.020)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.605 (sys:      0.004 wall:      1.617)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.121 (sys:      0.000 wall:      0.121)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.479 (sys:      0.004 wall:      1.491)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   6.5950310760303630e+00    3.9620210718674440e+02
+Dual infeasibility......:   2.1401947435319377e+06    1.2857402147189575e+08
+Constraint violation....:   8.1384904739856267e-06    8.1384904739856267e-06
+Variable bound violation:   9.8315757757205802e-09    9.8315757757205802e-09
+Complementarity.........:   2.2306919299325385e-02    1.3401071699812386e+00
+Overall NLP error.......:   5.8777393612227661e+03    1.2857402147189575e+08
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.309
+Total seconds in NLP function evaluations            =      1.568
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.835 (sys:      0.029 wall:      1.877)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.500 (sys:      0.017 wall:      0.522)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.029 (sys:      0.004 wall:      0.033)
+ ComputeSearchDirection.............:      0.005 (sys:      0.000 wall:      0.005)
+ ComputeAcceptableTrialPoint........:      0.101 (sys:      0.000 wall:      0.101)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.199 (sys:      0.008 wall:      1.214)
+PDSystemSolverTotal.................:      0.031 (sys:      0.004 wall:      0.035)
+ PDSystemSolverSolveOnce............:      0.030 (sys:      0.004 wall:      0.034)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.037 (sys:      0.004 wall:      0.041)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.006 (sys:      0.000 wall:      0.006)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.001 wall:      0.018)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.544 (sys:      0.013 wall:      1.568)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.120 (sys:      0.000 wall:      0.120)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.418 (sys:      0.013 wall:      1.441)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   5.0864696826683140e+00    2.3050804393398468e+02
+Dual infeasibility......:   5.4524007595862204e+04    2.4709126609343612e+06
+Constraint violation....:   1.1446185473785336e-05    1.1446185473785336e-05
+Variable bound violation:   2.3694441964039470e-09    2.3694441964039470e-09
+Complementarity.........:   8.5361316536380349e-03    3.8683942557401901e-01
+Overall NLP error.......:   1.8434813768139702e+02    2.4709126609343612e+06
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.289
+Total seconds in NLP function evaluations            =      1.579
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.859 (sys:      0.008 wall:      1.868)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.504 (sys:      0.004 wall:      0.509)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.001 (sys:      0.004 wall:      0.005)
+ UpdateBarrierParameter.............:      0.034 (sys:      0.000 wall:      0.034)
+ ComputeSearchDirection.............:      0.006 (sys:      0.000 wall:      0.006)
+ ComputeAcceptableTrialPoint........:      0.099 (sys:      0.000 wall:      0.099)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.213 (sys:      0.000 wall:      1.215)
+PDSystemSolverTotal.................:      0.038 (sys:      0.000 wall:      0.038)
+ PDSystemSolverSolveOnce............:      0.036 (sys:      0.000 wall:      0.036)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.041 (sys:      0.000 wall:      0.041)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.020 (sys:      0.000 wall:      0.020)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.577 (sys:      0.000 wall:      1.579)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.114 (sys:      0.000 wall:      0.115)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.457 (sys:      0.000 wall:      1.459)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   3.8653645142808868e+00    9.8408422414688275e+01
+Dual infeasibility......:   1.2305654865400902e+04    3.1329000864205090e+05
+Constraint violation....:   2.9189906249814336e-06    2.9189906249814336e-06
+Variable bound violation:   1.8386859604892680e-09    1.8386859604892680e-09
+Complementarity.........:   2.0795563642583725e-02    5.2943483175522355e-01
+Overall NLP error.......:   7.1612570284980308e+01    3.1329000864205090e+05
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.295
+Total seconds in NLP function evaluations            =      1.646
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.921 (sys:      0.000 wall:      1.941)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.504 (sys:      0.000 wall:      0.507)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.034 (sys:      0.000 wall:      0.035)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.096 (sys:      0.000 wall:      0.097)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.281 (sys:      0.000 wall:      1.297)
+PDSystemSolverTotal.................:      0.036 (sys:      0.000 wall:      0.036)
+ PDSystemSolverSolveOnce............:      0.034 (sys:      0.000 wall:      0.035)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.041 (sys:      0.000 wall:      0.041)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.019 (sys:      0.000 wall:      0.019)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.626 (sys:      0.000 wall:      1.646)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.111 (sys:      0.000 wall:      0.112)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.509 (sys:      0.000 wall:      1.528)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   3.2216583983015230e+00    2.7516450525565016e+01
+Dual infeasibility......:   4.8257099932112116e+06    4.1216787710617229e+07
+Constraint violation....:   2.2355326020240263e-05    2.2355326020240263e-05
+Variable bound violation:   9.8224182121242620e-09    9.8224182121242620e-09
+Complementarity.........:   1.1892036741098375e-01    1.0157086822338166e+00
+Overall NLP error.......:   2.7832205617297118e+03    4.1216787710617229e+07
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.328
+Total seconds in NLP function evaluations            =      1.661
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.979 (sys:      0.008 wall:      1.988)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.531 (sys:      0.000 wall:      0.532)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.035 (sys:      0.000 wall:      0.035)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.123 (sys:      0.000 wall:      0.124)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.283 (sys:      0.007 wall:      1.292)
+PDSystemSolverTotal.................:      0.037 (sys:      0.000 wall:      0.037)
+ PDSystemSolverSolveOnce............:      0.036 (sys:      0.000 wall:      0.036)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.042 (sys:      0.000 wall:      0.042)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.018 (sys:      0.000 wall:      0.018)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.651 (sys:      0.008 wall:      1.661)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.139 (sys:      0.000 wall:      0.139)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.507 (sys:      0.007 wall:      1.516)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.7298229451494267e+00    6.6521854669953404e+00
+Dual infeasibility......:   1.9616861473837495e+07    7.5438356954532176e+07
+Constraint violation....:   2.3725173547539669e-05    2.3725173547539669e-05
+Variable bound violation:   9.6343777400420549e-09    9.6343777400420549e-09
+Complementarity.........:   8.0407672838554400e-01    3.0921474026657836e+00
+Overall NLP error.......:   4.3566963284544445e+03    7.5438356954532176e+07
+
+
+Number of objective function evaluations             = 7
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 7
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.281
+Total seconds in NLP function evaluations            =      1.591
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.846 (sys:      0.013 wall:      1.872)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.501 (sys:      0.004 wall:      0.510)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.019 (sys:      0.000 wall:      0.019)
+ ComputeSearchDirection.............:      0.016 (sys:      0.000 wall:      0.016)
+ ComputeAcceptableTrialPoint........:      0.119 (sys:      0.000 wall:      0.119)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.190 (sys:      0.009 wall:      1.206)
+PDSystemSolverTotal.................:      0.033 (sys:      0.000 wall:      0.034)
+ PDSystemSolverSolveOnce............:      0.031 (sys:      0.000 wall:      0.032)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.038 (sys:      0.000 wall:      0.038)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.000 wall:      0.017)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.001 (sys:      0.000 wall:      0.001)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.566 (sys:      0.013 wall:      1.591)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.135 (sys:      0.000 wall:      0.135)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.426 (sys:      0.013 wall:      1.450)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.1489103617266272e+00    3.5479195882238996e+00
+Dual infeasibility......:   3.4141926022177562e+07    1.0543277539226991e+08
+Constraint violation....:   1.1534406285429455e-05    1.1534406285429455e-05
+Variable bound violation:   9.7605346027762607e-10    9.7605346027762607e-10
+Complementarity.........:   9.9974596170984420e-01    3.0872889643605443e+00
+Overall NLP error.......:   2.5782729022388476e+03    1.0543277539226991e+08
+
+
+Number of objective function evaluations             = 8
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 8
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.294
+Total seconds in NLP function evaluations            =      1.567
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.858 (sys:      0.000 wall:      1.862)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.500 (sys:      0.000 wall:      0.500)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.025 (sys:      0.000 wall:      0.025)
+ ComputeSearchDirection.............:      0.015 (sys:      0.000 wall:      0.015)
+ ComputeAcceptableTrialPoint........:      0.137 (sys:      0.000 wall:      0.138)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.179 (sys:      0.000 wall:      1.181)
+PDSystemSolverTotal.................:      0.039 (sys:      0.000 wall:      0.039)
+ PDSystemSolverSolveOnce............:      0.038 (sys:      0.000 wall:      0.038)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.044 (sys:      0.000 wall:      0.044)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.019 (sys:      0.000 wall:      0.019)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.565 (sys:      0.000 wall:      1.567)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.150 (sys:      0.000 wall:      0.151)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.407 (sys:      0.000 wall:      1.409)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   4.5322911253624132e-01    1.4009860364149849e+00
+Dual infeasibility......:   8.8625488005283114e+04    2.7395210883752967e+05
+Constraint violation....:   9.8322347500350406e-06    9.8322347500350406e-06
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   8.3550894211074561e-02    2.5826592529477277e-01
+Overall NLP error.......:   8.2167316905550365e+01    2.7395210883752967e+05
+
+
+Number of objective function evaluations             = 7
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 7
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.276
+Total seconds in NLP function evaluations            =      1.553
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.826 (sys:      0.000 wall:      1.830)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.487 (sys:      0.000 wall:      0.488)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.038 (sys:      0.000 wall:      0.038)
+ ComputeSearchDirection.............:      0.005 (sys:      0.000 wall:      0.005)
+ ComputeAcceptableTrialPoint........:      0.127 (sys:      0.000 wall:      0.127)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.168 (sys:      0.000 wall:      1.169)
+PDSystemSolverTotal.................:      0.040 (sys:      0.000 wall:      0.040)
+ PDSystemSolverSolveOnce............:      0.038 (sys:      0.000 wall:      0.038)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.044 (sys:      0.000 wall:      0.044)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.021 (sys:      0.000 wall:      0.021)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.003 (sys:      0.000 wall:      0.003)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.551 (sys:      0.000 wall:      1.553)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.142 (sys:      0.000 wall:      0.142)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.402 (sys:      0.000 wall:      1.405)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.2665322588446637e+00    1.2665322588446637e+00
+Dual infeasibility......:   2.3449919081893223e+05    2.3449919081893223e+05
+Constraint violation....:   1.0348233422163844e-05    1.0348233422163844e-05
+Variable bound violation:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   9.4941727181095259e-01    9.4941727181095259e-01
+Overall NLP error.......:   8.0056317235940213e+01    2.3449919081893223e+05
+
+
+Number of objective function evaluations             = 8
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 8
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.274
+Total seconds in NLP function evaluations            =      1.569
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.840 (sys:      0.000 wall:      1.842)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.489 (sys:      0.000 wall:      0.490)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.034 (sys:      0.000 wall:      0.034)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.132 (sys:      0.000 wall:      0.133)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.180 (sys:      0.000 wall:      1.181)
+PDSystemSolverTotal.................:      0.036 (sys:      0.000 wall:      0.036)
+ PDSystemSolverSolveOnce............:      0.034 (sys:      0.000 wall:      0.034)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.040 (sys:      0.000 wall:      0.041)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.018 (sys:      0.000 wall:      0.018)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.566 (sys:      0.000 wall:      1.569)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.147 (sys:      0.000 wall:      0.148)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.413 (sys:      0.000 wall:      1.415)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   3.3269644173664131e-01    8.1423075088897046e-01
+Dual infeasibility......:   8.6000693939451620e+07    2.1047537881010082e+08
+Constraint violation....:   6.8629391631880174e-06    6.8629391631880174e-06
+Variable bound violation:   9.8536758752487685e-09    9.8536758752487685e-09
+Complementarity.........:   7.4720907072301757e-01    1.8286958512392368e+00
+Overall NLP error.......:   9.8086973540828603e+03    2.1047537881010082e+08
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.284
+Total seconds in NLP function evaluations            =      1.539
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.814 (sys:      0.004 wall:      1.823)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.488 (sys:      0.000 wall:      0.490)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.041 (sys:      0.000 wall:      0.041)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.101 (sys:      0.000 wall:      0.101)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.178 (sys:      0.004 wall:      1.185)
+PDSystemSolverTotal.................:      0.043 (sys:      0.000 wall:      0.043)
+ PDSystemSolverSolveOnce............:      0.041 (sys:      0.000 wall:      0.041)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.047 (sys:      0.000 wall:      0.047)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.021 (sys:      0.000 wall:      0.021)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.531 (sys:      0.004 wall:      1.539)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.116 (sys:      0.000 wall:      0.116)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.409 (sys:      0.004 wall:      1.416)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.5930223864998527e-01    2.6153750364133466e-01
+Dual infeasibility......:   3.1947635248339828e+05    5.2450642507624801e+05
+Constraint violation....:   1.6577277634934723e-05    1.6577277634934723e-05
+Variable bound violation:   3.0709786549669901e-10    3.0709786549669901e-10
+Complementarity.........:   8.7291553532252875e-01    1.4331258112424181e+00
+Overall NLP error.......:   5.0625456170309826e+02    5.2450642507624801e+05
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.279
+Total seconds in NLP function evaluations            =      1.512
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.779 (sys:      0.009 wall:      1.791)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.486 (sys:      0.000 wall:      0.487)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.031 (sys:      0.000 wall:      0.031)
+ ComputeSearchDirection.............:      0.005 (sys:      0.000 wall:      0.005)
+ ComputeAcceptableTrialPoint........:      0.099 (sys:      0.000 wall:      0.099)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.157 (sys:      0.008 wall:      1.167)
+PDSystemSolverTotal.................:      0.033 (sys:      0.000 wall:      0.033)
+ PDSystemSolverSolveOnce............:      0.032 (sys:      0.000 wall:      0.032)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.038 (sys:      0.000 wall:      0.038)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.018 (sys:      0.000 wall:      0.018)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.003 (sys:      0.000 wall:      0.003)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.501 (sys:      0.008 wall:      1.512)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.110 (sys:      0.004 wall:      0.114)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.386 (sys:      0.004 wall:      1.393)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   3.9168288797566646e+01    5.2823508866725028e+01
+Dual infeasibility......:   1.1943498914253062e+07    1.6107354703633675e+07
+Constraint violation....:   2.0129079132620298e-03    2.0129079132620298e-03
+Variable bound violation:   4.1179564203019936e-09    4.1179564203019936e-09
+Complementarity.........:   1.4836295953840352e+01    2.0008666064465157e+01
+Overall NLP error.......:   1.7412489009496062e+02    1.6107354703633675e+07
+
+
+Number of objective function evaluations             = 7
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 7
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.282
+Total seconds in NLP function evaluations            =      1.584
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.862 (sys:      0.000 wall:      1.867)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.494 (sys:      0.000 wall:      0.495)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.035 (sys:      0.000 wall:      0.035)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.118 (sys:      0.000 wall:      0.118)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.210 (sys:      0.000 wall:      1.212)
+PDSystemSolverTotal.................:      0.036 (sys:      0.000 wall:      0.037)
+ PDSystemSolverSolveOnce............:      0.035 (sys:      0.000 wall:      0.035)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.041 (sys:      0.000 wall:      0.041)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.000 wall:      0.017)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.582 (sys:      0.000 wall:      1.584)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.133 (sys:      0.000 wall:      0.133)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.443 (sys:      0.000 wall:      1.446)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   3.1619246289425793e+00    3.2633730627818295e+01
+Dual infeasibility......:   3.0446420544607125e+07    3.1423275480360138e+08
+Constraint violation....:   1.3600785347276378e-03    1.3600785347276378e-03
+Variable bound violation:   2.9383158128837294e-09    2.9383158128837294e-09
+Complementarity.........:   5.0144220522200722e-01    5.1753067422440875e+00
+Overall NLP error.......:   6.3446223109253433e+03    3.1423275480360138e+08
+
+
+Number of objective function evaluations             = 7
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 7
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.297
+Total seconds in NLP function evaluations            =      1.559
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.845 (sys:      0.003 wall:      1.856)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.509 (sys:      0.000 wall:      0.511)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.001)
+ UpdateBarrierParameter.............:      0.030 (sys:      0.000 wall:      0.030)
+ ComputeSearchDirection.............:      0.004 (sys:      0.000 wall:      0.004)
+ ComputeAcceptableTrialPoint........:      0.118 (sys:      0.000 wall:      0.118)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.182 (sys:      0.003 wall:      1.191)
+PDSystemSolverTotal.................:      0.032 (sys:      0.000 wall:      0.032)
+ PDSystemSolverSolveOnce............:      0.030 (sys:      0.000 wall:      0.030)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.037 (sys:      0.000 wall:      0.037)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.000 wall:      0.017)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.549 (sys:      0.003 wall:      1.559)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.134 (sys:      0.000 wall:      0.134)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.410 (sys:      0.003 wall:      1.419)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.4036214288698659e+00    1.4834061493452484e+01
+Dual infeasibility......:   6.1684820168890990e+06    6.5191111846634746e+07
+Constraint violation....:   8.7469286062669127e-04    8.7469286062669127e-04
+Variable bound violation:   9.4675485229345213e-09    9.4675485229345213e-09
+Complementarity.........:   9.9422329501525727e-02    1.0507369859944369e+00
+Overall NLP error.......:   2.8278859442268440e+03    6.5191111846634746e+07
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.283
+Total seconds in NLP function evaluations            =      1.554
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.836 (sys:      0.000 wall:      1.837)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.506 (sys:      0.000 wall:      0.506)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.031 (sys:      0.000 wall:      0.031)
+ ComputeSearchDirection.............:      0.005 (sys:      0.000 wall:      0.005)
+ ComputeAcceptableTrialPoint........:      0.099 (sys:      0.000 wall:      0.099)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.194 (sys:      0.000 wall:      1.195)
+PDSystemSolverTotal.................:      0.033 (sys:      0.000 wall:      0.033)
+ PDSystemSolverSolveOnce............:      0.031 (sys:      0.000 wall:      0.032)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.038 (sys:      0.000 wall:      0.038)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.000 wall:      0.018)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.553 (sys:      0.000 wall:      1.554)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.115 (sys:      0.000 wall:      0.115)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.433 (sys:      0.000 wall:      1.434)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   9.4010760145827832e-01    7.0372456212404346e+00
+Dual infeasibility......:   7.9288864115908667e+06    5.9352271053577781e+07
+Constraint violation....:   2.2347990355916884e-05    2.2347990355916884e-05
+Variable bound violation:   3.3777847185945120e-10    3.3777847185945120e-10
+Complementarity.........:   1.8622553924095202e+00    1.3940051740393129e+01
+Overall NLP error.......:   6.0308168062386380e+02    5.9352271053577781e+07
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.275
+Total seconds in NLP function evaluations            =      1.549
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.816 (sys:      0.008 wall:      1.825)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.492 (sys:      0.004 wall:      0.496)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.026 (sys:      0.000 wall:      0.026)
+ ComputeSearchDirection.............:      0.014 (sys:      0.000 wall:      0.014)
+ ComputeAcceptableTrialPoint........:      0.096 (sys:      0.000 wall:      0.097)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.186 (sys:      0.004 wall:      1.191)
+PDSystemSolverTotal.................:      0.037 (sys:      0.000 wall:      0.037)
+ PDSystemSolverSolveOnce............:      0.036 (sys:      0.000 wall:      0.036)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.042 (sys:      0.000 wall:      0.042)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.019 (sys:      0.000 wall:      0.019)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.541 (sys:      0.008 wall:      1.549)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.112 (sys:      0.000 wall:      0.112)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.423 (sys:      0.008 wall:      1.432)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   6.4070830936360046e-01    4.1519204634624050e+00
+Dual infeasibility......:   2.8402161262540955e+07    1.8405179522274885e+08
+Constraint violation....:   1.3043035656483317e-05    1.3043035656483317e-05
+Variable bound violation:   9.9059904723475256e-09    9.9059904723475256e-09
+Complementarity.........:   1.3959253954806422e-01    9.0458811447594989e-01
+Overall NLP error.......:   1.0949434464687509e+04    1.8405179522274885e+08
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.272
+Total seconds in NLP function evaluations            =      1.521
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.784 (sys:      0.008 wall:      1.793)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.481 (sys:      0.000 wall:      0.481)
+ UpdateHessian......................:      0.001 (sys:      0.000 wall:      0.001)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.026 (sys:      0.008 wall:      0.034)
+ ComputeSearchDirection.............:      0.005 (sys:      0.000 wall:      0.005)
+ ComputeAcceptableTrialPoint........:      0.103 (sys:      0.000 wall:      0.103)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.168 (sys:      0.000 wall:      1.169)
+PDSystemSolverTotal.................:      0.028 (sys:      0.008 wall:      0.036)
+ PDSystemSolverSolveOnce............:      0.026 (sys:      0.008 wall:      0.034)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.032 (sys:      0.008 wall:      0.040)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.017 (sys:      0.003 wall:      0.019)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.003 (sys:      0.000 wall:      0.003)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.520 (sys:      0.000 wall:      1.521)
+ Objective function.................:      0.002 (sys:      0.000 wall:      0.002)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.118 (sys:      0.000 wall:      0.118)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.397 (sys:      0.000 wall:      1.398)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.2286641951611534e+00    7.0158116308100693e+00
+Dual infeasibility......:   1.1148460835216250e+08    6.3658973299113548e+08
+Constraint violation....:   5.6701479267630070e-06    5.6701479267630070e-06
+Variable bound violation:   9.9514123608201999e-09    9.9514123608201999e-09
+Complementarity.........:   1.0456871656669677e+00    5.9709920806415964e+00
+Overall NLP error.......:   8.3465078587144490e+03    6.3658973299113548e+08
+
+
+Number of objective function evaluations             = 7
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 7
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.277
+Total seconds in NLP function evaluations            =      1.633
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.903 (sys:      0.004 wall:      1.909)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.481 (sys:      0.000 wall:      0.481)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.027 (sys:      0.000 wall:      0.027)
+ ComputeSearchDirection.............:      0.008 (sys:      0.000 wall:      0.008)
+ ComputeAcceptableTrialPoint........:      0.130 (sys:      0.000 wall:      0.130)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.257 (sys:      0.004 wall:      1.262)
+PDSystemSolverTotal.................:      0.034 (sys:      0.000 wall:      0.034)
+ PDSystemSolverSolveOnce............:      0.032 (sys:      0.000 wall:      0.032)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.038 (sys:      0.000 wall:      0.038)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.018 (sys:      0.000 wall:      0.018)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.627 (sys:      0.004 wall:      1.633)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.004 (sys:      0.000 wall:      0.004)
+ Equality constraints...............:      0.140 (sys:      0.004 wall:      0.144)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.481 (sys:      0.000 wall:      1.482)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
+Total number of variables............................:     1900
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:     1009
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     1300
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   8.0247840583312458e-01    7.0588543599410585e+00
+Dual infeasibility......:   3.3597795342884958e+07    2.9553685484447628e+08
+Constraint violation....:   8.2951315999995213e-06    8.2951315999995213e-06
+Variable bound violation:   9.8444592477875403e-09    9.8444592477875403e-09
+Complementarity.........:   4.9920706212888855e-01    4.3911835152292591e+00
+Overall NLP error.......:   5.5667456253390646e+03    2.9553685484447628e+08
+
+
+Number of objective function evaluations             = 8
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 8
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total seconds in IPOPT (w/o function evaluations)    =      0.284
+Total seconds in NLP function evaluations            =      1.605
+
+
+Timing Statistics:
+
+OverallAlgorithm....................:      1.888 (sys:      0.000 wall:      1.889)
+ PrintProblemStatistics.............:      0.000 (sys:      0.000 wall:      0.000)
+ InitializeIterates.................:      0.519 (sys:      0.000 wall:      0.519)
+ UpdateHessian......................:      0.000 (sys:      0.000 wall:      0.000)
+ OutputIteration....................:      0.000 (sys:      0.000 wall:      0.000)
+ UpdateBarrierParameter.............:      0.030 (sys:      0.000 wall:      0.030)
+ ComputeSearchDirection.............:      0.008 (sys:      0.000 wall:      0.008)
+ ComputeAcceptableTrialPoint........:      0.140 (sys:      0.000 wall:      0.140)
+ AcceptTrialPoint...................:      0.000 (sys:      0.000 wall:      0.000)
+ CheckConvergence...................:      1.190 (sys:      0.000 wall:      1.191)
+PDSystemSolverTotal.................:      0.035 (sys:      0.000 wall:      0.035)
+ PDSystemSolverSolveOnce............:      0.034 (sys:      0.000 wall:      0.034)
+ ComputeResiduals...................:      0.001 (sys:      0.000 wall:      0.001)
+ StdAugSystemSolverMultiSolve.......:      0.041 (sys:      0.000 wall:      0.041)
+ LinearSystemScaling................:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemSymbolicFactorization..:      0.005 (sys:      0.000 wall:      0.005)
+ LinearSystemFactorization..........:      0.000 (sys:      0.000 wall:      0.000)
+ LinearSystemBackSolve..............:      0.020 (sys:      0.000 wall:      0.020)
+ LinearSystemStructureConverter.....:      0.000 (sys:      0.000 wall:      0.000)
+  LinearSystemStructureConverterInit:      0.000 (sys:      0.000 wall:      0.000)
+QualityFunctionSearch...............:      0.002 (sys:      0.000 wall:      0.002)
+TryCorrector........................:      0.000 (sys:      0.000 wall:      0.000)
+Task1...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task2...............................:      0.001 (sys:      0.000 wall:      0.001)
+Task3...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task4...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task5...............................:      0.000 (sys:      0.000 wall:      0.000)
+Task6...............................:      0.000 (sys:      0.000 wall:      0.000)
+Function Evaluations................:      1.604 (sys:      0.000 wall:      1.605)
+ Objective function.................:      0.003 (sys:      0.000 wall:      0.003)
+ Objective function gradient........:      0.003 (sys:      0.000 wall:      0.003)
+ Equality constraints...............:      0.161 (sys:      0.000 wall:      0.161)
+ Inequality constraints.............:      0.000 (sys:      0.000 wall:      0.000)
+ Equality constraint Jacobian.......:      1.436 (sys:      0.000 wall:      1.437)
+ Inequality constraint Jacobian.....:      0.000 (sys:      0.000 wall:      0.000)
+ Lagrangian Hessian.................:      0.000 (sys:      0.000 wall:      0.000)
+
+EXIT: Maximum Number of Iterations Exceeded.
