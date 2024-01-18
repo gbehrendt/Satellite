@@ -91,21 +91,24 @@ int main() {
     std::vector<double> x_init = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
     // Tunable Parameters
-    const int N = 200; // Prediction Horizon
-    double ts = 20.0; // sampling period
-    int maxIter = 10000;
+    bool writeToFile = false; // choose to write to file or not
+    string hessianApprox = "exact"; // Choices: "limited-memory" or "exact" ("limited-memory" runs slightly faster, but "exact" works better for convergence i.e. less MPC loops)
+    string constraintType = "RK4"; // Choices: "RK4" or "Euler"
+    const int N = 100; // Prediction Horizon
+    double ts = 5.0; // sampling period
+    int maxIter = 10000; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
 
-    double posCost = 1e6;
+    double posCost = 1e3;
     double velCost = 1e3;
-    double quatCost = 1e8;
-    double angularCost = 1e8;
-    double thrustCost = 1e-3;
-    double torqueCost = 1e-3;
+    double quatCost = 1e5;
+    double angularCost = 1e5;
+    double thrustCost = 1e-5;
+    double torqueCost = 1e-5;
 
-    double finalPosCost = 1e1;
-    double finalVelCost = 1e1;
-    double finalQuatCost = 1e3;
-    double finalAngularCost = 1e3;
+    double finalPosCost = 0;
+    double finalVelCost = 0;
+    double finalQuatCost = 0;
+    double finalAngularCost = 0;
 
     // Total number of NLP variables
     const int numVars = numStates*(N+1) + numControls*N;
@@ -204,7 +207,6 @@ int main() {
     std::vector<MX> g,gAlgebraic;
     MX k1,k2,k3,k4,stNextRK4, stNextEuler;
     MX Rtc_k1, Rtc_k2, Rtc_k3, Rtc_k4;
-    string constraintType = "RK4";
 
     if (constraintType == "RK4")
     {
@@ -254,19 +256,33 @@ int main() {
     MXDict nlp = {{"x", V}, {"f", J}, {"g", vertcat(gAlgebraic)}};
 
     // Set options
-    string timePath = "/home/gabe/Satellite/TimingStats/" + constraintType + "/ts" + to_string(int(ts)) +"/maxIter" + to_string(maxIter) + ".csv";
-
+    string timePath = "/home/gbehrendt/CLionProjects/Satellite/Timing/" + constraintType + "/" + hessianApprox + "/maxIter" + to_string(maxIter) + ".csv";
     Dict opts;
-    opts["ipopt.tol"] = 1e-5;
-    opts["ipopt.max_iter"] = maxIter;
-    opts["ipopt.hessian_approximation"] = "limited-memory"; // for no max iterations change from "limited-memory" to "exact"
-    opts["ipopt.print_level"] = 5;
-    opts["ipopt.acceptable_tol"] = 1e-8;
-    opts["ipopt.acceptable_obj_change_tol"] = 1e-6;
-    opts["ipopt.print_timing_statistics"] = "yes";
-    opts["expand"] = false;
-    opts["ipopt.file_print_level"] = 3;
-    opts["ipopt.output_file"] = timePath;
+    if(writeToFile == true)
+    {
+        opts["ipopt.tol"] = 1e-5;
+        opts["ipopt.max_iter"] = maxIter;
+        opts["ipopt.hessian_approximation"] = hessianApprox; // for no max iterations change from "limited-memory" to "exact"
+        opts["ipopt.print_level"] = 5;
+        opts["ipopt.acceptable_tol"] = 1e-8;
+        opts["ipopt.acceptable_obj_change_tol"] = 1e-6;
+        opts["expand"] = false;
+        opts["ipopt.file_print_level"] = 3;
+        opts["ipopt.output_file"] = timePath;
+        opts["ipopt.print_timing_statistics"] = "yes";
+    }
+    else if(writeToFile == false)
+    {
+        opts["ipopt.tol"] = 1e-5;
+        opts["ipopt.max_iter"] = maxIter;
+        opts["ipopt.hessian_approximation"] = hessianApprox; // for no max iterations change from "limited-memory" to "exact"
+        opts["ipopt.print_level"] = 5;
+        opts["ipopt.acceptable_tol"] = 1e-8;
+        opts["ipopt.acceptable_obj_change_tol"] = 1e-6;
+        opts["expand"] = false;
+    }
+
+
 
     // Create an NLP solver and buffers
     std::map<std::string, DM> arg, res, sol;
@@ -288,6 +304,7 @@ int main() {
     Eigen::MatrixXd qInit(4,1);
     Eigen::MatrixXd RtcInit(3,3);
 
+    // Define initial condition
     wcInit << wc0[0] , wc0[1], wc0[2];
     wtInit << 0 , 0, n;
     qInit << q0[0],q0[1],q0[2],q0[3];
@@ -299,12 +316,13 @@ int main() {
     x0 << xPos, yPos, zPos, xVel, yVel, zVel, qInit, dwInit;
     Storex0 = x0;
 
+    // Define docking configuration
     Eigen::MatrixXd xs(numStates,1);
     xs << 0,0,0,0,0,0,1,0,0,0,0,0,0;
 
+
     Eigen::MatrixXd xx(numStates, N+1);
     xx.col(0) = x0;
-
     Eigen::MatrixXd xx1(numStates, N+1);
     Eigen::MatrixXd X0(numStates,N+1);
     Eigen::MatrixXd u0;
@@ -313,6 +331,11 @@ int main() {
 
     vector<vector<double> > MPCstates(numStates);
     vector<vector<double> > MPCcontrols(numControls);
+
+    for(int j=0; j<numStates; j++)
+    {
+        MPCstates[j].push_back(x0(j));
+    }
 
     // Start MPC
     int iter = 0;
@@ -327,8 +350,8 @@ int main() {
 
         std::vector<double> V_opt(sol.at("x"));
 
-        //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(V_opt.data()); // N=100
-        Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 3813, 1> >(V_opt.data()); // N=200
+        Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(V_opt.data()); // N=100
+        //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 3813, 1> >(V_opt.data()); // N=200
         //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 5713, 1> >(V_opt.data()); // N=300
         //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 7713, 1> >(V_opt.data()); // N=400
         //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 9513, 1> >(V_opt.data()); // N=500
@@ -442,50 +465,53 @@ int main() {
         cout << iter <<endl;
     }
 
-    const static IOFormat CSVFormat(FullPrecision, DontAlignCols, ", ", "\n");
-    ofstream fout; // declare fout variable
-    string path = "/home/gabe/Satellite/Results/" + constraintType + "/ts" + to_string(int(ts)) +"/maxIter" + to_string(maxIter) + ".csv";
-    //path = "/home/gabe/Satellite/Results/" + constraintType + "/ts" + to_string(int(ts)) +"/test.csv";
-    fout.open(path, std::ofstream::out | std::ofstream::trunc ); // open file to write to
-
-    fout << "x,y,z,xdot,ydot,zdot,sq,v1,v2,v3,dw1,dw2,dw3,thrust1,thrust2,thrust3,tau1,tau2,tau3,x0,Maximum Iterations,ts,N,MPC Loops,posCost,velCost,quatCost,angualarCost,thrustCost,torqueCost,"
-            "finalPosCost,finalVelCost,finalQuatCost,finalAngualarCost,thrustMax,torqueMax,Constraint Type" <<endl;
-
-
-    for(int j=0; j < iter; j++)
+    if(writeToFile == true)
     {
-        if(j==0)
-        {
-            for(int i=0; i < (MPCstates.size() + MPCcontrols.size()); i++)
-            {
-                if (i < numStates) {
-                    fout << MPCstates[i][j] << ",";
-                }
-                else if (i < numStates + numControls) {
-                    fout << MPCcontrols[i - numStates][j] << ",";
-                }
-            }
-            fout<< Storex0(j)<<","<<maxIter <<","<<ts<<","<<N<<","<<iter<<","<<posCost<<","<<velCost<<","<<quatCost<<","<<angularCost<<","<<thrustCost <<","<<torqueCost<<","
-                <<finalPosCost<<","<<finalVelCost<<","<<finalQuatCost<<","<<finalAngularCost<<","<<thrustMax<<","<<torqueMax<<","<<constraintType;
-        }
-        else{
-            for(int i=0; i < (MPCstates.size() + MPCcontrols.size()); i++)
-            {
-                if (i < numStates) {
-                    fout << MPCstates[i][j] << ",";
-                }
-                else if (i < numStates + numControls) {
-                    fout << MPCcontrols[i - numStates][j] << ",";
-                }
-            }
-            if(j<numStates){
-                fout<<Storex0(j)<<",";
-            }
-        }
-        fout<<endl;
-    }
+        const static IOFormat CSVFormat(FullPrecision, DontAlignCols, ", ", "\n");
+        ofstream fout; // declare fout variable
+        string path = "/home/gbehrendt/CLionProjects/Satellite/Results/" + constraintType + "/" + hessianApprox + "/maxIter" + to_string(maxIter) + ".csv";
+        fout.open(path, std::ofstream::out | std::ofstream::trunc ); // open file to write to
 
-    fout.close();
+        fout << "x (km),y (km),z (km),xdot (km/s),ydot (km/s),zdot (km/s),sq,v1,v2,v3,dw1 (rad/s),dw2 (rad/s),dw3 (rad/s),thrust1 (N),thrust2 (N),thrust3 (N),tau1 (rad/s^2),tau2 (rad/s^2),tau3 (rad/s^2),x0,Maximum Iterations,ts,N,MPC Loops,posCost,velCost,quatCost,angualarCost,thrustCost,torqueCost,"
+                "finalPosCost,finalVelCost,finalQuatCost,finalAngualarCost,thrustMax,torqueMax,Constraint Type" <<endl;
+
+
+
+        for(int j=0; j < iter; j++)
+        {
+            if(j==0)
+            {
+                for(int i=0; i < (MPCstates.size() + MPCcontrols.size()); i++)
+                {
+                    if (i < numStates) {
+                        fout << MPCstates[i][j] << ",";
+                    }
+                    else if (i < numStates + numControls) {
+                        fout << MPCcontrols[i - numStates][j] << ",";
+                    }
+                }
+                fout<< Storex0(j)<<","<<maxIter <<","<<ts<<","<<N<<","<<iter<<","<<posCost<<","<<velCost<<","<<quatCost<<","<<angularCost<<","<<thrustCost <<","<<torqueCost<<","
+                    <<finalPosCost<<","<<finalVelCost<<","<<finalQuatCost<<","<<finalAngularCost<<","<<thrustMax<<","<<torqueMax<<","<<constraintType;
+            }
+            else{
+                for(int i=0; i < (MPCstates.size() + MPCcontrols.size()); i++)
+                {
+                    if (i < numStates) {
+                        fout << MPCstates[i][j] << ",";
+                    }
+                    else if (i < numStates + numControls) {
+                        fout << MPCcontrols[i - numStates][j] << ",";
+                    }
+                }
+                if(j<numStates){
+                    fout<<Storex0(j)<<",";
+                }
+            }
+            fout<<endl;
+        }
+
+        fout.close();
+    }
 
     return 0;
 }
@@ -719,59 +745,3 @@ void shiftRK4(int N, double ts, MatrixXd& x0, MatrixXd uwu, MatrixXd& u0, double
     u0.col(u0.cols()-1) = uwu(Eigen::placeholders::all,Eigen::placeholders::last); // copy last column and append it
 }
 
-
-
-
-////////////////////// Tried c-code generation ////////////////////////////
-//
-//    // file name
-//    std::string file_name = "nlp_code";
-//    // code predix
-//    std::string prefix_code = fs::current_path().string() + "/";
-//
-//    // Generate C code for the NLP functions
-//    solver.generate_dependencies(file_name + ".c");
-//
-//    // shared library prefix
-//    std::string prefix_lib = fs::current_path().string() + "/";
-//
-//    // compile c code to a shared library
-//    std::string compile_command = "gcc -fPIC -shared -O3 " +
-//                                  prefix_code + file_name + ".c -o " +
-//                                  prefix_lib + file_name + ".so";
-//
-//    std::cout << compile_command << std::endl;
-//    int compile_flag = std::system(compile_command.c_str());
-//    casadi_assert(compile_flag==0, "Compilation failed");
-//    std::cout << "Compilation successed!" << std::endl;
-
-
-///////////////////////// Tried jit compilation //////////////////////////////
-//    // file name
-//    std::string file_name = "nlp_code";
-//    // code predix
-//    std::string prefix_code = fs::current_path().string() + "/";
-//
-//    // Generate C code for the NLP functions
-//    solver.generate_dependencies(file_name + ".c");
-//
-//    // shared library prefix
-//    std::string prefix_lib = fs::current_path().string() + "/";
-//
-//    // compile c code to a shared library
-//    std::string compile_command = "gcc -fPIC -shared -O3 " +
-//                                  prefix_code + file_name + ".c -o " +
-//                                  prefix_lib + file_name + ".so";
-//
-//    std::cout << compile_command << std::endl;
-//    int compile_flag = std::system(compile_command.c_str());
-//    casadi_assert(compile_flag==0, "Compilation failed");
-//    std::cout << "Compilation successed!" << std::endl;
-//
-//    // Create a new NLP solver instance using just-in-time compilation
-//    opts["compiler"] = "shell";
-//    opts["jit"] = true;
-//    opts["jit_options.compiler"] = "gcc";
-//    opts["jit_options.flags"] = "-O3";
-//
-//    solver = nlpsol("solver", "ipopt", "nlp_code.c", opts);

@@ -27,7 +27,7 @@ if(CMAKE_CXX_COMPILER_LOADED)
     message(STATUS "Compiler Version: ${CMAKE_CXX_COMPILER_VERSION}")
 endif()
 
-list(APPEND CMAKE_PREFIX_PATH "/home/gabe/eigen/cmake/")
+list(APPEND CMAKE_PREFIX_PATH "/home/gbehrendt/eigen/cmake/")
 
 # for using casadi
 find_package(casadi REQUIRED)
