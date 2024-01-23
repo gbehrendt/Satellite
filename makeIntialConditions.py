@@ -10,10 +10,10 @@ import random
 import numpy as np
 
 
-savePath = "/home/gabe/Satellite/intialConditions.csv"
-numConditions = 10
+savePath = "/home/gbehrendt/CLionProjects/Satellite/initialConditions200.csv"
+numConditions = 200
 
-pMax = 1
+pMax = 1.5
 pMin = -pMax
 vMax = 1e-3
 vMin = -vMax
@@ -21,6 +21,9 @@ qMax = 1
 qMin = 0
 wMax = 5e-3
 wMin = -wMax
+
+tPeriod = 92.68 * 60
+n = -2*np.pi/tPeriod
 
 initialConditions = []
 for i in range(numConditions):
@@ -48,15 +51,19 @@ for i in range(numConditions):
     wy = random.uniform(wMin,wMax)
     wz = random.uniform(wMin,wMax)
     
+    wx = 0
+    wy = 0
+    wz = n
+    
     x0 = [i,x,y,z,dx,dy,dz,sq,v1,v2,v3,wx,wy,wz]
     initialConditions.append(x0)
 
 
 # Opening a CSV file in write mode
-with open(savePath, 'w', newline='') as file:
-    # Step 4: Using csv.writer to write the list to the CSV file
-    writer = csv.writer(file)
-    writer.writerows(initialConditions) # Use writerows for nested list
+# with open(savePath, 'w', newline='') as file:
+#     # Step 4: Using csv.writer to write the list to the CSV file
+#     writer = csv.writer(file)
+#     writer.writerows(initialConditions) # Use writerows for nested list
     
 
 

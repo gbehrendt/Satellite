@@ -8,6 +8,7 @@ from matplotlib import pyplot as plt
 import csv
 
 file = "/home/gabe/code/cmake-build-debug/timing.csv"
+file = "/home/gbehrendt/CLionProjects/Satellite/Timing/RK4/limited-memory/maxIter10000.csv"
  
 # opening the CSV file
 with open(file, mode ='r')as file:

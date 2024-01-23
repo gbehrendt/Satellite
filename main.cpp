@@ -65,23 +65,41 @@ int main() {
     double n = -2*M_PI/tPeriod; // Mean motion of ISS (rad/s)
     double mc = 12; // mass of the chaser
 
-    double xPos = 0.5;
-    double xVel = 0.0001;
-    double yPos = (2/n)*xVel;
-    double yVel = -2*n*xPos;
-    double zPos = 0.5;
-    double zVel = 0.001;
-    std::vector<double> q0 = { 0.771517, 0.46291, 0.308607, 0.308607 }; // Normalized [0.5,0.3,0.2,0.2]
-    std::vector<double> wc0 = { 0.0, 0.0, -0.005 };
+//    double xPos = 1.5;
+//    double xVel = 0.0001;
+//    double yPos = (2/n)*xVel;
+//    double yVel = -2*n*xPos;
+//    double zPos = 1.0;
+//    double zVel = 0.001;
+//    std::vector<double> q0 = { 0.771517, 0.46291, 0.308607, 0.308607 }; // Normalized [0.5,0.3,0.2,0.2]
+//    std::vector<double> dw0 = { 0.0, 0.0, -0.005 };
+
+//    wcInit << wc0[0] , wc0[1], wc0[2];
+//    wtInit << 0 , 0, n;
+//    qInit << q0[0],q0[1],q0[2],q0[3];
+//    RtcInit = q2R(qInit);
+//    dwInit = wcInit - RtcInit.transpose()*wtInit;
+//
+//    cout << dwInit << endl;
+//    std::vector<double> dw0 = { dwInit(0), dwInit(1), dwInit(2) };
+
+    double xPos = -0.229859413707814;
+    double yPos = -1.12947834203547;
+    double zPos = -1.46610637574145;
+    double xVel = 0.000149261941378579;
+    double yVel = 0.000336668639549759;
+    double zVel = 0.000989947173003327;
+    std::vector<double> q0 = { 0.0763707222036341, 0.71905856354721, 0.0942879697869799, 0.6842748524774}; // Normalized [0.5,0.3,0.2,0.2]
+    std::vector<double> dw0 = { 0, 0, 0};
 
     // Bounds and initial guess for the state
     std::vector<double> x0_min = {  xPos, yPos, zPos, xVel, yVel, zVel }; // initial position and velocity
     x0_min.insert(x0_min.end(),q0.begin(),q0.end()); // append initial quaternion
-    x0_min.insert(x0_min.end(),wc0.begin(),wc0.end()); // append initial angular velocity
+    x0_min.insert(x0_min.end(),dw0.begin(),dw0.end()); // append initial angular velocity
 
     std::vector<double> x0_max = {  xPos, yPos, zPos, xVel, yVel, zVel };
     x0_max.insert(x0_max.end(),q0.begin(),q0.end()); // append initial quaternion
-    x0_max.insert(x0_max.end(),wc0.begin(),wc0.end()); // append initial angular velocity
+    x0_max.insert(x0_max.end(),dw0.begin(),dw0.end()); // append initial angular velocity
 
     std::vector<double> x_min  = { -inf, -inf, -inf, -inf, -inf, -inf, -1, -1, -1, -1, -inf, -inf, -inf };
     std::vector<double> x_max  = { inf, inf, inf, inf, inf, inf, 1, 1, 1, 1, inf, inf, inf };
@@ -92,16 +110,16 @@ int main() {
 
     // Tunable Parameters
     bool writeToFile = false; // choose to write to file or not
-    string hessianApprox = "exact"; // Choices: "limited-memory" or "exact" ("limited-memory" runs slightly faster, but "exact" works better for convergence i.e. less MPC loops)
+    string hessianApprox = "limited-memory"; // Choices: "limited-memory" or "exact" ("limited-memory" runs slightly faster, but "exact" works better for convergence i.e. less MPC loops)
     string constraintType = "RK4"; // Choices: "RK4" or "Euler"
     const int N = 100; // Prediction Horizon
     double ts = 5.0; // sampling period
-    int maxIter = 10000; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
+    int maxIter = 5; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
 
-    double posCost = 1e3;
+    double posCost = 1e4;
     double velCost = 1e3;
-    double quatCost = 1e5;
-    double angularCost = 1e5;
+    double quatCost = 1e6;
+    double angularCost = 1e4;
     double thrustCost = 1e-5;
     double torqueCost = 1e-5;
 
@@ -252,6 +270,9 @@ int main() {
     // Terminal cost
     J += mtimes(mtimes((X[N]-xd).T(),Qf),(X[N]-xd));
 
+    //cout << gAlgebraic.size() <<endl;
+
+
     // NLP
     MXDict nlp = {{"x", V}, {"f", J}, {"g", vertcat(gAlgebraic)}};
 
@@ -276,7 +297,7 @@ int main() {
         opts["ipopt.tol"] = 1e-5;
         opts["ipopt.max_iter"] = maxIter;
         opts["ipopt.hessian_approximation"] = hessianApprox; // for no max iterations change from "limited-memory" to "exact"
-        opts["ipopt.print_level"] = 5;
+        opts["ipopt.print_level"] = 0;
         opts["ipopt.acceptable_tol"] = 1e-8;
         opts["ipopt.acceptable_obj_change_tol"] = 1e-6;
         opts["expand"] = false;
@@ -298,6 +319,12 @@ int main() {
     //---------------------//
     //      MPC Loop       //
     //---------------------//
+//    Eigen::MatrixXd wcInit(3,1);
+//    Eigen::MatrixXd wtInit(3,1);
+//    Eigen::MatrixXd dwInit(3,1);
+//    Eigen::MatrixXd qInit(4,1);
+//    Eigen::MatrixXd RtcInit(3,3);
+
     Eigen::MatrixXd wcInit(3,1);
     Eigen::MatrixXd wtInit(3,1);
     Eigen::MatrixXd dwInit(3,1);
@@ -305,11 +332,11 @@ int main() {
     Eigen::MatrixXd RtcInit(3,3);
 
     // Define initial condition
-    wcInit << wc0[0] , wc0[1], wc0[2];
+    //wcInit << wc0[0] , wc0[1], wc0[2];
     wtInit << 0 , 0, n;
     qInit << q0[0],q0[1],q0[2],q0[3];
-    RtcInit = q2R(qInit);
-    dwInit = wcInit - RtcInit.transpose()*wtInit;
+    //RtcInit = q2R(qInit);
+    dwInit << dw0[0], dw0[1], dw0[2];
 
     Eigen::MatrixXd x0(numStates,1);
     Eigen::MatrixXd Storex0(numStates,1);
@@ -474,8 +501,6 @@ int main() {
 
         fout << "x (km),y (km),z (km),xdot (km/s),ydot (km/s),zdot (km/s),sq,v1,v2,v3,dw1 (rad/s),dw2 (rad/s),dw3 (rad/s),thrust1 (N),thrust2 (N),thrust3 (N),tau1 (rad/s^2),tau2 (rad/s^2),tau3 (rad/s^2),x0,Maximum Iterations,ts,N,MPC Loops,posCost,velCost,quatCost,angualarCost,thrustCost,torqueCost,"
                 "finalPosCost,finalVelCost,finalQuatCost,finalAngualarCost,thrustMax,torqueMax,Constraint Type" <<endl;
-
-
 
         for(int j=0; j < iter; j++)
         {
