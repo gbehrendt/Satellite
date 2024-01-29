@@ -10,7 +10,7 @@ import random
 import numpy as np
 
 
-savePath = "/home/gbehrendt/CLionProjects/Satellite/initialConditions200.csv"
+# savePath = "/home/gbehrendt/CLionProjects/finalSatellite/finalInitialConditions.csv"
 numConditions = 200
 
 pMax = 1.5
@@ -19,7 +19,7 @@ vMax = 1e-3
 vMin = -vMax
 qMax = 1
 qMin = 0
-wMax = 5e-3
+wMax = 2e-3
 wMin = -wMax
 
 tPeriod = 92.68 * 60
@@ -51,9 +51,9 @@ for i in range(numConditions):
     wy = random.uniform(wMin,wMax)
     wz = random.uniform(wMin,wMax)
     
-    wx = 0
-    wy = 0
-    wz = n
+    # wx = 0
+    # wy = 0
+    # wz = n
     
     x0 = [i,x,y,z,dx,dy,dz,sq,v1,v2,v3,wx,wy,wz]
     initialConditions.append(x0)

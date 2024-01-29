@@ -79,7 +79,7 @@ link_directories(${LIBRARY_DIRS})
 file(GLOB HEADER_FILES_HPP ${CMAKE_SOURCE_DIR}/include/*.hpp)
 file(GLOB HEADER_FILES_H ${CMAKE_SOURCE_DIR}/include/*.h)
 
-add_executable(Satellite main.cpp matplotlibcpp.h)
+add_executable(Satellite main.cpp )
 target_link_libraries(${PROJECT_NAME} ${CASADI_LIBRARIES} ipopt)
 target_link_libraries (${PROJECT_NAME}  ${EIGEN_LIBRARIES})
 target_include_directories(${PROJECT_NAME}  PRIVATE ${PYTHON_INCLUDE_DIRS})
@@ -88,3 +88,7 @@ target_link_libraries(${PROJECT_NAME}  ${PYTHON_LIBRARIES})
 add_executable(monteCarlo monteCarlo.cpp
         monteCarlo.cpp)
 target_link_libraries(monteCarlo ${CASADI_LIBRARIES} ipopt)
+
+add_executable(parallelize parallelize.cpp
+        parallelize.cpp)
+target_link_libraries(parallelize ${CASADI_LIBRARIES} ipopt)

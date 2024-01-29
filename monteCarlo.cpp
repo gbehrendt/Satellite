@@ -24,7 +24,8 @@ int main() {
     fstream fin;
 
     // Open an existing file
-    fin.open("/home/gbehrendt/CLionProjects/Satellite/initialConditions200.csv", ios::in);
+    fin.open("/home/gbehrendt/CLionProjects/finalSatellite/finalInitialConditions.csv", ios::in);
+    //fin.open("/home/gbehrendt/CLionProjects/finalSatellite/trying.csv", ios::in);
     if (fin.is_open()) {
         cout << "File opened successfully :)" << endl;
     } else {
@@ -37,6 +38,7 @@ int main() {
     std::vector<double> row;
     string item;
     int mcCount = 0;
+    int numConverged = 0;
 
     // Begin Monte Carlo loop
     while (getline(fin, item))
@@ -126,34 +128,56 @@ int main() {
         x0_max.insert(x0_max.end(),q0.begin(),q0.end()); // append initial quaternion
         x0_max.insert(x0_max.end(),dw0.begin(),dw0.end()); // append initial angular velocity
 
-        std::vector<double> x_min  = { -inf, -inf, -inf, -inf, -inf, -inf, -1, -1, -1, -1, -inf, -inf, -inf };
+        std::vector<double> x_min  = { -inf, -inf, -inf, -inf, -inf, -inf, 0, 0, 0, 0, -inf, -inf, -inf };
         std::vector<double> x_max  = { inf, inf, inf, inf, inf, inf, 1, 1, 1, 1, inf, inf, inf };
         double finalTol = 1e-8;
-        std::vector<double> xf_min = { -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, 1.0-finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol };
-        std::vector<double> xf_max = { finalTol, finalTol, finalTol, finalTol, finalTol, finalTol, 1.0+finalTol, finalTol, finalTol, finalTol, finalTol, finalTol, finalTol };
+//        std::vector<double> xf_min = { -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, 1.0-finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol };
+//        std::vector<double> xf_max = { finalTol, finalTol, finalTol, finalTol, finalTol, finalTol, 1.0+finalTol, finalTol, finalTol, finalTol, finalTol, finalTol, finalTol };
+        std::vector<double> xf_min = { -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf };
+        std::vector<double> xf_max = { inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf };
+
         std::vector<double> x_init = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
         // Tunable Parameters
         bool writeToFile = true; // choose to write to file or not
         string hessianApprox = "limited-memory"; // Choices: "limited-memory" or "exact" ("limited-memory" runs slightly faster, but "exact" works better for convergence i.e. less MPC loops)
-        string constraintType = "RK4"; // Choices: "RK4" or "Euler"
+        string constraintType = "Euler"; // Choices: "RK4" or "Euler"
         const int N = 100; // Prediction Horizon
-        double ts = 5.0; // sampling period
-        int maxIter = 5; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
+        double ts = 10.0; // sampling period
+        int maxIter = 100; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
+        string timePath = "/home/gbehrendt/CLionProjects/untitled/Timing2/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
+        string path = "/home/gbehrendt/CLionProjects/untitled/Results2/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
+        cout << timePath << endl;
 
-//        double posCost = 1e5;
-//        double velCost = 1e4;
+        double posCost = 1e10;
+        double velCost = 1e2;
+        double quatCost = 1e12;
+        double angularCost = 1e12;
+        double thrustCost = 1e10;
+        double torqueCost = 1e-10;
+
+//        double posCost = 1e7;
+//        double velCost = 1e-10;
+//        double quatCost = 1e10;
+//        double angularCost = 1e8;
+//        double thrustCost = 1e-10;
+//        double torqueCost = 1e-10;
+
+//        maxIter = 10, converged @ 40, Euler
+//        double posCost = 1e-8;
+//        double velCost = 1e-8;
 //        double quatCost = 1e4;
-//        double angularCost = 1e4;
-//        double thrustCost = 1e-5;
-//        double torqueCost = 1e-5;
+//        double angularCost = 1e2;
+//        double thrustCost = 1e0;
+//        double torqueCost = 1e-2;
 
-        double posCost = 1e4;
-        double velCost = 1e3;
-        double quatCost = 1e6;
-        double angularCost = 1e4;
-        double thrustCost = 1e-5;
-        double torqueCost = 1e-5;
+//        double posCost = 1e-8; 0.005
+//        double velCost = 1e-8;
+//        double quatCost = 1e0;
+//        double angularCost = 1e1;
+//        double thrustCost = 1e3;
+//        double torqueCost = 1e-2;
+
 
         double finalPosCost = 0;
         double finalVelCost = 0;
@@ -308,7 +332,7 @@ int main() {
         MXDict nlp = {{"x", V}, {"f", J}, {"g", vertcat(gAlgebraic)}};
 
         // Set options
-        string timePath = "/home/gbehrendt/CLionProjects/Satellite/mcTiming2/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
+
         //cout << timePath << endl;
         Dict opts;
         if(writeToFile == true)
@@ -381,6 +405,7 @@ int main() {
         vector<vector<double> > MPCstates(numStates);
         vector<vector<double> > MPCcontrols(numControls);
 
+
         for(int j=0; j<numStates; j++)
         {
             MPCstates[j].push_back(x0(j));
@@ -389,16 +414,20 @@ int main() {
         // Start MPC
         int iter = 0;
         double epsilon = 1e-3;
-        //cout <<numVars<<endl;
+        double tau = 1e-3;
+        cout <<numVars<<endl;
+        double infNormSt = 10;
+        double infNormCon = 10;
         double infNorm = 10;
 
-        while( infNorm > epsilon && iter < N && infNorm < 100)
+        while( (infNormSt > epsilon || infNormCon > tau) && iter < N && infNormSt < 100)
         {
             // Solve NLP
             sol = solver(arg);
 
             std::vector<double> V_opt(sol.at("x"));
 
+            //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 963, 1> >(V_opt.data()); // N=100
             Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(V_opt.data()); // N=100
             //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 3813, 1> >(V_opt.data()); // N=200
             //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 5713, 1> >(V_opt.data()); // N=300
@@ -507,17 +536,22 @@ int main() {
             arg["ubx"] = v_max;
             arg["x0"] = v_init;
 
-            infNorm = max((x0-xs).lpNorm<Eigen::Infinity>(),u_cl.col(iter).lpNorm<Eigen::Infinity>()); // l-infinity norm of current state and control
-            cout << infNorm << endl;
+            //infNorm = max((x0-xs).lpNorm<Eigen::Infinity>(),u_cl.col(iter).lpNorm<Eigen::Infinity>()); // l-infinity norm of current state and control
+            infNormSt = (x0-xs).lpNorm<Eigen::Infinity>();
+            infNormCon = u_cl.col(iter).lpNorm<Eigen::Infinity>();
+            infNorm = max(infNormSt,infNormCon);
+            cout << infNormSt << endl << infNormCon << endl;
 
             iter++;
             cout << iter <<endl;
         }
 
         string converged;
-        if(infNorm < epsilon)
+
+        if(infNormSt < epsilon)
         {
             converged = "yes";
+            numConverged += 1;
         }
         else
         {
@@ -528,7 +562,7 @@ int main() {
         {
             const static IOFormat CSVFormat(FullPrecision, DontAlignCols, ", ", "\n");
             ofstream fout; // declare fout variable
-            string path = "/home/gbehrendt/CLionProjects/Satellite/mcResults2/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
+
             fout.open(path, std::ofstream::out | std::ofstream::trunc ); // open file to write to
 
             fout << "x (km),y (km),z (km),xdot (km/s),ydot (km/s),zdot (km/s),sq,v1,v2,v3,dw1 (rad/s),dw2 (rad/s),dw3 (rad/s),thrust1 (N),thrust2 (N),thrust3 (N),tau1 (rad/s^2),tau2 (rad/s^2),tau3 (rad/s^2),x0,Maximum Iterations,ts,N,MPC Loops,posCost,velCost,quatCost,angualarCost,thrustCost,torqueCost,"
@@ -571,20 +605,8 @@ int main() {
         }
 
 
-
-
-
         cout << "Trial #" << mcCount << " completed." << endl;
         mcCount++;
-
-
-
-
-
-
-
-
-
 
     }
     return 0;
