@@ -139,9 +139,9 @@ int main() {
         std::vector<double> x_init = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
         // Tunable Parameters
-        bool writeToFile = true; // choose to write to file or not
+        bool writeToFile = false; // choose to write to file or not
         string hessianApprox = "limited-memory"; // Choices: "limited-memory" or "exact" ("limited-memory" runs slightly faster, but "exact" works better for convergence i.e. less MPC loops)
-        string constraintType = "Euler"; // Choices: "RK4" or "Euler"
+        string constraintType = "RK4"; // Choices: "RK4" or "Euler"
         const int N = 100; // Prediction Horizon
         double ts = 10.0; // sampling period
         int maxIter = 100; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
@@ -427,7 +427,7 @@ int main() {
 
             std::vector<double> V_opt(sol.at("x"));
 
-            //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 963, 1> >(V_opt.data()); // N=100
+            //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 963, 1> >(V_opt.data()); // N=50
             Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(V_opt.data()); // N=100
             //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 3813, 1> >(V_opt.data()); // N=200
             //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 5713, 1> >(V_opt.data()); // N=300
