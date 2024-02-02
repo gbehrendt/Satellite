@@ -40,574 +40,499 @@ int main() {
     int mcCount = 0;
     int numConverged = 0;
 
-    // Begin Monte Carlo loop
-    while (getline(fin, item))
+    int maxIterArr[] = {1000};
+    int maxIterLength = sizeof(maxIterArr)/sizeof(maxIterArr[0]);
+    cout << maxIterLength << endl;
+
+    for(int kk=0; kk < maxIterLength; kk++)
     {
-        row.clear();
-        istringstream line(item);
-        while (getline(line, item, ','))
-        {
-            row.push_back(stod(item));
-        }
-
-        Eigen::MatrixXd storeRow = Eigen::Map<Eigen::Matrix<double, 14, 1> >(row.data());
-        Eigen::MatrixXd x0(13, 1);
-        for (int i = 0; i < 13; i++)
-        {
-            x0(i) = storeRow(i + 1);
-        }
-
-        // Declare states + controls
-        SX u1 = SX::sym("u1"); // x thrust
-        SX u2 = SX::sym("u2"); // y thrust
-        SX u3 = SX::sym("u3"); // z thrust
-        SX u4 = SX::sym("u4"); // x torque
-        SX u5 = SX::sym("u5"); // y torque
-        SX u6 = SX::sym("u6"); // z torque
-
-        SX controls = vertcat(u1,u2,u3,u4,u5,u6);
-
-        MX x = MX::sym("x");
-        MX y = MX::sym("y");
-        MX z = MX::sym("z");
-        MX dx = MX::sym("dx");
-        MX dy = MX::sym("dy");
-        MX dz = MX::sym("dz");
-        MX sq = MX::sym("sq");
-        MX vq = MX::sym("vq",3,1);
-        MX dw = MX::sym("dw",3,1);
-
-        MX states = vertcat(x,y,z,dx,dy,dz);
-        states = vertcat(states,sq,vq,dw);
-
-        // Number of differential states
-        const int numStates = states.size1();
-
-        // Number of controls
-        const int numControls = controls.size1();
-
-        // Bounds and initial guess for the control
-        double thrustMax = 1e-2;
-        double thrustMin = -thrustMax;
-        double torqueMax = 1e-4;
-        double torqueMin = -torqueMax;
-        std::vector<double> u_min =  { thrustMin, thrustMin, thrustMin, torqueMin, torqueMin, torqueMin };
-        std::vector<double> u_max  = { thrustMax, thrustMax, thrustMax, torqueMax, torqueMax, torqueMax };
-        std::vector<double> u_init = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-
-        // Initial Satellite Conditions + Problem Parameters
-        double tPeriod = 92.68 * 60; // ISS orbital period (seconds)
-        double n = -2*M_PI/tPeriod; // Mean motion of ISS (rad/s)
-        double mc = 12; // mass of the chaser
-
-        double xPos = x0(0);
-        double yPos = x0(1);
-        double zPos = x0(2);
-        double xVel = x0(3);
-        double yVel = x0(4);
-        double zVel = x0(5);
-        std::vector<double> q0 = { x0(6), x0(7), x0(8), x0(9) }; // Normalized [0.5,0.3,0.2,0.2]
-        std::vector<double> dw0 = { x0(10), x0(11), x0(12)};
-
-
-        cout << endl << xPos << endl;
-        cout << yPos << endl;
-        cout << zPos << endl;
-        cout << xVel << endl;
-        cout << yVel << endl;
-        cout << zVel << endl;
-        cout << q0 << endl;
-        cout << dw0 << endl;
-
-        // Bounds and initial guess for the state
-        std::vector<double> x0_min = {  xPos, yPos, zPos, xVel, yVel, zVel }; // initial position and velocity
-        x0_min.insert(x0_min.end(),q0.begin(),q0.end()); // append initial quaternion
-        x0_min.insert(x0_min.end(),dw0.begin(),dw0.end()); // append initial angular velocity
-
-        std::vector<double> x0_max = {  xPos, yPos, zPos, xVel, yVel, zVel };
-        x0_max.insert(x0_max.end(),q0.begin(),q0.end()); // append initial quaternion
-        x0_max.insert(x0_max.end(),dw0.begin(),dw0.end()); // append initial angular velocity
-
-        std::vector<double> x_min  = { -inf, -inf, -inf, -inf, -inf, -inf, 0, 0, 0, 0, -inf, -inf, -inf };
-        std::vector<double> x_max  = { inf, inf, inf, inf, inf, inf, 1, 1, 1, 1, inf, inf, inf };
-        double finalTol = 1e-8;
-//        std::vector<double> xf_min = { -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, 1.0-finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol };
-//        std::vector<double> xf_max = { finalTol, finalTol, finalTol, finalTol, finalTol, finalTol, 1.0+finalTol, finalTol, finalTol, finalTol, finalTol, finalTol, finalTol };
-        std::vector<double> xf_min = { -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf };
-        std::vector<double> xf_max = { inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf };
-
-        std::vector<double> x_init = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-
-        // Tunable Parameters
-        bool writeToFile = false; // choose to write to file or not
-        string hessianApprox = "limited-memory"; // Choices: "limited-memory" or "exact" ("limited-memory" runs slightly faster, but "exact" works better for convergence i.e. less MPC loops)
-        string constraintType = "RK4"; // Choices: "RK4" or "Euler"
-        const int N = 100; // Prediction Horizon
-        double ts = 10.0; // sampling period
-        int maxIter = 100; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
-        string timePath = "/home/gbehrendt/CLionProjects/untitled/Timing2/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
-        string path = "/home/gbehrendt/CLionProjects/untitled/Results2/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
-        cout << timePath << endl;
-
-        double posCost = 1e10;
-        double velCost = 1e2;
-        double quatCost = 1e12;
-        double angularCost = 1e12;
-        double thrustCost = 1e10;
-        double torqueCost = 1e-10;
-
-//        double posCost = 1e7;
-//        double velCost = 1e-10;
-//        double quatCost = 1e10;
-//        double angularCost = 1e8;
-//        double thrustCost = 1e-10;
-//        double torqueCost = 1e-10;
-
-//        maxIter = 10, converged @ 40, Euler
-//        double posCost = 1e-8;
-//        double velCost = 1e-8;
-//        double quatCost = 1e4;
-//        double angularCost = 1e2;
-//        double thrustCost = 1e0;
-//        double torqueCost = 1e-2;
-
-//        double posCost = 1e-8; 0.005
-//        double velCost = 1e-8;
-//        double quatCost = 1e0;
-//        double angularCost = 1e1;
-//        double thrustCost = 1e3;
-//        double torqueCost = 1e-2;
-
-
-        double finalPosCost = 0;
-        double finalVelCost = 0;
-        double finalQuatCost = 0;
-        double finalAngularCost = 0;
-
-        // Total number of NLP variables
-        const int numVars = numStates*(N+1) + numControls*N;
-
-        // Declare variable vector for the NLP
-        MX V = MX::sym("V",numVars);
-
-        // NLP variable bounds and initial guess
-        std::vector<double> v_min,v_max,v_init;
-
-        // Offset in V
-        int offset=0;
-
-        // State at each shooting node and control for each shooting interval
-        std::vector<MX> X, U;
-        for(int k=0; k<N; ++k){
-            // Local state
-            X.push_back( V.nz(Slice(offset,offset + numStates)));
-            if(k==0){
-                v_min.insert(v_min.end(), x0_min.begin(), x0_min.end());
-                v_max.insert(v_max.end(), x0_max.begin(), x0_max.end());
-            } else {
-                v_min.insert(v_min.end(), x_min.begin(), x_min.end());
-                v_max.insert(v_max.end(), x_max.begin(), x_max.end());
+        // Begin Monte Carlo loop
+        while (getline(fin, item)) {
+            row.clear();
+            istringstream line(item);
+            while (getline(line, item, ',')) {
+                row.push_back(stod(item));
             }
+
+            Eigen::MatrixXd storeRow = Eigen::Map<Eigen::Matrix<double, 14, 1> >(row.data());
+            Eigen::MatrixXd x0(13, 1);
+            for (int i = 0; i < 13; i++) {
+                x0(i) = storeRow(i + 1);
+            }
+
+            // Declare states + controls
+            SX u1 = SX::sym("u1"); // x thrust
+            SX u2 = SX::sym("u2"); // y thrust
+            SX u3 = SX::sym("u3"); // z thrust
+            SX u4 = SX::sym("u4"); // x torque
+            SX u5 = SX::sym("u5"); // y torque
+            SX u6 = SX::sym("u6"); // z torque
+
+            SX controls = vertcat(u1, u2, u3, u4, u5, u6);
+
+            MX x = MX::sym("x");
+            MX y = MX::sym("y");
+            MX z = MX::sym("z");
+            MX dx = MX::sym("dx");
+            MX dy = MX::sym("dy");
+            MX dz = MX::sym("dz");
+            MX sq = MX::sym("sq");
+            MX vq = MX::sym("vq", 3, 1);
+            MX dw = MX::sym("dw", 3, 1);
+
+            MX states = vertcat(x, y, z, dx, dy, dz);
+            states = vertcat(states, sq, vq, dw);
+
+            // Number of differential states
+            const int numStates = states.size1();
+
+            // Number of controls
+            const int numControls = controls.size1();
+
+            // Bounds and initial guess for the control
+            double thrustMax = 1e-2;
+            double thrustMin = -thrustMax;
+            double torqueMax = 1e-4;
+            double torqueMin = -torqueMax;
+            std::vector<double> u_min = {thrustMin, thrustMin, thrustMin, torqueMin, torqueMin, torqueMin};
+            std::vector<double> u_max = {thrustMax, thrustMax, thrustMax, torqueMax, torqueMax, torqueMax};
+            std::vector<double> u_init = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+
+            // Initial Satellite Conditions + Problem Parameters
+            double tPeriod = 92.68 * 60; // ISS orbital period (seconds)
+            double n = -2 * M_PI / tPeriod; // Mean motion of ISS (rad/s)
+            double mc = 12; // mass of the chaser
+
+            double xPos = x0(0);
+            double yPos = x0(1);
+            double zPos = x0(2);
+            double xVel = x0(3);
+            double yVel = x0(4);
+            double zVel = x0(5);
+            std::vector<double> q0 = {x0(6), x0(7), x0(8), x0(9)}; // Normalized [0.5,0.3,0.2,0.2]
+            std::vector<double> dw0 = {x0(10), x0(11), x0(12)};
+
+
+            cout << endl << xPos << endl;
+            cout << yPos << endl;
+            cout << zPos << endl;
+            cout << xVel << endl;
+            cout << yVel << endl;
+            cout << zVel << endl;
+            cout << q0 << endl;
+            cout << dw0 << endl;
+
+            // Bounds and initial guess for the state
+            std::vector<double> x0_min = {xPos, yPos, zPos, xVel, yVel, zVel}; // initial position and velocity
+            x0_min.insert(x0_min.end(), q0.begin(), q0.end()); // append initial quaternion
+            x0_min.insert(x0_min.end(), dw0.begin(), dw0.end()); // append initial angular velocity
+
+            std::vector<double> x0_max = {xPos, yPos, zPos, xVel, yVel, zVel};
+            x0_max.insert(x0_max.end(), q0.begin(), q0.end()); // append initial quaternion
+            x0_max.insert(x0_max.end(), dw0.begin(), dw0.end()); // append initial angular velocity
+
+            std::vector<double> x_min = {-inf, -inf, -inf, -inf, -inf, -inf, 0, 0, 0, 0, -inf, -inf, -inf};
+            std::vector<double> x_max = {inf, inf, inf, inf, inf, inf, 1, 1, 1, 1, inf, inf, inf};
+
+            std::vector<double> xf_min = {-inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf};
+            std::vector<double> xf_max = {inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf};
+
+            std::vector<double> x_init = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+
+            // Tunable Parameters
+            bool writeToFile = true; // choose to write to file or not
+            string hessianApprox = "exact"; // Choices: "limited-memory" or "exact"
+            string constraintType = "RK4"; // Choices: "RK4" or "Euler"
+            const int N = 100; // Prediction Horizon
+            double ts = 10.0; // sampling period
+            int maxIter = maxIterArr[kk]; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
+            string timePath = "/home/gbehrendt/CLionProjects/untitled/Timing2/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
+            string path = "/home/gbehrendt/CLionProjects/untitled/Results2/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
+
+            double posCost = 1e10;
+            double velCost = 1e2;
+            double quatCost = 1e12;
+            double angularCost = 1e12;
+            double thrustCost = 1e10;
+            double torqueCost = 1e-10;
+
+            // Total number of NLP variables
+            const int numVars = numStates * (N + 1) + numControls * N;
+
+            // Declare variable vector for the NLP
+            MX V = MX::sym("V", numVars);
+
+            // NLP variable bounds and initial guess
+            std::vector<double> v_min, v_max, v_init;
+
+            // Offset in V
+            int offset = 0;
+
+            // State at each shooting node and control for each shooting interval
+            std::vector<MX> X, U;
+            for (int k = 0; k < N; ++k) {
+                // Local state
+                X.push_back(V.nz(Slice(offset, offset + numStates)));
+                if (k == 0) {
+                    v_min.insert(v_min.end(), x0_min.begin(), x0_min.end());
+                    v_max.insert(v_max.end(), x0_max.begin(), x0_max.end());
+                } else {
+                    v_min.insert(v_min.end(), x_min.begin(), x_min.end());
+                    v_max.insert(v_max.end(), x_max.begin(), x_max.end());
+                }
+                v_init.insert(v_init.end(), x_init.begin(), x_init.end());
+                offset += numStates;
+
+                // Local control
+                U.push_back(V.nz(Slice(offset, offset + numControls)));
+                v_min.insert(v_min.end(), u_min.begin(), u_min.end());
+                v_max.insert(v_max.end(), u_max.begin(), u_max.end());
+                v_init.insert(v_init.end(), u_init.begin(), u_init.end());
+                offset += numControls;
+            }
+
+            // State at end
+            X.push_back(V.nz(Slice(offset, offset + numStates)));
+            v_min.insert(v_min.end(), xf_min.begin(), xf_min.end());
+            v_max.insert(v_max.end(), xf_max.begin(), xf_max.end());
             v_init.insert(v_init.end(), x_init.begin(), x_init.end());
             offset += numStates;
 
-            // Local control
-            U.push_back( V.nz(Slice(offset,offset + numControls)));
-            v_min.insert(v_min.end(), u_min.begin(), u_min.end());
-            v_max.insert(v_max.end(), u_max.begin(), u_max.end());
-            v_init.insert(v_init.end(), u_init.begin(), u_init.end());
-            offset += numControls;
-        }
+            // Make sure that the size of the variable vector is consistent with the number of variables that we have referenced
+            casadi_assert(offset == numVars, "");
 
-        // State at end
-        X.push_back(V.nz(Slice(offset,offset+numStates)));
-        v_min.insert(v_min.end(), xf_min.begin(), xf_min.end());
-        v_max.insert(v_max.end(), xf_max.begin(), xf_max.end());
-        v_init.insert(v_init.end(), x_init.begin(), x_init.end());
-        offset += numStates;
+            // Initialize Objective Function and Weighting Matrices
+            MX J = 0; // Objective Function
+            MX Q = MX::zeros(numStates, numStates);
+            MX R = MX::zeros(numControls, numControls);
 
-        // Make sure that the size of the variable vector is consistent with the number of variables that we have referenced
-        casadi_assert(offset==numVars, "");
+            Q(0, 0) = posCost; // xPos
+            Q(1, 1) = posCost; // yPos
+            Q(2, 2) = posCost; // zPos
+            Q(3, 3) = velCost; // dx
+            Q(4, 4) = velCost; // dy
+            Q(5, 5) = velCost; // dz
+            Q(6, 6) = quatCost; // sq
+            Q(7, 7) = quatCost; // vq
+            Q(8, 8) = quatCost; // vq
+            Q(9, 9) = quatCost; // vq
+            Q(10, 10) = angularCost; // dw
+            Q(11, 11) = angularCost; // dw
+            Q(12, 12) = angularCost; // dw
 
-        // Initialize Objective Function and Weighting Matrices
-        MX J = 0; // Objective Function
-        MX Q = MX::zeros(numStates,numStates);
-        MX R = MX::zeros(numControls,numControls);
-        MX Qf = MX::zeros(numStates,numStates);
+            R(0, 0) = thrustCost;
+            R(1, 1) = thrustCost;
+            R(2, 2) = thrustCost;
+            R(3, 3) = torqueCost;
+            R(4, 4) = torqueCost;
+            R(5, 5) = torqueCost;
 
-        Qf(0,0) = finalPosCost; // xPos
-        Qf(1,1) = finalPosCost; // yPos
-        Qf(2,2) = finalPosCost; // zPos
-        Qf(3,3) = finalVelCost; // dx
-        Qf(4,4) = finalVelCost; // dy
-        Qf(5,5) = finalVelCost; // dz
-        Qf(6,6) = finalQuatCost; // sq
-        Qf(7,7) = finalQuatCost; // vq
-        Qf(8,8) = finalQuatCost; // vq
-        Qf(9,9) = finalQuatCost; // vq
-        Qf(10,10) = finalAngularCost; // dw
-        Qf(11,11) = finalAngularCost; // dw
-        Qf(12,12) = finalAngularCost; // dw
+            MX xd = MX::zeros(numStates);
+            xd(0) = 0.0;
+            xd(1) = 0.0;
+            xd(2) = 0.0;
+            xd(3) = 0.0;
+            xd(4) = 0.0;
+            xd(5) = 0.0;
+            xd(6) = 1.0;
+            xd(7) = 0.0;
+            xd(8) = 0.0;
+            xd(9) = 0.0;
+            xd(10) = 0.0;
+            xd(11) = 0.0;
+            xd(12) = 0.0;
 
+            //Constraint function and bounds
+            std::vector<MX> g, gAlgebraic;
+            MX k1, k2, k3, k4, stNextRK4, stNextEuler;
+            MX Rtc_k1, Rtc_k2, Rtc_k3, Rtc_k4;
 
-        Q(0,0) = posCost; // xPos
-        Q(1,1) = posCost; // yPos
-        Q(2,2) = posCost; // zPos
-        Q(3,3) = velCost; // dx
-        Q(4,4) = velCost; // dy
-        Q(5,5) = velCost; // dz
-        Q(6,6) = quatCost; // sq
-        Q(7,7) = quatCost; // vq
-        Q(8,8) = quatCost; // vq
-        Q(9,9) = quatCost; // vq
-        Q(10,10) = angularCost; // dw
-        Q(11,11) = angularCost; // dw
-        Q(12,12) = angularCost; // dw
+            if (constraintType == "RK4") {
+                // Loop over shooting nodes
+                for (int k = 0; k < N; ++k) {
+                    // algebraic definition of constraints
+                    Rtc_k1 = q2R(X[k]);
+                    k1 = f(X[k], U[k], Rtc_k1, n, mc);
 
-        R(0,0) = thrustCost;
-        R(1,1) = thrustCost;
-        R(2,2) = thrustCost;
-        R(3,3) = torqueCost;
-        R(4,4) = torqueCost;
-        R(5,5) = torqueCost;
+                    Rtc_k2 = q2R(X[k] + (ts / 2) * k1);
+                    k2 = f(X[k] + (ts / 2) * k1, U[k], Rtc_k2, n, mc);
 
-        MX xd = MX::zeros(numStates);
-        xd(0) = 0.0; xd(1) = 0.0; xd(2) = 0.0;
-        xd(3) = 0.0; xd(4) = 0.0; xd(5) = 0.0;
-        xd(6) = 1.0; xd(7) = 0.0; xd(8) = 0.0; xd(9) = 0.0;
-        xd(10) = 0.0; xd(11) = 0.0; xd(12) = 0.0;
+                    Rtc_k3 = q2R(X[k] + (ts / 2) * k2);
+                    k3 = f(X[k] + (ts / 2) * k2, U[k], Rtc_k3, n, mc);
 
-        //Constraint function and bounds
-        std::vector<MX> g,gAlgebraic;
-        MX k1,k2,k3,k4,stNextRK4, stNextEuler;
-        MX Rtc_k1, Rtc_k2, Rtc_k3, Rtc_k4;
+                    Rtc_k4 = q2R(X[k] + ts * k3);
+                    k4 = f(X[k] + ts * k3, U[k], Rtc_k4, n, mc);
 
-        if (constraintType == "RK4")
-        {
-            // Loop over shooting nodes
-            for(int k=0; k<N; ++k){
-                // algebraic definition of constraints
-                Rtc_k1 = q2R(X[k]);
-                k1 = f(X[k],U[k],Rtc_k1,n,mc);
+                    stNextRK4 = X[k] + (ts / 6) * (k1 + 2 * k2 + 2 * k3 + k4);
 
-                Rtc_k2 = q2R(X[k] + (ts/2)*k1);
-                k2 = f(X[k] + (ts/2)*k1,U[k],Rtc_k2,n,mc);
+                    // Save continuity constraints
+                    gAlgebraic.push_back(stNextRK4 - X[k + 1]);
 
-                Rtc_k3 = q2R(X[k] + (ts/2)*k2);
-                k3 = f(X[k] + (ts/2)*k2,U[k],Rtc_k3,n,mc);
+                    // Add objective function contribution
+                    J += mtimes(mtimes((X[k] - xd).T(), Q), (X[k] - xd)) + mtimes(mtimes(U[k].T(), R), U[k]);
+                }
+            } else if (constraintType == "Euler") {
+                for (int k = 0; k < N; ++k) {
+                    // algebraic definition of constraints
+                    Rtc_k1 = q2R(X[k]);
+                    stNextEuler = X[k] + ts * f(X[k], U[k], Rtc_k1, n, mc);
 
-                Rtc_k4 = q2R(X[k] + ts*k3);
-                k4 = f(X[k] + ts*k3,U[k],Rtc_k4,n,mc);
+                    // Save continuity constraints
+                    gAlgebraic.push_back(stNextEuler - X[k + 1]);
 
-                stNextRK4 = X[k] + (ts/6)*(k1 + 2*k2 + 2*k3 + k4);
-
-                // Save continuity constraints
-                gAlgebraic.push_back( stNextRK4 - X[k+1] );
-
-                // Add objective function contribution
-                J += mtimes(mtimes((X[k]-xd).T(),Q),(X[k]-xd)) + mtimes(mtimes(U[k].T(),R),U[k]);
-            }
-        }
-        else if(constraintType == "Euler")
-        {
-            for(int k=0; k<N; ++k){
-                // algebraic definition of constraints
-                Rtc_k1 = q2R(X[k]);
-                stNextEuler = X[k] + ts*f(X[k],U[k],Rtc_k1,n,mc);
-
-                // Save continuity constraints
-                gAlgebraic.push_back( stNextEuler - X[k+1] );
-
-                // Add objective function contribution
-                J += mtimes(mtimes((X[k]-xd).T(),Q),(X[k]-xd)) + mtimes(mtimes(U[k].T(),R),U[k]);
-            }
-        }
-
-        // Terminal cost
-        J += mtimes(mtimes((X[N]-xd).T(),Qf),(X[N]-xd));
-
-        //cout << gAlgebraic.size() <<endl;
-
-        // NLP
-        MXDict nlp = {{"x", V}, {"f", J}, {"g", vertcat(gAlgebraic)}};
-
-        // Set options
-
-        //cout << timePath << endl;
-        Dict opts;
-        if(writeToFile == true)
-        {
-            opts["ipopt.tol"] = 1e-5;
-            opts["ipopt.max_iter"] = maxIter;
-            opts["ipopt.hessian_approximation"] = hessianApprox; // for no max iterations change from "limited-memory" to "exact"
-            opts["ipopt.print_level"] = 0;
-            opts["ipopt.acceptable_tol"] = 1e-8;
-            opts["ipopt.acceptable_obj_change_tol"] = 1e-6;
-            opts["expand"] = false;
-            opts["ipopt.file_print_level"] = 3;
-            opts["ipopt.output_file"] = timePath;
-            opts["ipopt.print_timing_statistics"] = "yes";
-        }
-        else if(writeToFile == false)
-        {
-            opts["ipopt.tol"] = 1e-5;
-            opts["ipopt.max_iter"] = maxIter;
-            opts["ipopt.hessian_approximation"] = hessianApprox; // for no max iterations change from "limited-memory" to "exact"
-            opts["ipopt.print_level"] = 0;
-            opts["ipopt.acceptable_tol"] = 1e-8;
-            opts["ipopt.acceptable_obj_change_tol"] = 1e-6;
-            opts["expand"] = false;
-        }
-
-        // Create an NLP solver and buffers
-        std::map<std::string, DM> arg, res, sol;
-        Function solver = nlpsol("nlpsol", "ipopt", nlp, opts);
-
-        // Bounds and initial guess
-        arg["lbx"] = v_min;
-        arg["ubx"] = v_max;
-        arg["lbg"] = 0;
-        arg["ubg"] = 0;
-        arg["x0"] = v_init;
-
-        //---------------------//
-        //      MPC Loop       //
-        //---------------------//
-//        Eigen::MatrixXd wcInit(3,1);
-//        Eigen::MatrixXd wtInit(3,1);
-//        Eigen::MatrixXd dwInit(3,1);
-//        Eigen::MatrixXd qInit(4,1);
-//        Eigen::MatrixXd RtcInit(3,3);
-
-        // Define initial condition
-//        wcInit << wc0[0] , wc0[1], wc0[2];
-//        wtInit << 0 , 0, n;
-//        qInit << q0[0],q0[1],q0[2],q0[3];
-//        RtcInit = q2R(qInit);
-//        dwInit = wcInit - RtcInit.transpose()*wtInit;
-
-        Eigen::MatrixXd Storex0(numStates,1);
-        Storex0 = x0;
-
-        // Define docking configuration
-        Eigen::MatrixXd xs(numStates,1);
-        xs << 0,0,0,0,0,0,1,0,0,0,0,0,0;
-
-
-        Eigen::MatrixXd xx(numStates, N+1);
-        xx.col(0) = x0;
-        Eigen::MatrixXd xx1(numStates, N+1);
-        Eigen::MatrixXd X0(numStates,N+1);
-        Eigen::MatrixXd u0;
-        Eigen::MatrixXd uwu(numControls,N);
-        Eigen::MatrixXd u_cl(numControls,N);
-
-        vector<vector<double> > MPCstates(numStates);
-        vector<vector<double> > MPCcontrols(numControls);
-
-
-        for(int j=0; j<numStates; j++)
-        {
-            MPCstates[j].push_back(x0(j));
-        }
-
-        // Start MPC
-        int iter = 0;
-        double epsilon = 1e-3;
-        double tau = 1e-3;
-        cout <<numVars<<endl;
-        double infNormSt = 10;
-        double infNormCon = 10;
-        double infNorm = 10;
-
-        while( (infNormSt > epsilon || infNormCon > tau) && iter < N && infNormSt < 100)
-        {
-            // Solve NLP
-            sol = solver(arg);
-
-            std::vector<double> V_opt(sol.at("x"));
-
-            //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 963, 1> >(V_opt.data()); // N=50
-            Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(V_opt.data()); // N=100
-            //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 3813, 1> >(V_opt.data()); // N=200
-            //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 5713, 1> >(V_opt.data()); // N=300
-            //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 7713, 1> >(V_opt.data()); // N=400
-            //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 9513, 1> >(V_opt.data()); // N=500
-            //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 11513, 1> >(V_opt.data()); // N=600
-
-            // Store Solution
-            for(int i=0; i<=N; ++i)
-            {
-                xx1(0,i) = V(i*(numStates+numControls));
-                xx1(1,i) = V(1+i*(numStates+numControls));
-                xx1(2,i) = V(2+i*(numStates+numControls));
-                xx1(3,i) = V(3+i*(numStates+numControls));
-                xx1(4,i) = V(4+i*(numStates+numControls));
-                xx1(5,i) = V(5+i*(numStates+numControls));
-                xx1(6,i) = V(6+i*(numStates+numControls));
-                xx1(7,i) = V(7+i*(numStates+numControls));
-                xx1(8,i) = V(8+i*(numStates+numControls));
-                xx1(9,i) = V(9+i*(numStates+numControls));
-                xx1(10,i) = V(10+i*(numStates+numControls));
-                xx1(11,i) = V(11+i*(numStates+numControls));
-                xx1(12,i) = V(12+i*(numStates+numControls));
-                if(i < N)
-                {
-                    uwu(0,i)= V(numStates + i*(numStates+numControls));
-                    uwu(1,i) = V(1+numStates + i*(numStates+numControls));
-                    uwu(2,i) = V(2+numStates + i*(numStates+numControls));
-                    uwu(3,i) = V(3+numStates + i*(numStates+numControls));
-                    uwu(4,i) = V(4+numStates + i*(numStates+numControls));
-                    uwu(5,i) = V(5+numStates + i*(numStates+numControls));
+                    // Add objective function contribution
+                    J += mtimes(mtimes((X[k] - xd).T(), Q), (X[k] - xd)) + mtimes(mtimes(U[k].T(), R), U[k]);
                 }
             }
+
+            // NLP
+            MXDict nlp = {{"x", V},
+                          {"f", J},
+                          {"g", vertcat(gAlgebraic)}};
+
+            // Set options
+            Dict opts;
+            if (writeToFile == true) {
+                opts["ipopt.tol"] = 1e-5;
+                opts["ipopt.max_iter"] = maxIter;
+                opts["ipopt.hessian_approximation"] = hessianApprox; // for no max iterations change from "limited-memory" to "exact"
+                opts["ipopt.print_level"] = 5;
+                opts["ipopt.acceptable_tol"] = 1e-8;
+                opts["ipopt.acceptable_obj_change_tol"] = 1e-6;
+                opts["expand"] = false;
+                opts["ipopt.file_print_level"] = 3;
+                opts["ipopt.output_file"] = timePath;
+                opts["ipopt.print_timing_statistics"] = "yes";
+            } else if (writeToFile == false) {
+                opts["ipopt.tol"] = 1e-5;
+                opts["ipopt.max_iter"] = maxIter;
+                opts["ipopt.hessian_approximation"] = hessianApprox; // for no max iterations change from "limited-memory" to "exact"
+                opts["ipopt.print_level"] = 5;
+                opts["ipopt.acceptable_tol"] = 1e-8;
+                opts["ipopt.acceptable_obj_change_tol"] = 1e-6;
+                opts["expand"] = false;
+            }
+
+            // Create an NLP solver and buffers
+            std::map<std::string, DM> arg, res, sol;
+            Function solver = nlpsol("nlpsol", "ipopt", nlp, opts);
+
+            // Bounds and initial guess
+            arg["lbx"] = v_min;
+            arg["ubx"] = v_max;
+            arg["lbg"] = 0;
+            arg["ubg"] = 0;
+            arg["x0"] = v_init;
+
+            //---------------------//
+            //      MPC Loop       //
+            //---------------------//
+            Eigen::MatrixXd Storex0(numStates, 1);
+            Storex0 = x0;
+
+            // Define docking configuration
+            Eigen::MatrixXd xs(numStates, 1);
+            xs << 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0;
+
+
+            Eigen::MatrixXd xx(numStates, N + 1);
+            xx.col(0) = x0;
+            Eigen::MatrixXd xx1(numStates, N + 1);
+            Eigen::MatrixXd X0(numStates, N + 1);
+            Eigen::MatrixXd u0;
+            Eigen::MatrixXd uwu(numControls, N);
+            Eigen::MatrixXd u_cl(numControls, N);
+
+            vector<vector<double> > MPCstates(numStates);
+            vector<vector<double> > MPCcontrols(numControls);
+
+
+            for (int j = 0; j < numStates; j++) {
+                MPCstates[j].push_back(x0(j));
+            }
+
+            // Start MPC
+            int iter = 0;
+            double epsilon = 1e-3;
+            double tau = 1e-3;
+            cout << numVars << endl;
+            double infNormSt = 10;
+            double infNormCon = 10;
+            double infNorm = 10;
+
+            while ((infNormSt > epsilon || infNormCon > tau) && iter < N && infNormSt < 100) {
+                // Solve NLP
+                sol = solver(arg);
+
+                std::vector<double> V_opt(sol.at("x"));
+
+                Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(V_opt.data()); // N=100
+
+                // Store Solution
+                for (int i = 0; i <= N; ++i) {
+                    xx1(0, i) = V(i * (numStates + numControls));
+                    xx1(1, i) = V(1 + i * (numStates + numControls));
+                    xx1(2, i) = V(2 + i * (numStates + numControls));
+                    xx1(3, i) = V(3 + i * (numStates + numControls));
+                    xx1(4, i) = V(4 + i * (numStates + numControls));
+                    xx1(5, i) = V(5 + i * (numStates + numControls));
+                    xx1(6, i) = V(6 + i * (numStates + numControls));
+                    xx1(7, i) = V(7 + i * (numStates + numControls));
+                    xx1(8, i) = V(8 + i * (numStates + numControls));
+                    xx1(9, i) = V(9 + i * (numStates + numControls));
+                    xx1(10, i) = V(10 + i * (numStates + numControls));
+                    xx1(11, i) = V(11 + i * (numStates + numControls));
+                    xx1(12, i) = V(12 + i * (numStates + numControls));
+                    if (i < N) {
+                        uwu(0, i) = V(numStates + i * (numStates + numControls));
+                        uwu(1, i) = V(1 + numStates + i * (numStates + numControls));
+                        uwu(2, i) = V(2 + numStates + i * (numStates + numControls));
+                        uwu(3, i) = V(3 + numStates + i * (numStates + numControls));
+                        uwu(4, i) = V(4 + numStates + i * (numStates + numControls));
+                        uwu(5, i) = V(5 + numStates + i * (numStates + numControls));
+                    }
+                }
 //            cout << "NLP States:" << endl << xx1 << endl;
 //            cout <<endl;
 //            cout << "NLP Controls:" << endl <<  uwu << endl;
 //            cout <<endl;
 
-            // Get solution Trajectory
-            u_cl.col(iter) = uwu.col(0); // Store first control action from optimal sequence
+                // Get solution Trajectory
+                u_cl.col(iter) = uwu.col(0); // Store first control action from optimal sequence
 
-            // Apply control and shift solution
-            shiftRK4(N,ts,x0,uwu,u0,n,mc);
-            xx(Eigen::placeholders::all,iter+1)=x0;
+                // Apply control and shift solution
+                shiftRK4(N, ts, x0, uwu, u0, n, mc);
+                xx(Eigen::placeholders::all, iter + 1) = x0;
 
-            // Shift trajectory to initialize next step
-            std::vector<int> ind(N) ; // vector with N-1 integers to be filled
-            std::iota (std::begin(ind), std::end(ind), 1); // fill vector with N integers starting at 1
-            X0 = xx1(Eigen::placeholders::all,ind); // assign X0 with columns 1-(N) of xx1
-            X0.conservativeResize(X0.rows(), X0.cols()+1);
-            X0.col(X0.cols()-1) = xx1(Eigen::placeholders::all,Eigen::placeholders::last);
+                // Shift trajectory to initialize next step
+                std::vector<int> ind(N); // vector with N-1 integers to be filled
+                std::iota(std::begin(ind), std::end(ind), 1); // fill vector with N integers starting at 1
+                X0 = xx1(Eigen::placeholders::all, ind); // assign X0 with columns 1-(N) of xx1
+                X0.conservativeResize(X0.rows(), X0.cols() + 1);
+                X0.col(X0.cols() - 1) = xx1(Eigen::placeholders::all, Eigen::placeholders::last);
 
 //            cout << "MPC States:" << endl << xx << endl;
 //            cout <<endl;
 //            cout << "MPC Controls:" << endl << u_cl << endl << endl;
 
-            for(int j=0; j<numStates; j++)
-            {
-                MPCstates[j].push_back(x0(j));
-            }
-
-            for(int j=0; j<numControls; j++)
-            {
-                MPCcontrols[j].push_back(u_cl(j,iter));
-            }
-
-            // Re-initialize Problem Parameters
-            v_min.erase(v_min.begin(),v_min.begin()+numStates);
-            v_min.insert(v_min.begin(),x0(12));
-            v_min.insert(v_min.begin(),x0(11));
-            v_min.insert(v_min.begin(),x0(10));
-            v_min.insert(v_min.begin(),x0(9));
-            v_min.insert(v_min.begin(),x0(8));
-            v_min.insert(v_min.begin(),x0(7));
-            v_min.insert(v_min.begin(),x0(6));
-            v_min.insert(v_min.begin(),x0(5));
-            v_min.insert(v_min.begin(),x0(4));
-            v_min.insert(v_min.begin(),x0(3));
-            v_min.insert(v_min.begin(),x0(2));
-            v_min.insert(v_min.begin(),x0(1));
-            v_min.insert(v_min.begin(),x0(0));
-
-            v_max.erase(v_max.begin(),v_max.begin()+numStates);
-            v_max.insert(v_max.begin(),x0(12));
-            v_max.insert(v_max.begin(),x0(11));
-            v_max.insert(v_max.begin(),x0(10));
-            v_max.insert(v_max.begin(),x0(9));
-            v_max.insert(v_max.begin(),x0(8));
-            v_max.insert(v_max.begin(),x0(7));
-            v_max.insert(v_max.begin(),x0(6));
-            v_max.insert(v_max.begin(),x0(5));
-            v_max.insert(v_max.begin(),x0(4));
-            v_max.insert(v_max.begin(),x0(3));
-            v_max.insert(v_max.begin(),x0(2));
-            v_max.insert(v_max.begin(),x0(1));
-            v_max.insert(v_max.begin(),x0(0));
-
-            // Re-initialize initial guess
-            v_init = V_opt;
-            v_init.erase(v_init.begin(),v_init.begin()+(numStates + numControls));
-            std::vector<double> finalStates;
-            copy(v_init.end()-(numStates+numControls),v_init.end(),back_inserter(finalStates));
-            v_init.insert(v_init.end(),finalStates.begin(),finalStates.end());
-
-            arg["lbx"] = v_min;
-            arg["ubx"] = v_max;
-            arg["x0"] = v_init;
-
-            //infNorm = max((x0-xs).lpNorm<Eigen::Infinity>(),u_cl.col(iter).lpNorm<Eigen::Infinity>()); // l-infinity norm of current state and control
-            infNormSt = (x0-xs).lpNorm<Eigen::Infinity>();
-            infNormCon = u_cl.col(iter).lpNorm<Eigen::Infinity>();
-            infNorm = max(infNormSt,infNormCon);
-            cout << infNormSt << endl << infNormCon << endl;
-
-            iter++;
-            cout << iter <<endl;
-        }
-
-        string converged;
-
-        if(infNormSt < epsilon)
-        {
-            converged = "yes";
-            numConverged += 1;
-        }
-        else
-        {
-            converged = "no";
-        }
-
-        if(writeToFile == true)
-        {
-            const static IOFormat CSVFormat(FullPrecision, DontAlignCols, ", ", "\n");
-            ofstream fout; // declare fout variable
-
-            fout.open(path, std::ofstream::out | std::ofstream::trunc ); // open file to write to
-
-            fout << "x (km),y (km),z (km),xdot (km/s),ydot (km/s),zdot (km/s),sq,v1,v2,v3,dw1 (rad/s),dw2 (rad/s),dw3 (rad/s),thrust1 (N),thrust2 (N),thrust3 (N),tau1 (rad/s^2),tau2 (rad/s^2),tau3 (rad/s^2),x0,Maximum Iterations,ts,N,MPC Loops,posCost,velCost,quatCost,angualarCost,thrustCost,torqueCost,"
-                    "finalPosCost,finalVelCost,finalQuatCost,finalAngualarCost,thrustMax,torqueMax,Constraint Type,Trial,converged?,infNorm" <<endl;
-
-            for(int j=0; j < iter; j++)
-            {
-                if(j==0)
-                {
-                    for(int i=0; i < (MPCstates.size() + MPCcontrols.size()); i++)
-                    {
-                        if (i < numStates) {
-                            fout << MPCstates[i][j] << ",";
-                        }
-                        else if (i < numStates + numControls) {
-                            fout << MPCcontrols[i - numStates][j] << ",";
-                        }
-                    }
-                    fout<< Storex0(j)<<","<<maxIter <<","<<ts<<","<<N<<","<<iter<<","<<posCost<<","<<velCost<<","<<quatCost<<","<<angularCost<<","<<thrustCost <<","<<torqueCost<<","
-                        <<finalPosCost<<","<<finalVelCost<<","<<finalQuatCost<<","<<finalAngularCost<<","<<thrustMax<<","<<torqueMax<<","<<constraintType<<","<<mcCount<<","<<converged<<","<<infNorm;
+                for (int j = 0; j < numStates; j++) {
+                    MPCstates[j].push_back(x0(j));
                 }
-                else{
-                    for(int i=0; i < (MPCstates.size() + MPCcontrols.size()); i++)
-                    {
-                        if (i < numStates) {
-                            fout << MPCstates[i][j] << ",";
-                        }
-                        else if (i < numStates + numControls) {
-                            fout << MPCcontrols[i - numStates][j] << ",";
-                        }
-                    }
-                    if(j<numStates){
-                        fout<<Storex0(j)<<",";
-                    }
+
+                for (int j = 0; j < numControls; j++) {
+                    MPCcontrols[j].push_back(u_cl(j, iter));
                 }
-                fout<<endl;
+
+                // Re-initialize Problem Parameters
+                v_min.erase(v_min.begin(), v_min.begin() + numStates);
+                v_min.insert(v_min.begin(), x0(12));
+                v_min.insert(v_min.begin(), x0(11));
+                v_min.insert(v_min.begin(), x0(10));
+                v_min.insert(v_min.begin(), x0(9));
+                v_min.insert(v_min.begin(), x0(8));
+                v_min.insert(v_min.begin(), x0(7));
+                v_min.insert(v_min.begin(), x0(6));
+                v_min.insert(v_min.begin(), x0(5));
+                v_min.insert(v_min.begin(), x0(4));
+                v_min.insert(v_min.begin(), x0(3));
+                v_min.insert(v_min.begin(), x0(2));
+                v_min.insert(v_min.begin(), x0(1));
+                v_min.insert(v_min.begin(), x0(0));
+
+                v_max.erase(v_max.begin(), v_max.begin() + numStates);
+                v_max.insert(v_max.begin(), x0(12));
+                v_max.insert(v_max.begin(), x0(11));
+                v_max.insert(v_max.begin(), x0(10));
+                v_max.insert(v_max.begin(), x0(9));
+                v_max.insert(v_max.begin(), x0(8));
+                v_max.insert(v_max.begin(), x0(7));
+                v_max.insert(v_max.begin(), x0(6));
+                v_max.insert(v_max.begin(), x0(5));
+                v_max.insert(v_max.begin(), x0(4));
+                v_max.insert(v_max.begin(), x0(3));
+                v_max.insert(v_max.begin(), x0(2));
+                v_max.insert(v_max.begin(), x0(1));
+                v_max.insert(v_max.begin(), x0(0));
+
+                // Re-initialize initial guess
+                v_init = V_opt;
+                v_init.erase(v_init.begin(), v_init.begin() + (numStates + numControls));
+                std::vector<double> finalStates;
+                copy(v_init.end() - (numStates + numControls), v_init.end(), back_inserter(finalStates));
+                v_init.insert(v_init.end(), finalStates.begin(), finalStates.end());
+
+                arg["lbx"] = v_min;
+                arg["ubx"] = v_max;
+                arg["x0"] = v_init;
+
+                //infNorm = max((x0-xs).lpNorm<Eigen::Infinity>(),u_cl.col(iter).lpNorm<Eigen::Infinity>()); // l-infinity norm of current state and control
+                infNormSt = (x0 - xs).lpNorm<Eigen::Infinity>();
+                infNormCon = u_cl.col(iter).lpNorm<Eigen::Infinity>();
+                infNorm = max(infNormSt, infNormCon);
+//                cout << infNormSt << endl << infNormCon << endl;
+
+                iter++;
+//                cout << iter << endl;
             }
 
-            fout.close();
+            string converged;
+
+            if (infNormSt < epsilon) {
+                converged = "yes";
+                numConverged += 1;
+                printf("*************************** maxIter: %d  Trial #%d = SUCCESS!!! *************************** \n",maxIterArr[kk],mcCount);
+            }
+            else {
+                converged = "no";
+            }
+
+            if (writeToFile == true) {
+                const static IOFormat CSVFormat(FullPrecision, DontAlignCols, ", ", "\n");
+                ofstream fout; // declare fout variable
+
+                fout.open(path, std::ofstream::out | std::ofstream::trunc); // open file to write to
+
+                fout
+                        << "x (km),y (km),z (km),xdot (km/s),ydot (km/s),zdot (km/s),sq,v1,v2,v3,dw1 (rad/s),dw2 (rad/s),dw3 (rad/s),thrust1 (N),thrust2 (N),thrust3 (N),tau1 (rad/s^2),tau2 (rad/s^2),tau3 (rad/s^2),x0,Maximum Iterations,ts,N,MPC Loops,posCost,velCost,quatCost,angualarCost,thrustCost,torqueCost,"
+                           "thrustMax,torqueMax,Constraint Type,Trial,converged?,infNorm"
+                        << endl;
+
+                for (int j = 0; j < iter; j++) {
+                    if (j == 0) {
+                        for (int i = 0; i < (MPCstates.size() + MPCcontrols.size()); i++) {
+                            if (i < numStates) {
+                                fout << MPCstates[i][j] << ",";
+                            } else if (i < numStates + numControls) {
+                                fout << MPCcontrols[i - numStates][j] << ",";
+                            }
+                        }
+                        fout << Storex0(j) << "," << maxIter << "," << ts << "," << N << "," << iter << "," << posCost
+                             << "," << velCost << "," << quatCost << "," << angularCost << "," << thrustCost << "," << torqueCost << ","
+                             <<  thrustMax << "," << torqueMax << "," << constraintType << "," << mcCount << ","
+                             << converged << "," << infNorm;
+                    } else {
+                        for (int i = 0; i < (MPCstates.size() + MPCcontrols.size()); i++) {
+                            if (i < numStates) {
+                                fout << MPCstates[i][j] << ",";
+                            } else if (i < numStates + numControls) {
+                                fout << MPCcontrols[i - numStates][j] << ",";
+                            }
+                        }
+                        if (j < numStates) {
+                            fout << Storex0(j) << ",";
+                        }
+                    }
+                    fout << endl;
+                }
+
+                fout.close();
+            }
+
+
+            cout << "Trial #" << mcCount << " completed." << endl;
+            mcCount++;
+
         }
-
-
-        cout << "Trial #" << mcCount << " completed." << endl;
-        mcCount++;
-
     }
     return 0;
 }

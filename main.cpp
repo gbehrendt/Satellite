@@ -65,24 +65,6 @@ int main() {
     double n = -2*M_PI/tPeriod; // Mean motion of ISS (rad/s)
     double mc = 12; // mass of the chaser
 
-//    double xPos = 1.5;
-//    double xVel = 0.0001;
-//    double yPos = (2/n)*xVel;
-//    double yVel = -2*n*xPos;
-//    double zPos = 1.0;
-//    double zVel = 0.001;
-//    std::vector<double> q0 = { 0.771517, 0.46291, 0.308607, 0.308607 }; // Normalized [0.5,0.3,0.2,0.2]
-//    std::vector<double> dw0 = { 0.0, 0.0, -0.005 };
-
-//    wcInit << wc0[0] , wc0[1], wc0[2];
-//    wtInit << 0 , 0, n;
-//    qInit << q0[0],q0[1],q0[2],q0[3];
-//    RtcInit = q2R(qInit);
-//    dwInit = wcInit - RtcInit.transpose()*wtInit;
-//
-//    cout << dwInit << endl;
-//    std::vector<double> dw0 = { dwInit(0), dwInit(1), dwInit(2) };
-
     double xPos = -0.229859413707814;
     double yPos = -1.12947834203547;
     double zPos = -1.46610637574145;
@@ -103,9 +85,10 @@ int main() {
 
     std::vector<double> x_min  = { -inf, -inf, -inf, -inf, -inf, -inf, -1, -1, -1, -1, -inf, -inf, -inf };
     std::vector<double> x_max  = { inf, inf, inf, inf, inf, inf, 1, 1, 1, 1, inf, inf, inf };
-    double finalTol = 1e-8;
-    std::vector<double> xf_min = { -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, 1.0-finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol, -finalTol };
-    std::vector<double> xf_max = { finalTol, finalTol, finalTol, finalTol, finalTol, finalTol, 1.0+finalTol, finalTol, finalTol, finalTol, finalTol, finalTol, finalTol };
+
+    std::vector<double> xf_min = {-inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf};
+    std::vector<double> xf_max = {inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf};
+
     std::vector<double> x_init = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
     // Tunable Parameters
@@ -113,20 +96,15 @@ int main() {
     string hessianApprox = "limited-memory"; // Choices: "limited-memory" or "exact" ("limited-memory" runs slightly faster, but "exact" works better for convergence i.e. less MPC loops)
     string constraintType = "RK4"; // Choices: "RK4" or "Euler"
     const int N = 100; // Prediction Horizon
-    double ts = 5.0; // sampling period
+    double ts = 10.0; // sampling period
     int maxIter = 5; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
 
-    double posCost = 1e4;
-    double velCost = 1e3;
-    double quatCost = 1e6;
-    double angularCost = 1e4;
-    double thrustCost = 1e-5;
-    double torqueCost = 1e-5;
-
-    double finalPosCost = 0;
-    double finalVelCost = 0;
-    double finalQuatCost = 0;
-    double finalAngularCost = 0;
+    double posCost = 1e10;
+    double velCost = 1e2;
+    double quatCost = 1e12;
+    double angularCost = 1e12;
+    double thrustCost = 1e10;
+    double torqueCost = 1e-10;
 
     // Total number of NLP variables
     const int numVars = numStates*(N+1) + numControls*N;
@@ -177,22 +155,6 @@ int main() {
     MX J = 0; // Objective Function
     MX Q = MX::zeros(numStates,numStates);
     MX R = MX::zeros(numControls,numControls);
-    MX Qf = MX::zeros(numStates,numStates);
-
-    Qf(0,0) = finalPosCost; // xPos
-    Qf(1,1) = finalPosCost; // yPos
-    Qf(2,2) = finalPosCost; // zPos
-    Qf(3,3) = finalVelCost; // dx
-    Qf(4,4) = finalVelCost; // dy
-    Qf(5,5) = finalVelCost; // dz
-    Qf(6,6) = finalQuatCost; // sq
-    Qf(7,7) = finalQuatCost; // vq
-    Qf(8,8) = finalQuatCost; // vq
-    Qf(9,9) = finalQuatCost; // vq
-    Qf(10,10) = finalAngularCost; // dw
-    Qf(11,11) = finalAngularCost; // dw
-    Qf(12,12) = finalAngularCost; // dw
-
 
     Q(0,0) = posCost; // xPos
     Q(1,1) = posCost; // yPos
@@ -267,12 +229,6 @@ int main() {
         }
     }
 
-    // Terminal cost
-    J += mtimes(mtimes((X[N]-xd).T(),Qf),(X[N]-xd));
-
-    //cout << gAlgebraic.size() <<endl;
-
-
     // NLP
     MXDict nlp = {{"x", V}, {"f", J}, {"g", vertcat(gAlgebraic)}};
 
@@ -303,8 +259,6 @@ int main() {
         opts["expand"] = false;
     }
 
-
-
     // Create an NLP solver and buffers
     std::map<std::string, DM> arg, res, sol;
     Function solver = nlpsol("nlpsol", "ipopt", nlp, opts);
@@ -319,11 +273,6 @@ int main() {
     //---------------------//
     //      MPC Loop       //
     //---------------------//
-//    Eigen::MatrixXd wcInit(3,1);
-//    Eigen::MatrixXd wtInit(3,1);
-//    Eigen::MatrixXd dwInit(3,1);
-//    Eigen::MatrixXd qInit(4,1);
-//    Eigen::MatrixXd RtcInit(3,3);
 
     Eigen::MatrixXd wcInit(3,1);
     Eigen::MatrixXd wtInit(3,1);
@@ -378,11 +327,6 @@ int main() {
         std::vector<double> V_opt(sol.at("x"));
 
         Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(V_opt.data()); // N=100
-        //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 3813, 1> >(V_opt.data()); // N=200
-        //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 5713, 1> >(V_opt.data()); // N=300
-        //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 7713, 1> >(V_opt.data()); // N=400
-        //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 9513, 1> >(V_opt.data()); // N=500
-        //Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 11513, 1> >(V_opt.data()); // N=600
 
         // Store Solution
         for(int i=0; i<=N; ++i)
@@ -516,7 +460,7 @@ int main() {
                     }
                 }
                 fout<< Storex0(j)<<","<<maxIter <<","<<ts<<","<<N<<","<<iter<<","<<posCost<<","<<velCost<<","<<quatCost<<","<<angularCost<<","<<thrustCost <<","<<torqueCost<<","
-                    <<finalPosCost<<","<<finalVelCost<<","<<finalQuatCost<<","<<finalAngularCost<<","<<thrustMax<<","<<torqueMax<<","<<constraintType;
+                    <<","<<thrustMax<<","<<torqueMax<<","<<constraintType;
             }
             else{
                 for(int i=0; i < (MPCstates.size() + MPCcontrols.size()); i++)
