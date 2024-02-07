@@ -19,8 +19,10 @@ whichFolder = 0
 simulationType = 0
 
 samplingTime = "10"
-iters = ["4","5","10","20","50","100"]
-# iters = ["1000"]
+iters = ["5","10","20","50","100"]
+iters = ["5","6","7","8","9","10","100","1000"]
+iters = ["5","6","7","8","9","10","20","50","100","1000"]
+
 
 if simulationType == 0:
     constraintType = "Euler"
@@ -40,13 +42,40 @@ itersDict = {}
 
 for maxIter in iters:
     if whichFolder == 0:
-        readFolder = "/home/gbehrendt/CLionProjects/Satellite/Timing/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/Timing/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/Results/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     elif whichFolder == 1:
-        readFolder = "/home/gbehrendt/CLionProjects/untitled/parallel/Timing3/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        timeFolder = "/home/gbehrendt/CLionProjects/finalSatellite/Timing/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        resultFolder = "/home/gbehrendt/CLionProjects/finalSatellite/Results/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+    elif whichFolder == 2:
+        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/convergedTiming/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/convergedResults/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     
     masterDict = {}
     
-    directory = os.fsencode(readFolder)
+    notConverged = []
+    directory = os.fsencode(resultFolder)
+    for file in os.listdir(directory):
+        filename = os.fsdecode(file)
+        if filename.endswith(".csv"): 
+            readFile = directory.decode("utf-8") + filename
+            # print(readFile)
+            with open(readFile, mode='r') as file2:
+                # Create a CSV reader with DictReader
+                csv_reader = csv.DictReader(file2)
+                numRows = 0
+                for row in csv_reader:
+                    if numRows == 0:
+                        trial = float(row["Trial"])
+                        converged = row["converged?"]
+                    numRows = numRows+1
+                if converged != 'yes':
+                    notConverged.append(trial)
+                # print(trial," ",converged)
+    
+    print(maxIter," ",notConverged)
+    
+    directory = os.fsencode(timeFolder)
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
         if filename.endswith(".csv"): 
@@ -59,7 +88,15 @@ for maxIter in iters:
                 trialNum = re.findall(r"\d+", filename)
                 
                 timing = []
+                scaledConstraintViolation = []
+                unscaledConstraintViolation = []
+                scaledDualInfeasibility = []
+                unscaledDualInfeasibility = []
+                scaledNLPError = []
+                unscaledNLPError = []
                 contents = []
+                numFound = 0
+                
                 read = False
                 # displaying the contents of the CSV file
                 for lines in csv_reader:
@@ -67,7 +104,7 @@ for maxIter in iters:
                   #print(lines)
     
                   if lines:
-                      if 'OverallAlgorithm....................: ' in lines[0]:
+                    if 'OverallAlgorithm....................: ' in lines[0]:
                           line = lines[0]
                           res = line.split('OverallAlgorithm....................:      ', 1)
                           if len(res) == 1:
@@ -75,22 +112,72 @@ for maxIter in iters:
                           new = res[1]
                           new1 = float(new.split(' ',1)[0])
                           timing.append(new1)
+                    if 'Constraint violation....:' in lines[0]:
+                        # print("constrant violation")
+                        line = lines[0]
+                        res = line.split('Constraint violation....:   ', 1)
+                        temp = res[1].split('    ',1)
+                        scaledConstraintViolation.append(float(temp[0]))
+                        unscaledConstraintViolation.append(float(temp[1]))
+                    if 'Dual infeasibility......:' in lines[0]:
+                        # print("dual infeasibility")
+                        line = lines[0]
+                        res = line.split('Dual infeasibility......:   ', 1)
+                        temp = res[1].split('    ',1)
+                        scaledDualInfeasibility.append(float(temp[0]))
+                        unscaledDualInfeasibility.append(float(temp[1]))
+                    if 'Overall NLP error.......:' in lines[0]:
+                        # print("dual infeasibility")
+                        line = lines[0]
+                        res = line.split('Overall NLP error.......:   ', 1)
+                        temp = res[1].split('    ',1)
+                        scaledNLPError.append(float(temp[0]))
+                        unscaledNLPError.append(float(temp[1]))
+
+                        
+                        
     
                 numLoops = len(timing)
                 tt = np.arange(numLoops)
                 
-                trialDict = {'trial':filename, 'trialNum':trialNum[0], 'timing':timing, 'numLoops':numLoops, 'tt':tt}
+                trialDict = {'trial':filename, 'trialNum':trialNum[0], 'timing':timing,
+                             'scaledConstraintViolation':scaledConstraintViolation,'unscaledConstraintViolation': unscaledConstraintViolation,
+                             'scaledDualInfeasibility':scaledDualInfeasibility,'unscaledDualInfeasibility': unscaledDualInfeasibility,
+                             'scaledNLPError':scaledNLPError,'unscaledNLPError': unscaledNLPError, 
+                             'numLoops':numLoops, 'tt':tt}
                 masterDict[trialNum[0]] = trialDict
     
     # Make list of timing lists
     allTimings = []
+    allScaledViolations = []
+    allUnscaledViolations = []
+    allScaledDualInfeasibility = []
+    allUnscaledDualInfeasibility = []
+    allScaledNLPError = []
+    allUnscaledNLPError = []
+    
     for key in masterDict:
         allTimings.append(masterDict[key]['timing'])
+        allScaledViolations.append(masterDict[key]['scaledConstraintViolation'])
+        allUnscaledViolations.append(masterDict[key]['unscaledConstraintViolation'])
+        allScaledDualInfeasibility.append(masterDict[key]['scaledDualInfeasibility'])
+        allUnscaledDualInfeasibility.append(masterDict[key]['unscaledDualInfeasibility'])
+        allScaledNLPError.append(masterDict[key]['scaledNLPError'])
+        allUnscaledNLPError.append(masterDict[key]['unscaledNLPError'])
     
     avgTiming= list(map(get_avg, it.zip_longest(*allTimings)))
+    avgScaledViolation= list(map(get_avg, it.zip_longest(*allScaledViolations)))
+    avgUnscaledViolation= list(map(get_avg, it.zip_longest(*allUnscaledViolations)))
+    avgScaledDualInfeasibility= list(map(get_avg, it.zip_longest(*allScaledDualInfeasibility)))
+    avgUnscaledDualInfeasibility= list(map(get_avg, it.zip_longest(*allUnscaledDualInfeasibility)))
+    avgScaledNLPError= list(map(get_avg, it.zip_longest(*allScaledNLPError)))
+    avgUnscaledNLPError= list(map(get_avg, it.zip_longest(*allUnscaledNLPError)))
     avgTimescale = np.arange(len(avgTiming))
     
-    itersDict[maxIter] = {'avgTiming':avgTiming, 'avgTimescale':avgTimescale}
+    itersDict[maxIter] = {'avgTiming':avgTiming, 'avgScaledViolation':avgScaledViolation, 'avgUnscaledViolation':avgUnscaledViolation, 
+                          'avgScaledDualInfeasibility':avgScaledDualInfeasibility, 'avgUnscaledDualInfeasibility':avgUnscaledDualInfeasibility,
+                          'avgScaledNLPError':avgScaledNLPError, 'avgUnscaledNLPError':avgUnscaledNLPError,
+                          'avgTimescale':avgTimescale}
 
     
     # fig1, ax1 = plt.subplots()
@@ -109,7 +196,114 @@ for key in itersDict:
 ax2.set_ylabel("IpOpt Algorithm Time $(s)$", fontsize =14)
 ax2.set_xlabel("Loop #", fontsize =14)
 ax2.set_title(r"Average Timing", fontsize =14)
-ax2.legend(fontsize =12, title="Maximum Iterations")
+ax2.legend(fontsize =8, title="Maximum Iterations")
 ax2.grid()
 plt.show()
+
+fig3, ax3 = plt.subplots()
+plt.style.use('default')
+for key in itersDict:
+    ax3.plot(itersDict[key]['avgTimescale'], itersDict[key]['avgScaledViolation'], label = key)
+ax3.set_yscale('log')
+ax3.set_xlabel("Loop #", fontsize =14)
+ax3.set_title(r"Average Scaled Constraint Violation", fontsize =14)
+ax3.legend(fontsize =8, title="Maximum Iterations")
+ax3.grid()
+plt.show()
+
+# fig4, ax4 = plt.subplots()
+# plt.style.use('default')
+# for key in itersDict:
+#     ax4.plot(itersDict[key]['avgTimescale'], itersDict[key]['avgUnscaledViolation'], label = key)
+# ax4.set_yscale('log')
+# ax4.set_xlabel("Loop #", fontsize =14)
+# ax4.set_title(r"Average Unscaled Constraint Violation", fontsize =14)
+# ax4.legend(fontsize =12, title="Maximum Iterations")
+# ax4.grid()
+# plt.show()
+
+fig5, ax5 = plt.subplots()
+plt.style.use('default')
+for key in itersDict:
+    ax5.plot(itersDict[key]['avgTimescale'], itersDict[key]['avgScaledDualInfeasibility'], label = key)
+ax5.set_yscale('log')
+ax5.set_xlabel("Loop #", fontsize =14)
+ax5.set_title(r"Average Scaled Dual Infeasibility", fontsize =14)
+ax5.legend(fontsize =8, title="Maximum Iterations")
+ax5.grid()
+plt.show()
+
+# fig6, ax6 = plt.subplots()
+# plt.style.use('default')
+# for key in itersDict:
+#     ax6.plot(itersDict[key]['avgTimescale'], itersDict[key]['avgUnscaledDualInfeasibility'], label = key)
+# ax6.set_yscale('log')
+# ax6.set_xlabel("Loop #", fontsize =14)
+# ax6.set_title(r"Average Unscaled Dual Infeasibility", fontsize =14)
+# ax6.legend(fontsize =12, title="Maximum Iterations")
+# ax6.grid()
+# plt.show()
+
+fig7, ax7 = plt.subplots()
+plt.style.use('default')
+for key in itersDict:
+    ax7.plot(itersDict[key]['avgTimescale'], itersDict[key]['avgScaledNLPError'], label = key)
+ax7.set_yscale('log')
+ax7.set_xlabel("Loop #", fontsize =14)
+ax7.set_title(r"Average Scaled NLP Error", fontsize =14)
+ax7.legend(loc="lower left", fontsize =8, title="Maximum Iterations")
+ax7.grid()
+plt.show()
+
+# fig8, ax8 = plt.subplots()
+# plt.style.use('default')
+# for key in itersDict:
+#     ax8.plot(itersDict[key]['avgTimescale'], itersDict[key]['avgUnscaledNLPError'], label = key)
+# ax8.set_yscale('log')
+# ax8.set_xlabel("Loop #", fontsize =14)
+# ax8.set_title(r"Average Unscaled NLP Error", fontsize =14)
+# ax8.legend(fontsize =12, title="Maximum Iterations")
+# ax8.grid()
+# plt.show()
+
+# %%
+
+# for item in allTimings:
+#     print(item)
+
+fig80, ax80 = plt.subplots()
+plt.style.use('default')
+for item in allScaledNLPError:
+    ax80.plot(np.arange(len(item)), item, label = key)
+ax80.set_yscale('log')
+ax80.set_xlabel("Loop #", fontsize =14)
+ax80.set_title(r"Average Scaled NLP Error $j_{\max} =$" + maxIter , fontsize =14)
+# ax80.legend(fontsize =12, title="Maximum Iterations")
+ax80.grid()
+plt.show()
+
+fig81, ax81 = plt.subplots()
+plt.style.use('default')
+for item in allScaledViolations:
+    ax81.plot(np.arange(len(item)), item, label = key)
+ax81.set_yscale('log')
+ax81.set_xlabel("Loop #", fontsize =14)
+ax81.set_title(r"Average Scaled NLP Error $j_{\max} =$" + maxIter , fontsize =14)
+# ax80.legend(fontsize =12, title="Maximum Iterations")
+ax81.grid()
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

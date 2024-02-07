@@ -20,32 +20,33 @@ void shiftRK4(int, double, MatrixXd &, MatrixXd,MatrixXd &, double, double);
 
 int main() {
 
-    // File pointer
-    fstream fin;
 
-    // Open an existing file
-    fin.open("/home/gbehrendt/CLionProjects/finalSatellite/finalInitialConditions.csv", ios::in);
-    //fin.open("/home/gbehrendt/CLionProjects/finalSatellite/trying.csv", ios::in);
-    if (fin.is_open()) {
-        cout << "File opened successfully :)" << endl;
-    } else {
-        cerr << "File not opened :(" << endl;
-        return -1;
-    }
-
-    // Read the Data from the file
-    // as String Vector
-    std::vector<double> row;
-    string item;
-    int mcCount = 0;
-    int numConverged = 0;
-
-    int maxIterArr[] = {1000};
+    int maxIterArr[] = {5,6,7,8,9,10,20,50,100,1000};
     int maxIterLength = sizeof(maxIterArr)/sizeof(maxIterArr[0]);
-    cout << maxIterLength << endl;
+    //cout << maxIterLength << endl;
 
     for(int kk=0; kk < maxIterLength; kk++)
     {
+        // File pointer
+        fstream fin;
+
+        // Open an existing file
+        //fin.open("/home/gbehrendt/CLionProjects/finalSatellite/InitialConditions.csv", ios::in);
+        fin.open("/home/gbehrendt/CLionProjects/finalSatellite/InitialConditions.csv", ios::in);
+        if (fin.is_open()) {
+            cout << "File opened successfully :)" << endl;
+        } else {
+            cerr << "File not opened :(" << endl;
+            return -1;
+        }
+
+        // Read the Data from the file
+        // as String Vector
+        std::vector<double> row;
+        string item;
+        int mcCount = 0;
+        int numConverged = 0;
+
         // Begin Monte Carlo loop
         while (getline(fin, item)) {
             row.clear();
@@ -113,14 +114,14 @@ int main() {
             std::vector<double> dw0 = {x0(10), x0(11), x0(12)};
 
 
-            cout << endl << xPos << endl;
-            cout << yPos << endl;
-            cout << zPos << endl;
-            cout << xVel << endl;
-            cout << yVel << endl;
-            cout << zVel << endl;
-            cout << q0 << endl;
-            cout << dw0 << endl;
+//            cout << endl << xPos << endl;
+//            cout << yPos << endl;
+//            cout << zPos << endl;
+//            cout << xVel << endl;
+//            cout << yVel << endl;
+//            cout << zVel << endl;
+//            cout << q0 << endl;
+//            cout << dw0 << endl;
 
             // Bounds and initial guess for the state
             std::vector<double> x0_min = {xPos, yPos, zPos, xVel, yVel, zVel}; // initial position and velocity
@@ -140,14 +141,23 @@ int main() {
             std::vector<double> x_init = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
             // Tunable Parameters
-            bool writeToFile = true; // choose to write to file or not
-            string hessianApprox = "exact"; // Choices: "limited-memory" or "exact"
-            string constraintType = "RK4"; // Choices: "RK4" or "Euler"
+            bool writeToFile = false; // choose to write to file or not
+            string constraintType = "Euler"; // Choices: "RK4" or "Euler"
             const int N = 100; // Prediction Horizon
             double ts = 10.0; // sampling period
             int maxIter = maxIterArr[kk]; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
-            string timePath = "/home/gbehrendt/CLionProjects/untitled/Timing2/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
-            string path = "/home/gbehrendt/CLionProjects/untitled/Results2/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
+            string hessianApprox = "";
+            if (maxIter > 999)
+            {
+                hessianApprox = "exact";
+            }
+            else
+            {
+                hessianApprox = "limited-memory";
+            }
+            string timePath = "/home/gbehrendt/CLionProjects/Satellite/finalTiming/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
+            //cout <<timePath<< endl;
+            string path = "/home/gbehrendt/CLionProjects/Satellite/finalResults/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
 
             double posCost = 1e10;
             double velCost = 1e2;
@@ -281,7 +291,7 @@ int main() {
                     gAlgebraic.push_back(stNextEuler - X[k + 1]);
 
                     // Add objective function contribution
-                    J += mtimes(mtimes((X[k] - xd).T(), Q), (X[k] - xd)) + mtimes(mtimes(U[k].T(), R), U[k]);
+                    J += 0.01*mtimes(mtimes((X[k] - xd).T(), Q), (X[k] - xd)) + mtimes(mtimes(U[k].T(), R), U[k]);
                 }
             }
 
@@ -392,10 +402,10 @@ int main() {
                         uwu(5, i) = V(5 + numStates + i * (numStates + numControls));
                     }
                 }
-//            cout << "NLP States:" << endl << xx1 << endl;
-//            cout <<endl;
-//            cout << "NLP Controls:" << endl <<  uwu << endl;
-//            cout <<endl;
+            cout << "NLP States:" << endl << xx1 << endl;
+            cout <<endl;
+            cout << "NLP Controls:" << endl <<  uwu << endl;
+            cout <<endl;
 
                 // Get solution Trajectory
                 u_cl.col(iter) = uwu.col(0); // Store first control action from optimal sequence
@@ -411,9 +421,9 @@ int main() {
                 X0.conservativeResize(X0.rows(), X0.cols() + 1);
                 X0.col(X0.cols() - 1) = xx1(Eigen::placeholders::all, Eigen::placeholders::last);
 
-//            cout << "MPC States:" << endl << xx << endl;
-//            cout <<endl;
-//            cout << "MPC Controls:" << endl << u_cl << endl << endl;
+            cout << "MPC States:" << endl << xx << endl;
+            cout <<endl;
+            cout << "MPC Controls:" << endl << u_cl << endl << endl;
 
                 for (int j = 0; j < numStates; j++) {
                     MPCstates[j].push_back(x0(j));
@@ -470,6 +480,7 @@ int main() {
                 infNormCon = u_cl.col(iter).lpNorm<Eigen::Infinity>();
                 infNorm = max(infNormSt, infNormCon);
 //                cout << infNormSt << endl << infNormCon << endl;
+                cout << infNorm << endl;
 
                 iter++;
 //                cout << iter << endl;

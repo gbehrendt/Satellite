@@ -6,6 +6,7 @@
 #include <casadi/casadi.hpp>
 #include <eigen3/Eigen/Dense>
 #include <cmath>
+#include <complex>
 #include <fstream>
 
 using namespace Eigen;
@@ -93,11 +94,19 @@ int main() {
 
     // Tunable Parameters
     bool writeToFile = false; // choose to write to file or not
-    string hessianApprox = "limited-memory"; // Choices: "limited-memory" or "exact" ("limited-memory" runs slightly faster, but "exact" works better for convergence i.e. less MPC loops)
-    string constraintType = "RK4"; // Choices: "RK4" or "Euler"
+    string constraintType = "Euler"; // Choices: "RK4" or "Euler"
     const int N = 100; // Prediction Horizon
     double ts = 10.0; // sampling period
-    int maxIter = 5; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
+    int maxIter = 10; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
+    string hessianApprox = "";
+    if (maxIter > 999)
+    {
+        hessianApprox = "exact";
+    }
+    else
+    {
+        hessianApprox = "limited-memory";
+    }
 
     double posCost = 1e10;
     double velCost = 1e2;
@@ -253,7 +262,7 @@ int main() {
         opts["ipopt.tol"] = 1e-5;
         opts["ipopt.max_iter"] = maxIter;
         opts["ipopt.hessian_approximation"] = hessianApprox; // for no max iterations change from "limited-memory" to "exact"
-        opts["ipopt.print_level"] = 0;
+        opts["ipopt.print_level"] = 5;
         opts["ipopt.acceptable_tol"] = 1e-8;
         opts["ipopt.acceptable_obj_change_tol"] = 1e-6;
         opts["expand"] = false;
@@ -318,6 +327,9 @@ int main() {
     double epsilon = 1e-3;
     cout <<numVars<<endl;
     double infNorm = 100;
+    double gNormArr[N+1];
+    double lam_gNormArr[N+1];
+    double lam_xNormArr[N+1];
 
     while( infNorm > epsilon && iter <= N)
     {
@@ -325,8 +337,30 @@ int main() {
         sol = solver(arg);
 
         std::vector<double> V_opt(sol.at("x"));
+        std::vector<double> lam_g(sol.at("lam_g"));
+        std::vector<double> lam_x(sol.at("lam_x"));
+        std::vector<double> g_val(sol.at("g"));
+
+//        cout << g_val << endl;
+//        cout << lam_g << endl;
+//        cout << lam_x << endl;
 
         Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(V_opt.data()); // N=100
+        Eigen::MatrixXd gVector = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(g_val.data());
+        Eigen::MatrixXd lam_x_Vector = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(lam_x.data());
+        Eigen::MatrixXd lam_g_Vector = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(lam_g.data());
+
+        double gNorm = gVector.norm();
+        double lam_g_Norm = lam_x_Vector.norm();
+        double lam_x_Norm = lam_g_Vector.norm();
+
+        gNormArr[iter] = gVector.norm();
+        lam_gNormArr[iter] = lam_g_Vector.norm();
+        lam_xNormArr[iter] = lam_x_Vector.norm();
+
+//        cout << "gNorm: " << gNorm << endl;
+//        cout << "lam_g_Norm: " << lam_g_Norm << endl;
+//        cout << "lam_x_Norm: "<< lam_x_Norm << endl;
 
         // Store Solution
         for(int i=0; i<=N; ++i)
@@ -440,11 +474,12 @@ int main() {
     {
         const static IOFormat CSVFormat(FullPrecision, DontAlignCols, ", ", "\n");
         ofstream fout; // declare fout variable
-        string path = "/home/gbehrendt/CLionProjects/Satellite/Results/" + constraintType + "/" + hessianApprox + "/maxIter" + to_string(maxIter) + ".csv";
+        string path = "/home/gbehrendt/CLionProjects/Satellite/Constraints/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/" + "trial0.csv";
+        cout << path << endl;
         fout.open(path, std::ofstream::out | std::ofstream::trunc ); // open file to write to
 
-        fout << "x (km),y (km),z (km),xdot (km/s),ydot (km/s),zdot (km/s),sq,v1,v2,v3,dw1 (rad/s),dw2 (rad/s),dw3 (rad/s),thrust1 (N),thrust2 (N),thrust3 (N),tau1 (rad/s^2),tau2 (rad/s^2),tau3 (rad/s^2),x0,Maximum Iterations,ts,N,MPC Loops,posCost,velCost,quatCost,angualarCost,thrustCost,torqueCost,"
-                "finalPosCost,finalVelCost,finalQuatCost,finalAngualarCost,thrustMax,torqueMax,Constraint Type" <<endl;
+        fout << "x (km),y (km),z (km),xdot (km/s),ydot (km/s),zdot (km/s),sq,v1,v2,v3,dw1 (rad/s),dw2 (rad/s),dw3 (rad/s),thrust1 (N),thrust2 (N),thrust3 (N),tau1 (rad/s^2),tau2 (rad/s^2),tau3 (rad/s^2),gNorm,lam_gNorm,lam_xNorm, x0,Maximum Iterations,ts,N,MPC Loops,posCost,velCost,quatCost,"
+                "angualarCost,thrustCost,torqueCost,thrustMax,torqueMax,Constraint Type" <<endl;
 
         for(int j=0; j < iter; j++)
         {
@@ -459,7 +494,7 @@ int main() {
                         fout << MPCcontrols[i - numStates][j] << ",";
                     }
                 }
-                fout<< Storex0(j)<<","<<maxIter <<","<<ts<<","<<N<<","<<iter<<","<<posCost<<","<<velCost<<","<<quatCost<<","<<angularCost<<","<<thrustCost <<","<<torqueCost<<","
+                fout<< gNormArr[j] <<"," << lam_gNormArr[j] <<"," << lam_xNormArr[j] <<"," << Storex0(j)<<","<<maxIter <<","<<ts<<","<<N<<","<<iter<<","<<posCost<<","<<velCost<<","<<quatCost<<","<<angularCost<<","<<thrustCost <<","<<torqueCost<<","
                     <<","<<thrustMax<<","<<torqueMax<<","<<constraintType;
             }
             else{
@@ -472,15 +507,19 @@ int main() {
                         fout << MPCcontrols[i - numStates][j] << ",";
                     }
                 }
+                fout << gNormArr[j]<<","<< lam_gNormArr[j] <<"," << lam_xNormArr[j] <<",";
                 if(j<numStates){
                     fout<<Storex0(j)<<",";
                 }
             }
             fout<<endl;
         }
-
         fout.close();
     }
+
+
+
+
 
     return 0;
 }
