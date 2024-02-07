@@ -60,10 +60,10 @@ for i in range(numConditions):
 
 
 # Opening a CSV file in write mode
-with open(savePath, 'w', newline='') as file:
-    # Step 4: Using csv.writer to write the list to the CSV file
-    writer = csv.writer(file)
-    writer.writerows(initialConditions) # Use writerows for nested list
+# with open(savePath, 'w', newline='') as file:
+#     # Step 4: Using csv.writer to write the list to the CSV file
+#     writer = csv.writer(file)
+#     writer.writerows(initialConditions) # Use writerows for nested list
     
 
 
