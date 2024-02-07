@@ -21,7 +21,7 @@ void shiftRK4(int, double, MatrixXd &, MatrixXd,MatrixXd &, double, double);
 int main() {
 
 
-    int maxIterArr[] = {5,6,7,8,9,10,20,50,100,1000};
+    int maxIterArr[] = {5,6,7,8,9,10,15,20,50,100,1000};
     int maxIterLength = sizeof(maxIterArr)/sizeof(maxIterArr[0]);
     //cout << maxIterLength << endl;
 
@@ -32,7 +32,7 @@ int main() {
 
         // Open an existing file
         //fin.open("/home/gbehrendt/CLionProjects/finalSatellite/InitialConditions.csv", ios::in);
-        fin.open("/home/gbehrendt/CLionProjects/finalSatellite/InitialConditions.csv", ios::in);
+        fin.open("/home/gbehrendt/CLionProjects/Satellite/InitialConditions2.csv", ios::in);
         if (fin.is_open()) {
             cout << "File opened successfully :)" << endl;
         } else {
@@ -113,16 +113,6 @@ int main() {
             std::vector<double> q0 = {x0(6), x0(7), x0(8), x0(9)}; // Normalized [0.5,0.3,0.2,0.2]
             std::vector<double> dw0 = {x0(10), x0(11), x0(12)};
 
-
-//            cout << endl << xPos << endl;
-//            cout << yPos << endl;
-//            cout << zPos << endl;
-//            cout << xVel << endl;
-//            cout << yVel << endl;
-//            cout << zVel << endl;
-//            cout << q0 << endl;
-//            cout << dw0 << endl;
-
             // Bounds and initial guess for the state
             std::vector<double> x0_min = {xPos, yPos, zPos, xVel, yVel, zVel}; // initial position and velocity
             x0_min.insert(x0_min.end(), q0.begin(), q0.end()); // append initial quaternion
@@ -141,7 +131,7 @@ int main() {
             std::vector<double> x_init = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
             // Tunable Parameters
-            bool writeToFile = false; // choose to write to file or not
+            bool writeToFile = true; // choose to write to file or not
             string constraintType = "Euler"; // Choices: "RK4" or "Euler"
             const int N = 100; // Prediction Horizon
             double ts = 10.0; // sampling period
@@ -291,7 +281,7 @@ int main() {
                     gAlgebraic.push_back(stNextEuler - X[k + 1]);
 
                     // Add objective function contribution
-                    J += 0.01*mtimes(mtimes((X[k] - xd).T(), Q), (X[k] - xd)) + mtimes(mtimes(U[k].T(), R), U[k]);
+                    J += mtimes(mtimes((X[k] - xd).T(), Q), (X[k] - xd)) + mtimes(mtimes(U[k].T(), R), U[k]);
                 }
             }
 
@@ -364,13 +354,12 @@ int main() {
             // Start MPC
             int iter = 0;
             double epsilon = 1e-3;
-            double tau = 1e-3;
             cout << numVars << endl;
             double infNormSt = 10;
             double infNormCon = 10;
-            double infNorm = 10;
+            double infNorm = 100;
 
-            while ((infNormSt > epsilon || infNormCon > tau) && iter < N && infNormSt < 100) {
+            while ( infNorm > epsilon && iter < N && infNorm < 1000) {
                 // Solve NLP
                 sol = solver(arg);
 

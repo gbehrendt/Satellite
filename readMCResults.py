@@ -14,7 +14,7 @@ def get_avg(x):
     # Calculate the average of the remaining values.
     return sum(x, 0.0) / len(x)
 
-whichFolder = 0
+whichFolder = 2
 simulationType = 0
 
 samplingTime = "10"
@@ -46,7 +46,10 @@ for maxIter in iters:
     elif whichFolder == 1:
         readFolder = "/home/gbehrendt/CLionProjects/finalSatellite/Results/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     elif whichFolder == 2:
-        readFolder = "/home/gbehrendt/CLionProjects/untitled/parallel/Results3/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        readFolder = "/home/gbehrendt/CLionProjects/Satellite/finalResults/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+
+    # elif whichFolder == 2:
+    #     readFolder = "/home/gbehrendt/CLionProjects/untitled/parallel/Results3/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     
     numConverged = 0
     numNotConverged = 0
@@ -176,12 +179,12 @@ for maxIter in iters:
                         'infNorm':infNorm
                         }
             if(converged == "yes"):
-                masterDict[trial] = trialDict
+                # masterDict[trial] = trialDict
                 numConverged += 1
             else:
-                # masterDict[trial] = trialDict
+                masterDict[trial] = trialDict
                 numNotConverged += 1
-                notWorking.append(trial)
+                # notWorking.append(trial)
                 # print(trial)
             continue
         else:
