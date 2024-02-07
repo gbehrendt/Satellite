@@ -108,6 +108,7 @@ int main() {
         hessianApprox = "limited-memory";
     }
 
+
     double posCost = 1e10;
     double velCost = 1e2;
     double quatCost = 1e12;
