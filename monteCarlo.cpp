@@ -144,6 +144,7 @@ int main() {
             string timePath = "/home/gbehrendt/CLionProjects/Satellite/finalTiming/" + constraintType + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv"; // insert your own file path
             string path = "/home/gbehrendt/CLionProjects/Satellite/finalResults/" + constraintType + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv"; // insert your own file path
 
+
             double posCost = 1e10;
             double velCost = 1e2;
             double quatCost = 1e12;
