@@ -15,13 +15,13 @@ def get_avg(x):
     # Calculate the average of the remaining values.
     return sum(x, 0.0) / len(x)
 
-whichFolder = 0
+whichFolder = 3
 simulationType = 0
 
 samplingTime = "10"
 iters = ["5","10","20","50","100"]
 iters = ["5","6","7","8","9","10","100","1000"]
-iters = ["5","6","7","8","9","10","20","50","100","1000"]
+iters = ["5","6","7","8","9","10","15","50","100","1000"]
 
 
 if simulationType == 0:
@@ -37,19 +37,24 @@ elif simulationType == 3:
     constraintType = "RK4"
     hessianApprox = "exact"
 
-
 itersDict = {}
 
 for maxIter in iters:
     if whichFolder == 0:
-        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/Timing/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/Results/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/Timing200/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/Results200/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+    # elif whichFolder == 1:
+    #     timeFolder = "/home/gbehrendt/CLionProjects/finalSatellite/Timing/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+    #     resultFolder = "/home/gbehrendt/CLionProjects/finalSatellite/Results/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     elif whichFolder == 1:
-        timeFolder = "/home/gbehrendt/CLionProjects/finalSatellite/Timing/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-        resultFolder = "/home/gbehrendt/CLionProjects/finalSatellite/Results/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/Timing250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/Results250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     elif whichFolder == 2:
-        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/convergedTiming/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/convergedResults/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/Timing200NewStop/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/Results200NewStop/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+    elif whichFolder == 3:
+        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/convergedTiming250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/convergedResults250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     
     masterDict = {}
     
@@ -73,7 +78,7 @@ for maxIter in iters:
                     notConverged.append(trial)
                 # print(trial," ",converged)
     
-    print(maxIter," ",notConverged)
+    # print(maxIter," ",notConverged)
     
     directory = os.fsencode(timeFolder)
     for file in os.listdir(directory):
@@ -267,32 +272,103 @@ plt.show()
 # plt.show()
 
 # %%
+toEdit = []
+for i in range(len(allTimings)):
+    # print(allTimings[i])
+    subList = allTimings[i][5:-1]
+    if max(subList) >= 10:
+        print(i,"in here ")
+        toEdit.append(i)
+        
+editedAllTimings = []
+newConstraintViolation = []
+newNLPError = []
+for i in range(len(allTimings)):
+    if i not in toEdit:
+        editedAllTimings.append(allTimings[i])
+        newConstraintViolation.append(allScaledViolations[i])
+        newNLPError.append(allScaledNLPError[i])
 
-# for item in allTimings:
-#     print(item)
-
-fig80, ax80 = plt.subplots()
+fig60, ax60 = plt.subplots()
 plt.style.use('default')
-for item in allScaledNLPError:
-    ax80.plot(np.arange(len(item)), item, label = key)
-ax80.set_yscale('log')
-ax80.set_xlabel("Loop #", fontsize =14)
-ax80.set_title(r"Average Scaled NLP Error $j_{\max} =$" + maxIter , fontsize =14)
+for item in editedAllTimings:
+    ax60.plot(np.arange(len(item)), item, label = key)
+# ax82.set_yscale('log')
+ax60.set_xlabel("Loop #", fontsize =14)
+ax60.set_title(r"Average Timings $j_{\max} =$" + maxIter , fontsize =14)
 # ax80.legend(fontsize =12, title="Maximum Iterations")
-ax80.grid()
+ax60.grid()
 plt.show()
 
-fig81, ax81 = plt.subplots()
+fig61, ax61 = plt.subplots()
 plt.style.use('default')
-for item in allScaledViolations:
-    ax81.plot(np.arange(len(item)), item, label = key)
-ax81.set_yscale('log')
-ax81.set_xlabel("Loop #", fontsize =14)
-ax81.set_title(r"Average Scaled NLP Error $j_{\max} =$" + maxIter , fontsize =14)
+for item in newConstraintViolation:
+    ax61.plot(np.arange(len(item)), item, label = key)
+ax61.set_yscale('log')
+ax61.set_xlabel("Loop #", fontsize =14)
+ax61.set_title(r"Scaled Constraint Violation $j_{\max} =$" + maxIter , fontsize =14)
 # ax80.legend(fontsize =12, title="Maximum Iterations")
-ax81.grid()
+ax61.grid()
 plt.show()
 
+fig62, ax62 = plt.subplots()
+plt.style.use('default')
+for item in newNLPError:
+    ax62.plot(np.arange(len(item)), item, label = key)
+ax62.set_yscale('log')
+ax62.set_xlabel("Loop #", fontsize =14)
+ax62.set_title(r"Scaled NLP Error $j_{\max} =$" + maxIter , fontsize =14)
+# ax80.legend(fontsize =12, title="Maximum Iterations")
+ax62.grid()
+plt.show()
+
+
+
+
+# %%
+# fig80, ax80 = plt.subplots()
+# plt.style.use('default')
+# for item in allScaledNLPError:
+#     ax80.plot(np.arange(len(item)), item, label = key)
+# ax80.set_yscale('log')
+# ax80.set_xlabel("Loop #", fontsize =14)
+# ax80.set_title(r"Average Scaled NLP Error $j_{\max} =$" + maxIter , fontsize =14)
+# # ax80.legend(fontsize =12, title="Maximum Iterations")
+# ax80.grid()
+# plt.show()
+
+# fig81, ax81 = plt.subplots()
+# plt.style.use('default')
+# for item in allScaledViolations:
+#     ax81.plot(np.arange(len(item)), item, label = key)
+# ax81.set_yscale('log')
+# ax81.set_xlabel("Loop #", fontsize =14)
+# ax81.set_title(r"Average Scaled Constraint Violation $j_{\max} =$" + maxIter , fontsize =14)
+# # ax80.legend(fontsize =12, title="Maximum Iterations")
+# ax81.grid()
+# plt.show()
+
+# fig83, ax83 = plt.subplots()
+# plt.style.use('default')
+# for item in allScaledDualInfeasibility:
+#     ax83.plot(np.arange(len(item)), item, label = key)
+# ax83.set_yscale('log')
+# ax83.set_xlabel("Loop #", fontsize =14)
+# ax83.set_title(r"Average Scaled Dual Infeasibility $j_{\max} =$" + maxIter , fontsize =14)
+# # ax80.legend(fontsize =12, title="Maximum Iterations")
+# ax83.grid()
+# plt.show()
+
+fig82, ax82 = plt.subplots()
+plt.style.use('default')
+for item in allTimings:
+    ax82.plot(np.arange(len(item)), item, label = key)
+# ax82.set_yscale('log')
+ax82.set_xlabel("Loop #", fontsize =14)
+ax82.set_title(r"Average Timings $j_{\max} =$" + maxIter , fontsize =14)
+# ax80.legend(fontsize =12, title="Maximum Iterations")
+ax82.grid()
+plt.show()
 
 
 

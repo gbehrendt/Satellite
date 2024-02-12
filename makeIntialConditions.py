@@ -10,8 +10,8 @@ import random
 import numpy as np
 
 
-savePath = "/home/gbehrendt/CLionProjects/Satellite/InitialConditions2.csv"
-numConditions = 250
+savePath = "/home/gbehrendt/CLionProjects/Satellite/InitialConditions300.csv"
+numConditions = 300
 
 pMax = 1.5
 pMin = -pMax
@@ -60,10 +60,10 @@ for i in range(numConditions):
 
 
 # Opening a CSV file in write mode
-# with open(savePath, 'w', newline='') as file:
-#     # Step 4: Using csv.writer to write the list to the CSV file
-#     writer = csv.writer(file)
-#     writer.writerows(initialConditions) # Use writerows for nested list
+with open(savePath, 'w', newline='') as file:
+    # Step 4: Using csv.writer to write the list to the CSV file
+    writer = csv.writer(file)
+    writer.writerows(initialConditions) # Use writerows for nested list
     
 
 

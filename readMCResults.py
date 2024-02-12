@@ -16,40 +16,41 @@ def get_avg(x):
 
 whichFolder = 2
 simulationType = 0
+savePlots = False
 
 samplingTime = "10"
-iters = ["4","5","10","20","50","100"]
-iters = ["5","6","7","8","9","10","1000"]
-iters = ["5","6","7","8","9","10","20","50","100","1000"]
+# iters = ["4","5","10","20","50","100"]
+# iters = ["5","6","7","8","9","10","1000"]
+iters = ["5","6","7","8","9","10","15","20","50","100","1000"]
 
 
 if simulationType == 0:
     constraintType = "Euler"
     hessianApprox = "limited-memory"
-elif simulationType == 1:
-    constraintType = "RK4"
-    hessianApprox = "limited-memory"
-elif simulationType == 2:
-    constraintType = "Euler"
-    hessianApprox = "exact"
-elif simulationType == 3:
-    constraintType = "RK4"
-    hessianApprox = "exact"
-
-notWorking = []
+# elif simulationType == 1:
+#     constraintType = "RK4"
+#     hessianApprox = "limited-memory"
+# elif simulationType == 2:
+#     constraintType = "Euler"
+#     hessianApprox = "exact"
+# elif simulationType == 3:
+#     constraintType = "RK4"
+#     hessianApprox = "exact"
 
 itersDict = {}
 for maxIter in iters:
     print("%%%%%%%%%%",maxIter,"%%%%%%%%%%")
     if whichFolder == 0:
-        readFolder = "/home/gbehrendt/CLionProjects/Satellite/Results/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        readFolder = "/home/gbehrendt/CLionProjects/Satellite/Results200/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     elif whichFolder == 1:
-        readFolder = "/home/gbehrendt/CLionProjects/finalSatellite/Results/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        readFolder = "/home/gbehrendt/CLionProjects/Satellite/Results250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     elif whichFolder == 2:
-        readFolder = "/home/gbehrendt/CLionProjects/Satellite/finalResults/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        readFolder = "/home/gbehrendt/CLionProjects/Satellite/Results300/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+    elif whichFolder == 3:
+       readFolder = "/home/gbehrendt/CLionProjects/Satellite/convergedResults250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+  
 
-    # elif whichFolder == 2:
-    #     readFolder = "/home/gbehrendt/CLionProjects/untitled/parallel/Results3/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+    
     
     numConverged = 0
     numNotConverged = 0
@@ -176,21 +177,21 @@ for maxIter in iters:
                         'posCost':posCost, 'velCost':velCost, 'quatCost':quatCost, 'angularCost':angularCost,
                         'thrustCost':thrustCost, 'torqueCost':torqueCost, 'thrustMax':thrustMax, 'torqueMax':torqueMax,
                         'tt':tt, 'endTime':endTime, 'errorSt':errorSt, 'errorCon':errorCon,'cost':cost, 'totError':totError,'totCost':totCost, 'trial':trial,
-                        'infNorm':infNorm
+                        'infNorm':infNorm, 'x0':x0
                         }
             if(converged == "yes"):
-                # masterDict[trial] = trialDict
+                masterDict[trial] = trialDict
                 numConverged += 1
             else:
                 masterDict[trial] = trialDict
                 numNotConverged += 1
-                # notWorking.append(trial)
-                # print(trial)
+                print(trial)
+                # print(masterDict[trial]['infNorm'])
+                # print(masterDict[trial]['x0'])
             continue
         else:
             continue
         
-    notWorking.sort()
     numTrials = numConverged + numNotConverged
     print("# Converged:", numConverged)
     print("# Not Converged:", numNotConverged)
@@ -228,6 +229,8 @@ for maxIter in iters:
     ax10.set_xlabel("Time $(s)$", fontsize =14)
     ax10.set_title(r"x-position $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax10.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/xPos.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     # y-Position plot
@@ -238,6 +241,8 @@ for maxIter in iters:
     ax11.set_xlabel("Time $(s)$", fontsize =14)
     ax11.set_title(r"y-position $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax11.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/yPos.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     # z-Position plot
@@ -248,6 +253,8 @@ for maxIter in iters:
     ax12.set_xlabel("Time $(s)$", fontsize =14)
     ax12.set_title(r"z-position $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax12.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/zPos.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     ######################### Velocity Plots #########################
@@ -259,6 +266,8 @@ for maxIter in iters:
     ax13.set_xlabel("Time $(s)$", fontsize =14)
     ax13.set_title(r"dx $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax13.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/xVel.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     # y-Velocity plot
@@ -269,6 +278,8 @@ for maxIter in iters:
     ax14.set_xlabel("Time $(s)$", fontsize =14)
     ax14.set_title(r"dy $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax14.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/yVel.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     # z-Velocity plot
@@ -279,6 +290,8 @@ for maxIter in iters:
     ax15.set_xlabel("Time $(s)$", fontsize =14)
     ax15.set_title(r"dz $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax15.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/zVel.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     ######################### Quaternion Plots #########################
@@ -290,6 +303,8 @@ for maxIter in iters:
     ax16.set_xlabel("Time $(s)$", fontsize =14)
     ax16.set_title(r"sq $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax16.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/sq.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     # v1 plot
@@ -300,6 +315,8 @@ for maxIter in iters:
     ax17.set_xlabel("Time $(s)$", fontsize =14)
     ax17.set_title(r"v1 $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax17.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/v1.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     # v2 plot
@@ -310,6 +327,8 @@ for maxIter in iters:
     ax18.set_xlabel("Time $(s)$", fontsize =14)
     ax18.set_title(r"v2 $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax18.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/v2.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     # v3 plot
@@ -320,6 +339,8 @@ for maxIter in iters:
     ax19.set_xlabel("Time $(s)$", fontsize =14)
     ax19.set_title(r"v3 $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax19.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/v3.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     ######################### Angular Velocity Plots #########################
@@ -331,6 +352,8 @@ for maxIter in iters:
     ax20.set_xlabel("Time $(s)$", fontsize =14)
     ax20.set_title(r"dw1 $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax20.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/dw1.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     # dw2 plot
@@ -341,6 +364,8 @@ for maxIter in iters:
     ax21.set_xlabel("Time $(s)$", fontsize =14)
     ax21.set_title(r"dw2 $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax21.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/dw2.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     # dw3 plot
@@ -351,6 +376,122 @@ for maxIter in iters:
     ax22.set_xlabel("Time $(s)$", fontsize =14)
     ax22.set_title(r"dw3 $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax22.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/dw3.eps', format = 'eps', bbox_inches='tight')
+    plt.show()
+    
+    ######################### Thrust Plots #########################
+    ts = 10
+    
+    fig23, ax23 = plt.subplots()
+    plt.style.use('default')
+    for key in masterDict:
+        plotThrust1 = []
+        for i in masterDict[key]['thrust1']:
+            for ele in range(ts):
+                plotThrust1.append(i)
+            masterDict[key]['ttPlot'] = range(0,int(masterDict[key]['tt'][-1])+ts)
+        masterDict[key]['plotThrust1'] = plotThrust1
+    for key in masterDict:
+        # ax23.plot(masterDict[key]['tt'], masterDict[key]['thrust1'], label = key)
+        ax23.plot(masterDict[key]['ttPlot'], masterDict[key]['plotThrust1'], label = key)
+    ax23.set_xlabel("Time $(s)$", fontsize =14)
+    ax23.set_title(r"Thrust 1 $(j_{\max} = %d)$" % maxIter, fontsize =14)
+    ax23.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/thrust1.eps', format = 'eps', bbox_inches='tight')
+    plt.show()
+    
+    fig24, ax24 = plt.subplots()
+    plt.style.use('default')
+    for key in masterDict:
+        plotThrust2 = []
+        for i in masterDict[key]['thrust2']:
+            for ele in range(ts):
+                plotThrust2.append(i)
+        masterDict[key]['plotThrust2'] = plotThrust2
+    for key in masterDict:
+        ax24.plot(masterDict[key]['ttPlot'], masterDict[key]['plotThrust2'], label = key)
+    ax24.set_xlabel("Time $(s)$", fontsize =14)
+    ax24.set_title(r"Thrust 2 $(j_{\max} = %d)$" % maxIter, fontsize =14)
+    ax24.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/thrust2.eps', format = 'eps', bbox_inches='tight')
+    plt.show()
+    
+    fig25, ax25 = plt.subplots()
+    plt.style.use('default')
+    for key in masterDict:
+        plotThrust3 = []
+        for i in masterDict[key]['thrust3']:
+            for ele in range(ts):
+                plotThrust3.append(i)
+        masterDict[key]['plotThrust3'] = plotThrust3
+    for key in masterDict:
+        ax25.plot(masterDict[key]['ttPlot'], masterDict[key]['plotThrust3'], label = key)
+    ax25.set_xlabel("Time $(s)$", fontsize =14)
+    ax25.set_title(r"Thrust 3 $(j_{\max} = %d)$" % maxIter, fontsize =14)
+    ax25.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/thrust3.eps', format = 'eps', bbox_inches='tight')
+    plt.show()
+    
+    ######################### Torque Plots #########################
+    fig26, ax26 = plt.subplots()
+    plt.style.use('default')
+    for key in masterDict:
+        plotTau1 = []
+        for i in masterDict[key]['tau1']:
+            for ele in range(ts):
+                plotTau1.append(i)
+        masterDict[key]['plotTau1'] = plotTau1
+    for key in masterDict:
+        ax26.plot(masterDict[key]['ttPlot'], masterDict[key]['plotTau1'], label = key)
+    # for key in masterDict:
+    #     ax26.plot(masterDict[key]['tt'], masterDict[key]['tau1'], label = key)
+    ax26.set_xlabel("Time $(s)$", fontsize =14)
+    ax26.set_title(r"Torque 1 $(j_{\max} = %d)$" % maxIter, fontsize =14)
+    ax26.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/tau1.eps', format = 'eps', bbox_inches='tight')
+    plt.show()
+    
+    fig27, ax27 = plt.subplots()
+    plt.style.use('default')
+    for key in masterDict:
+        plotTau2 = []
+        for i in masterDict[key]['tau2']:
+            for ele in range(ts):
+                plotTau2.append(i)
+        masterDict[key]['plotTau2'] = plotTau2
+    for key in masterDict:
+        ax27.plot(masterDict[key]['ttPlot'], masterDict[key]['plotTau2'], label = key)
+    # for key in masterDict:
+    #     ax27.plot(masterDict[key]['tt'], masterDict[key]['tau2'], label = key)
+    ax27.set_xlabel("Time $(s)$", fontsize =14)
+    ax27.set_title(r"Torque 2 $(j_{\max} = %d)$" % maxIter, fontsize =14)
+    ax27.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/tau2.eps', format = 'eps', bbox_inches='tight')
+    plt.show()
+    
+    fig28, ax28 = plt.subplots()
+    plt.style.use('default')
+    for key in masterDict:
+        plotTau3 = []
+        for i in masterDict[key]['tau3']:
+            for ele in range(ts):
+                plotTau3.append(i)
+        masterDict[key]['plotTau3'] = plotTau3
+    for key in masterDict:
+        ax28.plot(masterDict[key]['ttPlot'], masterDict[key]['plotTau3'], label = key)
+    # for key in masterDict:
+    #     ax28.plot(masterDict[key]['tt'], masterDict[key]['tau3'], label = key)
+    ax28.set_xlabel("Time $(s)$", fontsize =14)
+    ax28.set_title(r"Torque 3 $(j_{\max} = %d)$" % maxIter, fontsize =14)
+    ax28.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/tau3.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     ######################### Other Plots #########################
@@ -364,7 +505,8 @@ for maxIter in iters:
     ax2.set_title(r"Cost $(j_{\max} = %d)$" % maxIter, fontsize =14)
     #ax2.legend(loc = 'upper right', fontsize =12, title="Maximum Iterations")
     ax2.grid()
-    #plt.savefig('PythonPlots/plot1.eps', format = 'eps', bbox_inches='tight')
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/cost.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     # Average Cost Plot
@@ -376,7 +518,8 @@ for maxIter in iters:
     ax3.set_title(r"Average Cost $(j_{\max} = %d)$" % maxIter, fontsize =14)
     #ax2.legend(loc = 'upper right', fontsize =12, title="Maximum Iterations")
     ax3.grid()
-    #plt.savefig('PythonPlots/plot1.eps', format = 'eps', bbox_inches='tight')
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/avgCost.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
     # Average Error Plot
@@ -390,35 +533,35 @@ for maxIter in iters:
     ax4.set_title(r"Average Error $(j_{\max} = %d)$" % maxIter, fontsize =14)
     ax4.legend(fontsize =12)
     ax4.grid()
+    if savePlots == True:
+        plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/maxIter'+str(maxIter)+'/avgError.eps', format = 'eps', bbox_inches='tight')
     #plt.savefig('PythonPlots/plot1.eps', format = 'eps', bbox_inches='tight')
     plt.show()
     
 # %%
-fig30, ax30 = plt.subplots()
-plt.style.use('default')
-for key in itersDict:
-    ax30.plot(itersDict[key]['avgTimescale'], itersDict[key]['avgCost'], label = key)
-# ax30.set_yscale('log')
-ax30.set_ylabel(r'$(x(k) - x_d)^T Q (x(k) - x_d) + u(k)^T R u(k)$', fontsize =14)
-ax30.set_xlabel("Time $(s)$", fontsize =14)
-ax30.set_title(r"Average Cost", fontsize =14)
-ax30.legend(loc = 'upper right', fontsize =12, title="Maximum Iterations")
-ax30.grid()
-#plt.savefig('PythonPlots/plot1.eps', format = 'eps', bbox_inches='tight')
-plt.show()
+# fig30, ax30 = plt.subplots()
+# plt.style.use('default')
+# for key in itersDict:
+#     ax30.plot(itersDict[key]['avgTimescale'], itersDict[key]['avgCost'], label = key)
+# # ax30.set_yscale('log')
+# ax30.set_ylabel(r'$(x(k) - x_d)^T Q (x(k) - x_d) + u(k)^T R u(k)$', fontsize =14)
+# ax30.set_xlabel("Time $(s)$", fontsize =14)
+# ax30.set_title(r"Average Cost", fontsize =14)
+# ax30.legend(loc = 'upper right', fontsize =12, title="Maximum Iterations")
+# ax30.grid()
+# plt.show()
     
-fig31, ax31 = plt.subplots()
-plt.style.use('default')
-for key in itersDict:
-    ax31.plot(itersDict[key]['avgTimescale'], itersDict[key]['avgError'], label = key)
-# ax31.set_yscale('log')
-ax31.set_ylabel(r'$ \| (x(k),u(k)) - (x_d,u_d) \|_2$', fontsize =14)
-ax31.set_xlabel("Time $(s)$", fontsize =14)
-ax31.set_title(r"Average Error", fontsize =14)
-ax31.legend(loc = 'upper right', fontsize =12, title="Maximum Iterations")
-ax31.grid()
-#plt.savefig('PythonPlots/plot1.eps', format = 'eps', bbox_inches='tight')
-plt.show()
+# fig31, ax31 = plt.subplots()
+# plt.style.use('default')
+# for key in itersDict:
+#     ax31.plot(itersDict[key]['avgTimescale'], itersDict[key]['avgError'], label = key)
+# # ax31.set_yscale('log')
+# ax31.set_ylabel(r'$ \| (x(k),u(k)) - (x_d,u_d) \|_2$', fontsize =14)
+# ax31.set_xlabel("Time $(s)$", fontsize =14)
+# ax31.set_title(r"Average Error", fontsize =14)
+# ax31.legend(loc = 'upper right', fontsize =12, title="Maximum Iterations")
+# ax31.grid()
+# plt.show()
 
 fig32, ax32 = plt.subplots()
 plt.style.use('default')
@@ -430,7 +573,8 @@ ax32.set_xlabel("Time $(s)$", fontsize =14)
 ax32.set_title(r"Average Cost", fontsize =14)
 ax32.legend(loc = 'upper right', fontsize =12, title="Maximum Iterations")
 ax32.grid()
-#plt.savefig('PythonPlots/plot1.eps', format = 'eps', bbox_inches='tight')
+if savePlots == True:
+    plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/avgCost.eps', format = 'eps', bbox_inches='tight')
 plt.show()
     
 fig33, ax33 = plt.subplots()
@@ -443,6 +587,39 @@ ax33.set_xlabel("Time $(s)$", fontsize =14)
 ax33.set_title(r"Average Error", fontsize =14)
 ax33.legend(loc = 'upper right', fontsize =12, title="Maximum Iterations")
 ax33.grid()
-#plt.savefig('PythonPlots/plot1.eps', format = 'eps', bbox_inches='tight')
+if savePlots == True:
+    plt.savefig('/home/gbehrendt/CLionProjects/Satellite/Figures/avgError.eps', format = 'eps', bbox_inches='tight')
 plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
