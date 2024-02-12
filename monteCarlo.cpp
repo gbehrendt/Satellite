@@ -19,10 +19,7 @@ MX f(MX, MX, MX, double, double);
 void shiftRK4(int, double, MatrixXd &, MatrixXd,MatrixXd &, double, double);
 
 int main() {
-
-
     int maxIterArr[] = {5,6,7,8,9,10,15,20,50,100,10000};
-//    int maxIterArr[] = {5};
     int maxIterLength = sizeof(maxIterArr)/sizeof(maxIterArr[0]);
     int numConverged = 0;
 
@@ -32,9 +29,8 @@ int main() {
         fstream fin;
 
         // Open an existing file
-//        fin.open("/home/gbehrendt/CLionProjects/Satellite/InitialConditions200.csv", ios::in);
-//        fin.open("/home/gbehrendt/CLionProjects/Satellite/InitialConditions250.csv", ios::in);
-        fin.open("/home/gbehrendt/CLionProjects/Satellite/InitialConditions300.csv", ios::in);
+
+        fin.open("/home/gbehrendt/CLionProjects/Satellite/initialConditions.csv", ios::in);
         if (fin.is_open()) {
             cout << "File opened successfully :)" << endl;
         } else {
@@ -133,7 +129,7 @@ int main() {
             std::vector<double> x_init = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
             // Tunable Parameters
-            bool writeToFile = true; // choose to write to file or not
+            bool writeToFile = false; // choose to write to file or not
             string constraintType = "Euler"; // Choices: "RK4" or "Euler"
             const int N = 100; // Prediction Horizon
             double ts = 10.0; // sampling period
@@ -147,10 +143,8 @@ int main() {
             {
                 hessianApprox = "limited-memory";
             }
-//            string timePath = "/home/gbehrendt/CLionProjects/Satellite/Timing250/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
-//            string path = "/home/gbehrendt/CLionProjects/Satellite/Results250/" + constraintType + "/" + hessianApprox + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
-            string timePath = "/home/gbehrendt/CLionProjects/Satellite/Timing300/" + constraintType + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
-            string path = "/home/gbehrendt/CLionProjects/Satellite/Results300/" + constraintType + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv";
+            string timePath = "/home/gbehrendt/CLionProjects/Satellite/finalTiming/" + constraintType + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv"; // insert your own file path
+            string path = "/home/gbehrendt/CLionProjects/Satellite/finalResults/" + constraintType + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv"; // insert your own file path
 
             double posCost = 1e10;
             double velCost = 1e2;
@@ -394,10 +388,10 @@ int main() {
                         uwu(5, i) = V(5 + numStates + i * (numStates + numControls));
                     }
                 }
-                cout << "NLP States:" << endl << xx1 << endl;
-                cout <<endl;
-                cout << "NLP Controls:" << endl <<  uwu << endl;
-                cout <<endl;
+//                cout << "NLP States:" << endl << xx1 << endl;
+//                cout <<endl;
+//                cout << "NLP Controls:" << endl <<  uwu << endl;
+//                cout <<endl;
 
                 // Get solution Trajectory
                 u_cl.col(iter) = uwu.col(0); // Store first control action from optimal sequence
@@ -413,9 +407,9 @@ int main() {
                 X0.conservativeResize(X0.rows(), X0.cols() + 1);
                 X0.col(X0.cols() - 1) = xx1(Eigen::placeholders::all, Eigen::placeholders::last);
 
-                cout << "MPC States:" << endl << xx << endl;
-                cout <<endl;
-                cout << "MPC Controls:" << endl << u_cl << endl << endl;
+//                cout << "MPC States:" << endl << xx << endl;
+//                cout <<endl;
+//                cout << "MPC Controls:" << endl << u_cl << endl << endl;
 
                 for (int j = 0; j < numStates; j++) {
                     MPCstates[j].push_back(x0(j));
@@ -543,7 +537,12 @@ int main() {
 
 
 
-
+//////////////////////////////////////////////////////////////////////////////
+// Function Name: Skew
+// Description: This function is used to create a skew matrix given a vector
+// Inputs: VectorXd f - vector
+// Outputs: MatrixXd S - skew matrix
+//////////////////////////////////////////////////////////////////////////////
 MatrixXd Skew(VectorXd f)
 {
     MatrixXd S(3,3);
@@ -554,6 +553,12 @@ MatrixXd Skew(VectorXd f)
     return S;
 }
 
+//////////////////////////////////////////////////////////////////////////////
+// Function Name: q2R
+// Description: This function is used to convert from quaternion to rotation matrix
+// Inputs: MatrixXd q - quaternion
+// Outputs: MatrixXd R - roatation matrix
+//////////////////////////////////////////////////////////////////////////////
 MatrixXd q2R(MatrixXd q){
     MatrixXd R(3,3);
     double sq = q(0);
@@ -575,6 +580,12 @@ MatrixXd q2R(MatrixXd q){
     return R;
 };
 
+//////////////////////////////////////////////////////////////////////////////
+// Function Name: q2R
+// Description: This function is used to convert from quaternion to rotation matrix
+// Inputs: MX st - current state
+// Outputs: MX RR - roatation matrix
+//////////////////////////////////////////////////////////////////////////////
 MX q2R(MX st)
 {
     MX sq = st(6);
@@ -604,6 +615,13 @@ MX q2R(MX st)
     return RR;
 }
 
+//////////////////////////////////////////////////////////////////////////////
+// Function Name: f
+// Description: This function is used to calculate the time derivative of our system
+// Inputs: MX st - current state, MX con - current control action, MX Rtc - Rotation matrix,
+//         double n - mean motion of target satellite, double mc - mass of chaser satellite
+// Outputs: MatrixXd xDot - time derivative of the current state
+//////////////////////////////////////////////////////////////////////////////
 MX f(MX st, MX con, MX Rtc , double n, double mc)
 {
     MX x = st(0);
@@ -665,8 +683,7 @@ MX f(MX st, MX con, MX Rtc , double n, double mc)
 
 //////////////////////////////////////////////////////////////////////////////
 // Function Name: f
-// Description: This function is used to implement the dynamics of our system
-//              once a control action is implemented
+// Description: This function is used to calculate the time derivative of our system
 // Inputs: MatrixXd st - current state, MatrixXd con - current control action
 // Outputs: MatrixXd xDot - time derivative of the current state
 //////////////////////////////////////////////////////////////////////////////

@@ -10,8 +10,8 @@ import random
 import numpy as np
 
 
-savePath = "/home/gbehrendt/CLionProjects/Satellite/InitialConditions300.csv"
-numConditions = 300
+savePath = "/home/gbehrendt/CLionProjects/Satellite/initialConditions.csv"
+numConditions = 999999
 
 pMax = 1.5
 pMin = -pMax

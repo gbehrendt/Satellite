@@ -14,14 +14,15 @@ def get_avg(x):
     # Calculate the average of the remaining values.
     return sum(x, 0.0) / len(x)
 
-whichFolder = 2
+whichFolder = 4
 simulationType = 0
 savePlots = False
 
 samplingTime = "10"
 # iters = ["4","5","10","20","50","100"]
 # iters = ["5","6","7","8","9","10","1000"]
-iters = ["5","6","7","8","9","10","15","20","50","100","1000"]
+iters = ["5","6","7","8","9","10","15","50","100","10000"]
+# iters = ["5","6","7","8","9","10","15","50","100","1000"]
 
 
 if simulationType == 0:
@@ -47,8 +48,9 @@ for maxIter in iters:
     elif whichFolder == 2:
         readFolder = "/home/gbehrendt/CLionProjects/Satellite/Results300/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     elif whichFolder == 3:
-       readFolder = "/home/gbehrendt/CLionProjects/Satellite/convergedResults250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-  
+        readFolder = "/home/gbehrendt/CLionProjects/Satellite/newResults250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+    elif whichFolder == 4:
+        readFolder = "/home/gbehrendt/CLionProjects/Satellite/finalTiming/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
 
     
     
