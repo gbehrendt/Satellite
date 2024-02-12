@@ -15,14 +15,15 @@ def get_avg(x):
     # Calculate the average of the remaining values.
     return sum(x, 0.0) / len(x)
 
-whichFolder = 3
+whichFolder = 4
 simulationType = 0
 
 samplingTime = "10"
 iters = ["5","10","20","50","100"]
 iters = ["5","6","7","8","9","10","100","1000"]
 iters = ["5","6","7","8","9","10","15","50","100","1000"]
-
+iters = ["5","6","7","8","9","10","15","50","100","10000"]
+# iters = ["10000"]
 
 if simulationType == 0:
     constraintType = "Euler"
@@ -52,7 +53,10 @@ for maxIter in iters:
     elif whichFolder == 3:
         timeFolder = "/home/gbehrendt/CLionProjects/Satellite/newTiming250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
         resultFolder = "/home/gbehrendt/CLionProjects/Satellite/newResults250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-    
+    elif whichFolder == 4:
+        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/newTiming300/" + constraintType  + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/newResults300/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+
     masterDict = {}
     
     notConverged = []
@@ -111,6 +115,8 @@ for maxIter in iters:
                           res = line.split('OverallAlgorithm....................:      ', 1)
                           if len(res) == 1:
                               res = line.split('OverallAlgorithm....................:     ', 1)
+                          if len(res) == 1:
+                              res = line.split('OverallAlgorithm....................:    ', 1)
                           new = res[1]
                           new1 = float(new.split(' ',1)[0])
                           timing.append(new1)

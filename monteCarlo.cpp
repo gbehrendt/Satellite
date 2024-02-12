@@ -19,7 +19,7 @@ MX f(MX, MX, MX, double, double);
 void shiftRK4(int, double, MatrixXd &, MatrixXd,MatrixXd &, double, double);
 
 int main() {
-    int maxIterArr[] = {5,6,7,8,9,10,15,20,50,100,10000};
+    int maxIterArr[] = {5,6,7,8,9,10,15,50,100,10000};
     int maxIterLength = sizeof(maxIterArr)/sizeof(maxIterArr[0]);
     int numConverged = 0;
 
@@ -27,9 +27,7 @@ int main() {
     {
         // File pointer
         fstream fin;
-
         // Open an existing file
-
         fin.open("/home/gbehrendt/CLionProjects/Satellite/initialConditions.csv", ios::in);
         if (fin.is_open()) {
             cout << "File opened successfully :)" << endl;
@@ -129,7 +127,7 @@ int main() {
             std::vector<double> x_init = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
             // Tunable Parameters
-            bool writeToFile = false; // choose to write to file or not
+            bool writeToFile = true; // choose to write to file or not
             string constraintType = "Euler"; // Choices: "RK4" or "Euler"
             const int N = 100; // Prediction Horizon
             double ts = 10.0; // sampling period

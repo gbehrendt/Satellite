@@ -26,7 +26,7 @@ int main()
     fstream fin;
 
     // Open an existing file
-    fin.open("/home/gbehrendt/CLionProjects/finalSatellite/finalInitialConditions.csv", ios::in);
+    fin.open("/home/gbehrendt/CLionProjects/finalSatellite/initialConditions.csv", ios::in);
     if (fin.is_open()) {
         cout << "File opened successfully :)" << endl;
     } else {
@@ -110,7 +110,7 @@ int main()
     std::vector<double> x_init = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
     // Tunable Parameters
-    bool writeToFile = true; // choose to write to file or not
+    bool writeToFile = false; // choose to write to file or not
     string hessianApprox = "limited-memory"; // Choices: "limited-memory" or "exact" ("limited-memory" runs slightly faster, but "exact" works better for convergence i.e. less MPC loops)
     string constraintType = "Euler"; // Choices: "RK4" or "Euler"
     const int N = 100; // Prediction Horizon
