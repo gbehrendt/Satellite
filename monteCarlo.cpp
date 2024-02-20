@@ -13,22 +13,25 @@ namespace fs = std::filesystem;
 // Function Prototypes
 MatrixXd Skew(VectorXd);
 MatrixXd q2R(MatrixXd);
-MX q2R(MX);
+SX q2R(SX);
 MatrixXd f(MatrixXd, MatrixXd, double, double);
-MX f(MX, MX, MX, double, double);
+SX f(SX, SX, SX, double, double);
 void shiftRK4(int, double, MatrixXd &, MatrixXd,MatrixXd &, double, double);
 
 int main() {
-    int maxIterArr[] = {5,6,7,8,9,10,15,50,100,10000};
+    int maxIterArr[] = {10000,5,6,7,8,9,10,15,50,100};
     int maxIterLength = sizeof(maxIterArr)/sizeof(maxIterArr[0]);
     int numConverged = 0;
+    int mcCount = 0;
+    std::vector<Function> solvers;
 
     for(int kk=0; kk < maxIterLength; kk++)
     {
         // File pointer
         fstream fin;
         // Open an existing file
-        fin.open("/home/gbehrendt/CLionProjects/Satellite/initialConditions.csv", ios::in);
+        fin.open("/home/gbehrendt/CLionProjects/Satellite/finalInitialConditions.csv", ios::in);
+//        fin.open("/home/gbehrendt/CLionProjects/Satellite/testing.csv", ios::in);
         if (fin.is_open()) {
             cout << "File opened successfully :)" << endl;
         } else {
@@ -40,10 +43,15 @@ int main() {
         // as String Vector
         std::vector<double> row;
         string item;
-        int mcCount = 0;
+        mcCount = 0;
         numConverged = 0;
 
-        // Begin Monte Carlo loop
+        // Initial Satellite Conditions + Problem Parameters
+        double tPeriod = 92.68 * 60; // ISS orbital period (seconds)
+        double n = -2 * M_PI / tPeriod; // Mean motion of ISS (rad/s)
+        double mc = 12; // mass of the chaser
+
+        // Begin Monte Carlo loop ***********************************************************************************
         while (getline(fin, item)) {
             row.clear();
             istringstream line(item);
@@ -56,6 +64,7 @@ int main() {
             for (int i = 0; i < 13; i++) {
                 x0(i) = storeRow(i + 1);
             }
+            cout << x0 << endl;
 
             // Declare states + controls
             SX u1 = SX::sym("u1"); // x thrust
@@ -67,17 +76,17 @@ int main() {
 
             SX controls = vertcat(u1, u2, u3, u4, u5, u6);
 
-            MX x = MX::sym("x");
-            MX y = MX::sym("y");
-            MX z = MX::sym("z");
-            MX dx = MX::sym("dx");
-            MX dy = MX::sym("dy");
-            MX dz = MX::sym("dz");
-            MX sq = MX::sym("sq");
-            MX vq = MX::sym("vq", 3, 1);
-            MX dw = MX::sym("dw", 3, 1);
+            SX x = SX::sym("x");
+            SX y = SX::sym("y");
+            SX z = SX::sym("z");
+            SX dx = SX::sym("dx");
+            SX dy = SX::sym("dy");
+            SX dz = SX::sym("dz");
+            SX sq = SX::sym("sq");
+            SX vq = SX::sym("vq", 3, 1);
+            SX dw = SX::sym("dw", 3, 1);
 
-            MX states = vertcat(x, y, z, dx, dy, dz);
+            SX states = vertcat(x, y, z, dx, dy, dz);
             states = vertcat(states, sq, vq, dw);
 
             // Number of differential states
@@ -95,10 +104,13 @@ int main() {
             std::vector<double> u_max = {thrustMax, thrustMax, thrustMax, torqueMax, torqueMax, torqueMax};
             std::vector<double> u_init = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
-            // Initial Satellite Conditions + Problem Parameters
-            double tPeriod = 92.68 * 60; // ISS orbital period (seconds)
-            double n = -2 * M_PI / tPeriod; // Mean motion of ISS (rad/s)
-            double mc = 12; // mass of the chaser
+            std::vector<double> x_min = {-inf, -inf, -inf, -inf, -inf, -inf, 0, 0, 0, 0, -inf, -inf, -inf};
+            std::vector<double> x_max = {inf, inf, inf, inf, inf, inf, 1, 1, 1, 1, inf, inf, inf};
+
+            std::vector<double> xf_min = {-inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf};
+            std::vector<double> xf_max = {inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf};
+
+            std::vector<double> x_init = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
             double xPos = x0(0);
             double yPos = x0(1);
@@ -110,6 +122,7 @@ int main() {
             std::vector<double> dw0 = {x0(10), x0(11), x0(12)};
 
             // Bounds and initial guess for the state
+
             std::vector<double> x0_min = {xPos, yPos, zPos, xVel, yVel, zVel}; // initial position and velocity
             x0_min.insert(x0_min.end(), q0.begin(), q0.end()); // append initial quaternion
             x0_min.insert(x0_min.end(), dw0.begin(), dw0.end()); // append initial angular velocity
@@ -118,16 +131,9 @@ int main() {
             x0_max.insert(x0_max.end(), q0.begin(), q0.end()); // append initial quaternion
             x0_max.insert(x0_max.end(), dw0.begin(), dw0.end()); // append initial angular velocity
 
-            std::vector<double> x_min = {-inf, -inf, -inf, -inf, -inf, -inf, 0, 0, 0, 0, -inf, -inf, -inf};
-            std::vector<double> x_max = {inf, inf, inf, inf, inf, inf, 1, 1, 1, 1, inf, inf, inf};
-
-            std::vector<double> xf_min = {-inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf};
-            std::vector<double> xf_max = {inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf};
-
-            std::vector<double> x_init = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
             // Tunable Parameters
-            bool writeToFile = true; // choose to write to file or not
+            bool writeToFile = false; // choose to write to file or not
             string constraintType = "Euler"; // Choices: "RK4" or "Euler"
             const int N = 100; // Prediction Horizon
             double ts = 10.0; // sampling period
@@ -147,15 +153,19 @@ int main() {
             double posCost = 1e10;
             double velCost = 1e2;
             double quatCost = 1e12;
-            double angularCost = 1e12;
+            double angularCost = 1e9;
             double thrustCost = 1e10;
-            double torqueCost = 1e-10;
+            double torqueCost = 1e-6;
+            //            double torqueCost = 0.001;
+            //double torqueCost = 0.0000000001;
 
             // Total number of NLP variables
             const int numVars = numStates * (N + 1) + numControls * N;
 
             // Declare variable vector for the NLP
-            MX V = MX::sym("V", numVars);
+//            std::vector<MX> V;
+//            V.push_back(MX::sym("V", numVars));
+            SX V = SX::sym("V", numVars);
 
             // NLP variable bounds and initial guess
             std::vector<double> v_min, v_max, v_init;
@@ -164,7 +174,8 @@ int main() {
             int offset = 0;
 
             // State at each shooting node and control for each shooting interval
-            std::vector<MX> X, U;
+
+            std::vector<SX> X, U;
             for (int k = 0; k < N; ++k) {
                 // Local state
                 X.push_back(V.nz(Slice(offset, offset + numStates)));
@@ -197,9 +208,9 @@ int main() {
             casadi_assert(offset == numVars, "");
 
             // Initialize Objective Function and Weighting Matrices
-            MX J = 0; // Objective Function
-            MX Q = MX::zeros(numStates, numStates);
-            MX R = MX::zeros(numControls, numControls);
+            SX J = 0; // Objective Function
+            SX Q = SX::zeros(numStates, numStates);
+            SX R = SX::zeros(numControls, numControls);
 
             Q(0, 0) = posCost; // xPos
             Q(1, 1) = posCost; // yPos
@@ -222,7 +233,7 @@ int main() {
             R(4, 4) = torqueCost;
             R(5, 5) = torqueCost;
 
-            MX xd = MX::zeros(numStates);
+            SX xd = SX::zeros(numStates);
             xd(0) = 0.0;
             xd(1) = 0.0;
             xd(2) = 0.0;
@@ -238,9 +249,9 @@ int main() {
             xd(12) = 0.0;
 
             //Constraint function and bounds
-            std::vector<MX> g, gAlgebraic;
-            MX k1, k2, k3, k4, stNextRK4, stNextEuler;
-            MX Rtc_k1, Rtc_k2, Rtc_k3, Rtc_k4;
+            std::vector<SX> gAlgebraic;
+            SX k1, k2, k3, k4, stNextRK4, stNextEuler;
+            SX Rtc_k1, Rtc_k2, Rtc_k3, Rtc_k4;
 
             if (constraintType == "RK4") {
                 // Loop over shooting nodes
@@ -281,7 +292,7 @@ int main() {
             }
 
             // NLP
-            MXDict nlp = {{"x", V},
+            SXDict nlp = {{"x", V},
                           {"f", J},
                           {"g", vertcat(gAlgebraic)}};
 
@@ -310,7 +321,7 @@ int main() {
 
             // Create an NLP solver and buffers
             std::map<std::string, DM> arg, res, sol;
-            Function solver = nlpsol("nlpsol", "ipopt", nlp, opts);
+            solvers.push_back(nlpsol("nlpsol", "ipopt", nlp, opts));
 
             // Bounds and initial guess
             arg["lbx"] = v_min;
@@ -356,34 +367,19 @@ int main() {
 
             while ( infNorm > epsilon && iter < N && infNorm < 1000) {
                 // Solve NLP
-                sol = solver(arg);
+                sol = solvers[0](arg);
 
                 std::vector<double> V_opt(sol.at("x"));
 
-                Eigen::MatrixXd V = Eigen::Map<Eigen::Matrix<double, 1913, 1> >(V_opt.data()); // N=100
-
                 // Store Solution
                 for (int i = 0; i <= N; ++i) {
-                    xx1(0, i) = V(i * (numStates + numControls));
-                    xx1(1, i) = V(1 + i * (numStates + numControls));
-                    xx1(2, i) = V(2 + i * (numStates + numControls));
-                    xx1(3, i) = V(3 + i * (numStates + numControls));
-                    xx1(4, i) = V(4 + i * (numStates + numControls));
-                    xx1(5, i) = V(5 + i * (numStates + numControls));
-                    xx1(6, i) = V(6 + i * (numStates + numControls));
-                    xx1(7, i) = V(7 + i * (numStates + numControls));
-                    xx1(8, i) = V(8 + i * (numStates + numControls));
-                    xx1(9, i) = V(9 + i * (numStates + numControls));
-                    xx1(10, i) = V(10 + i * (numStates + numControls));
-                    xx1(11, i) = V(11 + i * (numStates + numControls));
-                    xx1(12, i) = V(12 + i * (numStates + numControls));
+                    for (int j = 0; j < numStates; ++j) {
+                        xx1(j, i) = V_opt[j + i * (numStates + numControls)];
+                    }
                     if (i < N) {
-                        uwu(0, i) = V(numStates + i * (numStates + numControls));
-                        uwu(1, i) = V(1 + numStates + i * (numStates + numControls));
-                        uwu(2, i) = V(2 + numStates + i * (numStates + numControls));
-                        uwu(3, i) = V(3 + numStates + i * (numStates + numControls));
-                        uwu(4, i) = V(4 + numStates + i * (numStates + numControls));
-                        uwu(5, i) = V(5 + numStates + i * (numStates + numControls));
+                        for (int j = 0; j < numControls; ++j) {
+                            uwu(j, i) = V_opt[numStates + j + i * (numStates + numControls)];
+                        }
                     }
                 }
 //                cout << "NLP States:" << endl << xx1 << endl;
@@ -419,34 +415,16 @@ int main() {
 
                 // Re-initialize Problem Parameters
                 v_min.erase(v_min.begin(), v_min.begin() + numStates);
-                v_min.insert(v_min.begin(), x0(12));
-                v_min.insert(v_min.begin(), x0(11));
-                v_min.insert(v_min.begin(), x0(10));
-                v_min.insert(v_min.begin(), x0(9));
-                v_min.insert(v_min.begin(), x0(8));
-                v_min.insert(v_min.begin(), x0(7));
-                v_min.insert(v_min.begin(), x0(6));
-                v_min.insert(v_min.begin(), x0(5));
-                v_min.insert(v_min.begin(), x0(4));
-                v_min.insert(v_min.begin(), x0(3));
-                v_min.insert(v_min.begin(), x0(2));
-                v_min.insert(v_min.begin(), x0(1));
-                v_min.insert(v_min.begin(), x0(0));
+                for(int j = numStates-1; j>=0; j--)
+                {
+                    v_min.insert(v_min.begin(), x0(j));
+                }
 
                 v_max.erase(v_max.begin(), v_max.begin() + numStates);
-                v_max.insert(v_max.begin(), x0(12));
-                v_max.insert(v_max.begin(), x0(11));
-                v_max.insert(v_max.begin(), x0(10));
-                v_max.insert(v_max.begin(), x0(9));
-                v_max.insert(v_max.begin(), x0(8));
-                v_max.insert(v_max.begin(), x0(7));
-                v_max.insert(v_max.begin(), x0(6));
-                v_max.insert(v_max.begin(), x0(5));
-                v_max.insert(v_max.begin(), x0(4));
-                v_max.insert(v_max.begin(), x0(3));
-                v_max.insert(v_max.begin(), x0(2));
-                v_max.insert(v_max.begin(), x0(1));
-                v_max.insert(v_max.begin(), x0(0));
+                for(int j = numStates-1; j>=0; j--)
+                {
+                    v_max.insert(v_max.begin(), x0(j));
+                }
 
                 // Re-initialize initial guess
                 v_init = V_opt;
@@ -455,32 +433,41 @@ int main() {
                 copy(v_init.end() - (numStates + numControls), v_init.end(), back_inserter(finalStates));
                 v_init.insert(v_init.end(), finalStates.begin(), finalStates.end());
 
+
+                arg.clear();
                 arg["lbx"] = v_min;
                 arg["ubx"] = v_max;
+                arg["lbg"] = 0;
+                arg["ubg"] = 0;
                 arg["x0"] = v_init;
 
-                //infNorm = max((x0-xs).lpNorm<Eigen::Infinity>(),u_cl.col(iter).lpNorm<Eigen::Infinity>()); // l-infinity norm of current state and control
+
                 infNormSt = (x0 - xs).lpNorm<Eigen::Infinity>();
                 infNormCon = u_cl.col(iter).lpNorm<Eigen::Infinity>();
-                infNorm = max(infNormSt, infNormCon);
-//                cout << infNormSt << endl << infNormCon << endl;
+                infNorm = max(infNormSt, infNormCon); // l-infinity norm of current state and control
                 cout << infNorm << endl;
 
                 iter++;
-//                cout << iter << endl;
+                V_opt.clear();
+                finalStates.clear();
+                sol.clear();
+                ind.clear();
+                cout << iter << endl;
+                cout << "Trial #" << mcCount << endl;
             }
+
 
             string converged;
 
-            if (infNormSt < epsilon) {
+            if (infNorm < epsilon) {
                 converged = "yes";
                 numConverged += 1;
                 printf("*************************** maxIter: %d  Trial #%d = SUCCESS!!! *************************** \n",maxIterArr[kk],mcCount);
             }
             else {
+                cout << "Trial #" << mcCount << " completed." << endl;
                 converged = "no";
             }
-
             if (writeToFile == true) {
                 const static IOFormat CSVFormat(FullPrecision, DontAlignCols, ", ", "\n");
                 ofstream fout; // declare fout variable
@@ -527,9 +514,84 @@ int main() {
             cout << "Trial #" << mcCount << " completed." << endl;
             mcCount++;
 
+            // Clear Variables for next trial
+            storeRow.resize(0,0);
+
+            u1.clear();
+            u2.clear();
+            u3.clear();
+            u4.clear();
+            u5.clear();
+            u6.clear();
+            controls.clear();
+
+            x.clear();
+            y.clear();
+            z.clear();
+            dx.clear();
+            dy.clear();
+            dz.clear();
+            sq.clear();
+            vq.clear();
+            dw.clear();
+            states.clear();
+
+            u_min.clear();
+            u_max.clear();
+            u_init.clear();
+            x0_min.clear();
+            x0_max.clear();
+            xf_min.clear();
+            xf_max.clear();
+            x_init.clear();
+
+            V.clear();
+            X.clear();
+            U.clear();
+            v_min.clear();
+            v_max.clear();
+            v_init.clear();
+
+            J.clear();
+            Q.clear();
+            R.clear();
+            xd.clear();
+
+            gAlgebraic.clear();
+            k1.clear();
+            k2.clear();
+            k3.clear();
+            k4.clear();
+            stNextRK4.clear();
+            stNextEuler.clear();
+            Rtc_k1.clear();
+            Rtc_k2.clear();
+            Rtc_k3.clear();
+            Rtc_k4.clear();
+
+            nlp.clear();
+            opts.clear();
+            solvers.clear();
+            arg.clear();
+            res.clear();
+
+            Storex0.resize(0,0);
+            x0.resize(0,0);
+            xs.resize(0,0);
+            xx.resize(0,0);
+            xx1.resize(0,0);
+            X0.resize(0,0);
+            u0.resize(0,0);
+            uwu.resize(0,0);
+            u_cl.resize(0,0);
+
+            MPCstates.clear();
+            MPCcontrols.clear();
+            sol.clear();
+
         }
     }
-    cout << numConverged << endl;
+
     return 0;
 }
 
@@ -584,31 +646,31 @@ MatrixXd q2R(MatrixXd q){
 // Inputs: MX st - current state
 // Outputs: MX RR - roatation matrix
 //////////////////////////////////////////////////////////////////////////////
-MX q2R(MX st)
+SX q2R(SX st)
 {
-    MX sq = st(6);
-    MX v1 = st(7);
-    MX v2 = st(8);
-    MX v3 = st(9);
-    MX vq = vertcat(v1,v2,v3);
+    SX sq = st(6);
+    SX v1 = st(7);
+    SX v2 = st(8);
+    SX v3 = st(9);
+    SX vq = vertcat(v1,v2,v3);
 //    MX RR = MX::sym("RR",3,3);
 
-    MX r00 = pow(sq,2) + pow(vq(0),2) - pow(vq(1),2) - pow(vq(2),2);
-    MX r01 = 2*(vq(0)*vq(1)-sq*vq(2));
-    MX r02 = 2*(vq(0)*vq(2)+sq*vq(1));
-    MX row0 = horzcat(r00,r01,r02);
+    SX r00 = pow(sq,2) + pow(vq(0),2) - pow(vq(1),2) - pow(vq(2),2);
+    SX r01 = 2*(vq(0)*vq(1)-sq*vq(2));
+    SX r02 = 2*(vq(0)*vq(2)+sq*vq(1));
+    SX row0 = horzcat(r00,r01,r02);
 
-    MX r10= 2*(vq(0)*vq(1)+sq*vq(2));
-    MX r11 = pow(sq,2) - pow(vq(0),2) + pow(vq(1),2) - pow(vq(2),2);
-    MX r12= 2*(vq(1)*vq(2)-sq*vq(0));
-    MX row1 = horzcat(r10,r11,r12);
+    SX r10= 2*(vq(0)*vq(1)+sq*vq(2));
+    SX r11 = pow(sq,2) - pow(vq(0),2) + pow(vq(1),2) - pow(vq(2),2);
+    SX r12= 2*(vq(1)*vq(2)-sq*vq(0));
+    SX row1 = horzcat(r10,r11,r12);
 
-    MX r20 =  2*(vq(0)*vq(2)-sq*vq(2));
-    MX r21 =  2*(vq(1)*vq(2)+sq*vq(0));
-    MX r22 =  pow(sq,2) - pow(vq(0),2) - pow(vq(1),2) + pow(vq(2),2);
-    MX row2 = horzcat(r20,r21,r22);
+    SX r20 =  2*(vq(0)*vq(2)-sq*vq(2));
+    SX r21 =  2*(vq(1)*vq(2)+sq*vq(0));
+    SX r22 =  pow(sq,2) - pow(vq(0),2) - pow(vq(1),2) + pow(vq(2),2);
+    SX row2 = horzcat(r20,r21,r22);
 
-    MX RR = vertcat(row0, row1, row2);
+    SX RR = vertcat(row0, row1, row2);
 
     return RR;
 }
@@ -620,62 +682,61 @@ MX q2R(MX st)
 //         double n - mean motion of target satellite, double mc - mass of chaser satellite
 // Outputs: MatrixXd xDot - time derivative of the current state
 //////////////////////////////////////////////////////////////////////////////
-MX f(MX st, MX con, MX Rtc , double n, double mc)
+SX f(SX st, SX con, SX Rtc , double n, double mc)
 {
-    MX x = st(0);
-    MX y = st(1);
-    MX z = st(2);
-    MX dx = st(3);
-    MX dy = st(4);
-    MX dz = st(5);
-    MX sq = st(6);
-    MX v1 = st(7);
-    MX v2 = st(8);
-    MX v3 = st(9);
-    MX dw1 = st(10);
-    MX dw2 = st(11);
-    MX dw3 = st(12);
+    SX x = st(0);
+    SX y = st(1);
+    SX z = st(2);
+    SX dx = st(3);
+    SX dy = st(4);
+    SX dz = st(5);
+    SX sq = st(6);
+    SX v1 = st(7);
+    SX v2 = st(8);
+    SX v3 = st(9);
+    SX dw1 = st(10);
+    SX dw2 = st(11);
+    SX dw3 = st(12);
 
-    MX vq = vertcat(v1,v2,v3);
-    MX dw = vertcat(dw1,dw2,dw3);
+    SX vq = vertcat(v1,v2,v3);
+    SX dw = vertcat(dw1,dw2,dw3);
 
-    MX u1 = con(0);
-    MX u2 = con(1);
-    MX u3 = con(2);
-    MX u4 = con(3);
-    MX u5 = con(4);
-    MX u6 = con(5);
+    SX u1 = con(0);
+    SX u2 = con(1);
+    SX u3 = con(2);
+    SX u4 = con(3);
+    SX u5 = con(4);
+    SX u6 = con(5);
 
-    MX thrust = vertcat(u1,u2,u3);
-    MX torque = vertcat(u4,u5,u6);
+    SX thrust = vertcat(u1,u2,u3);
+    SX torque = vertcat(u4,u5,u6);
 
     //MX Rtc = q2R(sq,vq);
-    MX f = mtimes(Rtc,thrust);
-    MX Jd = MX::zeros(3,3); // Moment of inertia for the chaser
+    SX f = mtimes(Rtc,thrust);
+    SX Jd = SX::zeros(3,3); // Moment of inertia for the chaser
     Jd(0,0) = 0.2734;
     Jd(1,1) = 0.2734;
     Jd(2,2) = 0.3125;
 
-    MX wt = MX::zeros(3,1); // angular velocity of the target
+    SX wt = SX::zeros(3,1); // angular velocity of the target
     wt(2) = n;
 
-    MX Kd = solve(Jd,MX::eye(Jd.size1())); // Kd = Jd^-1
-    MX Ko = mtimes(mtimes(Rtc,Kd),Rtc);
+    SX Kd = solve(Jd,SX::eye(Jd.size1())); // Kd = Jd^-1
+    SX Ko = mtimes(mtimes(Rtc,Kd),Rtc);
 
-    MX rhs = vertcat(dx, dy, dz,
+    SX rhs = vertcat(dx, dy, dz,
                      3* pow(n,2)*x+2*n*dy+f(0)/mc,
                      -2*n*dx+f(1)/mc,
                      -pow(n,2)*z+f(2)/mc );
+
     rhs = vertcat(rhs,
                   0.5*dot(vq,dw),
-                  -0.5 * mtimes( ((sq * MX::eye(3)) + skew(vq)), dw),
+                  -0.5 * mtimes( ((sq * SX::eye(3)) + skew(vq)), dw),
                   mtimes(skew(dw),wt) + mtimes(Ko,torque)
                   - mtimes(Ko, ( mtimes(skew(dw), mtimes( mtimes(Jd,Rtc.T()), dw))
                                  + mtimes(skew(dw), mtimes( mtimes(Jd,Rtc.T()), wt))
                                  + mtimes(skew(wt), mtimes( mtimes(Jd,Rtc.T()), dw))
-                                 + mtimes(skew(wt), mtimes( mtimes(Jd,Rtc.T()), wt))))
-    );
-
+                                 + mtimes(skew(wt), mtimes( mtimes(Jd,Rtc.T()), wt)))));
     return rhs;
 }
 
@@ -766,11 +827,6 @@ void shiftRK4(int N, double ts, MatrixXd& x0, MatrixXd uwu, MatrixXd& u0, double
     // Shift State
     MatrixXd st = x0;
     MatrixXd con = uwu.col(0);
-
-//    MatrixXd test(13,1), dummy(6,1);
-//    test << 0,0,0,0,0,0,1,0,0,0,0,0,0 ;
-//    dummy << 0,0,0,0,0,0;
-//    cout << f(test,dummy,n,mc) << endl;
 
     MatrixXd k1 = f(st,con,n,mc);
     MatrixXd k2 = f(st + (ts/2)*k1,con,n,mc);

@@ -15,13 +15,13 @@ def get_avg(x):
     # Calculate the average of the remaining values.
     return sum(x, 0.0) / len(x)
 
-whichFolder = 4
+whichFolder = 1
 simulationType = 0
 
 samplingTime = "10"
 iters = ["5","10","20","50","100"]
 iters = ["5","6","7","8","9","10","100","1000"]
-iters = ["5","6","7","8","9","10","15","50","100","1000"]
+# iters = ["5","6","7","8","9","10","15","50","100","1000"]
 iters = ["5","6","7","8","9","10","15","50","100","10000"]
 # iters = ["10000"]
 
@@ -42,21 +42,14 @@ itersDict = {}
 
 for maxIter in iters:
     if whichFolder == 0:
-        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/Timing200/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/Results200/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/finalTiming/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/finalResults/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     elif whichFolder == 1:
-        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/Timing250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/Results250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/neoTiming5/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/neoResults5/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     elif whichFolder == 2:
-         timeFolder = "/home/gbehrendt/CLionProjects/Satellite/Timing300/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-         resultFolder = "/home/gbehrendt/CLionProjects/Satellite/Results300/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-    elif whichFolder == 3:
-        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/newTiming250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/newResults250/" + constraintType + "/" + hessianApprox + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-    elif whichFolder == 4:
-        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/newTiming300/" + constraintType  + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/newResults300/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-
+        timeFolder = "/home/gbehrendt/CLionProjects/Satellite/neoTiming6/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
+        resultFolder = "/home/gbehrendt/CLionProjects/Satellite/neoResults6/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     masterDict = {}
     
     notConverged = []
@@ -201,10 +194,11 @@ fig2, ax2 = plt.subplots()
 plt.style.use('default')
 for key in itersDict:
     ax2.plot(itersDict[key]['avgTimescale'], itersDict[key]['avgTiming'], label = key)
+ax2.set_yscale('log')
 ax2.set_ylabel("IpOpt Algorithm Time $(s)$", fontsize =14)
 ax2.set_xlabel("Loop #", fontsize =14)
-ax2.set_title(r"Average Timing", fontsize =14)
-ax2.legend(fontsize =8, title="Maximum Iterations")
+ax2.set_title(r"Average Time Per Loop", fontsize =14)
+ax2.legend(fontsize =8, title="Maximum Iterations",bbox_to_anchor=(1.0, 1.0))
 ax2.grid()
 plt.show()
 
@@ -215,7 +209,7 @@ for key in itersDict:
 ax3.set_yscale('log')
 ax3.set_xlabel("Loop #", fontsize =14)
 ax3.set_title(r"Average Scaled Constraint Violation", fontsize =14)
-ax3.legend(fontsize =8, title="Maximum Iterations")
+ax3.legend(fontsize =8, title="Maximum Iterations",bbox_to_anchor=(1.0, 1.0))
 ax3.grid()
 plt.show()
 
@@ -276,32 +270,56 @@ plt.show()
 
 # %%
 # toEdit = []
-# for i in range(len(allTimings)):
-#     # print(allTimings[i])
-#     subList = allTimings[i][5:-1]
-#     if max(subList) >= 10:
-#         print(i,"in here ")
-#         toEdit.append(i)
+# editedAllTimings = []
         
 # for key in masterDict:
 #     # print(masterDict[key]['timing'][5:-1])
-#     if max(masterDict[key]['timing'][5:-1]) >= 10:
-#         print(key)
+#     if max(masterDict[key]['timing'][20:-1]) >= 10:
+#         # print(key)
+#         print(masterDict[key]['trial'])
+#         toEdit.append(int(key))
+#     else:
+#         editedAllTimings.append(masterDict[key]['timing'])
         
-# editedAllTimings = []
+        
 # newConstraintViolation = []
 # newNLPError = []
-# for i in range(len(allTimings)):
-#     if i not in toEdit:
-#         editedAllTimings.append(allTimings[i])
-#         newConstraintViolation.append(allScaledViolations[i])
-#         newNLPError.append(allScaledNLPError[i])
+# overHere = 0
+
+# # print(len(editedAllTimings))
+
+# # for i in range(len(allTimings)):
+# #     if i not in toEdit:
+# #         print(i,"NO over here" , max(allTimings[i]))
+# #         editedAllTimings.append(allTimings[i])
+# #         newConstraintViolation.append(allScaledViolations[i])
+# #         newNLPError.append(allScaledNLPError[i])
+# #         overHere += 1
+# #     else:
+# #         print(i,"in here", max(allTimings[i]))
+
+# # print(overHere)
+# # print(len(editedAllTimings))
 
 # fig60, ax60 = plt.subplots()
 # plt.style.use('default')
 # for item in editedAllTimings:
-#     ax60.plot(np.arange(len(item)), item, label = key)
+#     ax60.plot(np.arange(len(item)), item)
 # # ax82.set_yscale('log')
+# ax60.set_xlabel("Loop #", fontsize =14)
+# ax60.set_title(r"Average Timings $j_{\max} =$" + maxIter , fontsize =14)
+# # ax80.legend(fontsize =12, title="Maximum Iterations")
+# ax60.grid()
+# plt.show()
+
+# fig61, ax61 = plt.subplots()
+# plt.style.use('default')
+# for item in toEdit:
+#     print(item)
+#     ax61.plot(np.arange(len(masterDict[str(item)]['timing'])), masterDict[str(item)]['timing'], label = key)
+
+
+# ax82.set_yscale('log')
 # ax60.set_xlabel("Loop #", fontsize =14)
 # ax60.set_title(r"Average Timings $j_{\max} =$" + maxIter , fontsize =14)
 # # ax80.legend(fontsize =12, title="Maximum Iterations")
