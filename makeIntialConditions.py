@@ -18,7 +18,7 @@ pMin = -pMax
 vMax = 1e-3
 vMin = -vMax
 qMax = 1
-qMin = 0
+qMin = -1
 wMax = 2e-3
 wMin = -wMax
 
