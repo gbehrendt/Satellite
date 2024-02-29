@@ -19,7 +19,8 @@ SX f(SX, SX, SX, double, double);
 void shiftRK4(int, double, MatrixXd &, MatrixXd,MatrixXd &, double, double);
 
 int main() {
-    int maxIterArr[] = {10000,5,6,7,8,9,10,15,50,100};
+//    int maxIterArr[] = {10000};
+    int maxIterArr[] = {5,6,7,8,9,10,15,50,100,125,150,175,200,300,400,500,1000,10000};
     int maxIterLength = sizeof(maxIterArr)/sizeof(maxIterArr[0]);
     int numConverged = 0;
     int mcCount = 0;
@@ -30,8 +31,7 @@ int main() {
         // File pointer
         fstream fin;
         // Open an existing file
-        fin.open("/home/gbehrendt/CLionProjects/Satellite/finalInitialConditions.csv", ios::in);
-//        fin.open("/home/gbehrendt/CLionProjects/Satellite/testing.csv", ios::in);
+        fin.open("/home/gbehrendt/CLionProjects/Satellite/initialConditions.csv", ios::in);
         if (fin.is_open()) {
             cout << "File opened successfully :)" << endl;
         } else {
@@ -104,8 +104,8 @@ int main() {
             std::vector<double> u_max = {thrustMax, thrustMax, thrustMax, torqueMax, torqueMax, torqueMax};
             std::vector<double> u_init = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
-            std::vector<double> x_min = {-inf, -inf, -inf, -inf, -inf, -inf, 0, 0, 0, 0, -inf, -inf, -inf};
-            std::vector<double> x_max = {inf, inf, inf, inf, inf, inf, 1, 1, 1, 1, inf, inf, inf};
+            std::vector<double> x_min = {-inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf};
+            std::vector<double> x_max = {inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf};
 
             std::vector<double> xf_min = {-inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf, -inf};
             std::vector<double> xf_max = {inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf};
@@ -138,33 +138,24 @@ int main() {
             const int N = 100; // Prediction Horizon
             double ts = 10.0; // sampling period
             int maxIter = maxIterArr[kk]; // maximum number of iterations IpOpt is allowed to compute per MPC Loop
-            string hessianApprox = "";
-            if (maxIter > 999)
-            {
-                hessianApprox = "exact";
-            }
-            else
-            {
-                hessianApprox = "limited-memory";
-            }
-            string timePath = "/home/gbehrendt/CLionProjects/Satellite/finalTiming/" + constraintType + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv"; // insert your own file path
-            string path = "/home/gbehrendt/CLionProjects/Satellite/finalResults/" + constraintType + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv"; // insert your own file path
+            string hessianApprox = "exact";
 
-            double posCost = 1e10;
+            string timePath = "/home/gbehrendt/CLionProjects/Satellite/Timing/" + constraintType + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv"; // insert your own file path
+            string path = "/home/gbehrendt/CLionProjects/Satellite/Results/" + constraintType + "/ts" + to_string(to_int(ts)) + "/maxIter" + to_string(maxIter) + "/trial" + to_string(mcCount) + ".csv"; // insert your own file path
+
+            
+            double posCost = 1e5;
             double velCost = 1e2;
-            double quatCost = 1e12;
-            double angularCost = 1e9;
-            double thrustCost = 1e10;
-            double torqueCost = 1e-6;
-            //            double torqueCost = 0.001;
-            //double torqueCost = 0.0000000001;
+            double quatCost = 1e6;
+            double angularCost = 1e7;
+            double thrustCost = 1e5;
+            double torqueCost = 1e10;
 
             // Total number of NLP variables
             const int numVars = numStates * (N + 1) + numControls * N;
 
             // Declare variable vector for the NLP
-//            std::vector<MX> V;
-//            V.push_back(MX::sym("V", numVars));
+
             SX V = SX::sym("V", numVars);
 
             // NLP variable bounds and initial guess
@@ -590,6 +581,8 @@ int main() {
             sol.clear();
 
         }
+
+        cout << "# Converged: " << numConverged << endl;
     }
 
     return 0;
