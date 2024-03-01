@@ -27,7 +27,7 @@ iters = ["5","6","7","8","9","10","15","50","100","125","150","175","200","300",
 itersDict = {}
 for maxIter in iters:
     print("%%%%%%%%%%",maxIter,"%%%%%%%%%%")
-    elif whichFolder == 1:
+    if whichFolder == 1:
         readFolder = "/home/gbehrendt/CLionProjects/Satellite/zResults/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     elif whichFolder == 2:
         readFolder = "/home/gbehrendt/CLionProjects/Satellite/Results/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
