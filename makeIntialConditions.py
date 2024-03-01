@@ -18,7 +18,7 @@ pMin = -pMax
 vMax = 1e-3
 vMin = -vMax
 qMax = 1
-qMin = 0
+qMin = -1
 wMax = 2e-3
 wMin = -wMax
 
@@ -51,9 +51,6 @@ for i in range(numConditions):
     wy = random.uniform(wMin,wMax)
     wz = random.uniform(wMin,wMax)
     
-    # wx = 0
-    # wy = 0
-    # wz = n
     
     x0 = [i,x,y,z,dx,dy,dz,sq,v1,v2,v3,wx,wy,wz]
     initialConditions.append(x0)
