@@ -118,7 +118,7 @@ int main() {
             double xVel = x0(3);
             double yVel = x0(4);
             double zVel = x0(5);
-            std::vector<double> q0 = {x0(6), x0(7), x0(8), x0(9)}; // Normalized [0.5,0.3,0.2,0.2]
+            std::vector<double> q0 = {x0(6), x0(7), x0(8), x0(9)};
             std::vector<double> dw0 = {x0(10), x0(11), x0(12)};
 
             // Bounds and initial guess for the state
