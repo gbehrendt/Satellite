@@ -27,14 +27,10 @@ iters = ["5","6","7","8","9","10","15","50","100","125","150","175","200","300",
 itersDict = {}
 for maxIter in iters:
     print("%%%%%%%%%%",maxIter,"%%%%%%%%%%")
-    if whichFolder == 0:
-        readFolder = "/home/gbehrendt/CLionProjects/Satellite/finalResultsExactNoCons3/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     elif whichFolder == 1:
         readFolder = "/home/gbehrendt/CLionProjects/Satellite/zResults/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     elif whichFolder == 2:
         readFolder = "/home/gbehrendt/CLionProjects/Satellite/Results/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
-    elif whichFolder == 3:
-        readFolder = "/home/gbehrendt/CLionProjects/Satellite/newQuatResults/" + constraintType + "/ts" + samplingTime + "/maxIter" + maxIter + "/"
     numConverged = 0
     numNotConverged = 0
     masterDict = {}
