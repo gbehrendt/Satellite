@@ -292,7 +292,7 @@ int main() {
             if (writeToFile == true) {
                 opts["ipopt.tol"] = 1e-5;
                 opts["ipopt.max_iter"] = maxIter;
-                opts["ipopt.hessian_approximation"] = hessianApprox; // for no max iterations change from "limited-memory" to "exact"
+                opts["ipopt.hessian_approximation"] = hessianApprox; 
                 opts["ipopt.print_level"] = 5;
                 opts["ipopt.acceptable_tol"] = 1e-8;
                 opts["ipopt.acceptable_obj_change_tol"] = 1e-6;
@@ -303,7 +303,7 @@ int main() {
             } else if (writeToFile == false) {
                 opts["ipopt.tol"] = 1e-5;
                 opts["ipopt.max_iter"] = maxIter;
-                opts["ipopt.hessian_approximation"] = hessianApprox; // for no max iterations change from "limited-memory" to "exact"
+                opts["ipopt.hessian_approximation"] = hessianApprox; 
                 opts["ipopt.print_level"] = 5;
                 opts["ipopt.acceptable_tol"] = 1e-8;
                 opts["ipopt.acceptable_obj_change_tol"] = 1e-6;
